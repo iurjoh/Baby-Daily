@@ -34,7 +34,7 @@ SECRET_KEY = 'REDACTED-use-env-var'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['8000-iurjoh-bdbackend-7duf0d2wqsz.ws-eu103.gitpod.io']
+ALLOWED_HOSTS = ['8000-iurjoh-bdbackend-7duf0d2wqsz.ws-eu104.gitpod.io']
 
 
 # Application definition
@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'django.contrib.staticfiles',
     'cloudinary',
+    'rest_framework',
 
     'profiles',
 ]
