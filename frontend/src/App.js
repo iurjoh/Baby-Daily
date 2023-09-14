@@ -14,6 +14,10 @@ import ProfilePage from "./pages/profiles/ProfilePage";
 import UsernameForm from "./pages/profiles/UsernameForm";
 import UserPasswordForm from "./pages/profiles/UserPasswordForm";
 import ProfileEditForm from "./pages/profiles/ProfileEditForm";
+import Task from "./pages/tasks/Task";
+import TaskCreateForm from "./pages/tasks/TaskCreateForm";
+import TaskEditForm from "./pages/tasks/TaskEditForm";
+import TaskPage from "./pages/tasks/TaskPage";
 import NotFound from "./components/NotFound";
 
 
@@ -53,6 +57,10 @@ function App() {
               />
             )}
           />
+          <Route exact path="/tasks" render={() => <TaskPage />} />
+          <Route exact path="/tasks/create" render={() => <TaskCreateForm />} />
+          <Route exact path="/tasks/:id" render={() => <Task />} />
+          <Route exact path="/tasks/:id/edit" render={() => <TaskEditForm />} />
           <Route exact path="/signin" render={() => <SignInForm />} />
           <Route exact path="/signup" render={() => <SignUpForm />} />
           <Route exact path="/posts/create" render={() => <PostCreateForm />} />
