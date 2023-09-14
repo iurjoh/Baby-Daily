@@ -1,84 +1,89 @@
 import React, { useState } from "react";
-import { Form, Button, Alert } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Alert from "react-bootstrap/Alert";
+import styles from "../../styles/TaskCreateEditForm.module.css";
+import btnStyles from "../../styles/Button.module.css";
+import { useHistory } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";
 
-const TaskCreateForm = () => {
-  const history = useHistory();
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    dueDate: "",
-  });
+function TaskCreateForm() {
   const [errors, setErrors] = useState({});
+  const [taskData, setTaskData] = useState({
+    title: "",
+    content: "",
+  });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  const { title, content } = taskData;
+  const history = useHistory();
+
+  const handleChange = (event) => {
+    setTaskData({
+      ...taskData,
+      [event.target.name]: event.target.value,
+    });
   };
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
     try {
-      await axiosReq.post("/tasks/", formData); // Replace with your API endpoint
-      history.push("/tasks"); // Redirect to the tasks list page after creating a task
-    } catch (error) {
-      if (error.response?.data) {
-        setErrors(error.response.data);
+      const { data } = await axiosReq.post("/tasks/", taskData);
+      history.push(`/tasks/${data.id}`);
+    } catch (err) {
+      if (err.response?.status !== 401) {
+        setErrors(err.response?.data);
       }
     }
   };
 
   return (
-    <div>
-      <h1>Create a New Task</h1>
-      <Form onSubmit={handleSubmit}>
-        <Form.Group controlId="title">
+    <Form onSubmit={handleSubmit}>
+      <Container className={styles.Container}>
+        <Form.Group>
           <Form.Label>Title</Form.Label>
           <Form.Control
             type="text"
             name="title"
-            value={formData.title}
+            value={title}
             onChange={handleChange}
           />
-          {errors.title && (
-            <Alert variant="danger">{errors.title.join(", ")}</Alert>
-          )}
         </Form.Group>
+        {errors?.title?.map((message, idx) => (
+          <Alert variant="warning" key={idx}>
+            {message}
+          </Alert>
+        ))}
 
-        <Form.Group controlId="description">
-          <Form.Label>Description</Form.Label>
+        <Form.Group>
+          <Form.Label>Content</Form.Label>
           <Form.Control
             as="textarea"
-            rows={4}
-            name="description"
-            value={formData.description}
+            rows={6}
+            name="content"
+            value={content}
             onChange={handleChange}
           />
-          {errors.description && (
-            <Alert variant="danger">{errors.description.join(", ")}</Alert>
-          )}
         </Form.Group>
+        {errors?.content?.map((message, idx) => (
+          <Alert variant="warning" key={idx}>
+            {message}
+          </Alert>
+        ))}
 
-        <Form.Group controlId="dueDate">
-          <Form.Label>Due Date</Form.Label>
-          <Form.Control
-            type="date"
-            name="dueDate"
-            value={formData.dueDate}
-            onChange={handleChange}
-          />
-          {errors.dueDate && (
-            <Alert variant="danger">{errors.dueDate.join(", ")}</Alert>
-          )}
-        </Form.Group>
-
-        <Button variant="primary" type="submit">
-          Create Task
+        <Button
+          className={`${btnStyles.Button} ${btnStyles.Blue}`}
+          onClick={() => history.goBack()}
+        >
+          Cancel
         </Button>
-      </Form>
-    </div>
+        <Button className={`${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
+          Create
+        </Button>
+      </Container>
+    </Form>
   );
-};
+}
 
 export default TaskCreateForm;
