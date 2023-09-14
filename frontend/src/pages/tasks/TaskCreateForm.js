@@ -1,37 +1,60 @@
 import React, { useState } from "react";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import Container from "react-bootstrap/Container";
-import Alert from "react-bootstrap/Alert";
-import styles from "../../styles/TaskCreateEditForm.module.css";
+import { Form, Alert } from "react-bootstrap";
+import styles from "../../styles/TaskPage.module.css";
 import btnStyles from "../../styles/Button.module.css";
-import { useHistory } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";
 
-function TaskCreateForm() {
+function TaskCreateForm(props) {
+  const { ideas, setTasks, setTitle } = props;
+
   const [errors, setErrors] = useState({});
   const [taskData, setTaskData] = useState({
     title: "",
-    content: "",
+    idea: "",
   });
 
-  const { title, content } = taskData;
-  const history = useHistory();
+  const { title, idea } = taskData;
 
   const handleChange = (event) => {
+    const { name, value } = event.target;
     setTaskData({
       ...taskData,
-      [event.target.name]: event.target.value,
+      [name]: value,
     });
+
+    if (name === "idea") {
+      const selectedIdea = ideas.find((idea) => idea.id === parseInt(value));
+      if (selectedIdea) {
+        setTaskData((prevTaskData) => ({
+          ...prevTaskData,
+          title: selectedIdea.title,
+        }));
+      }
+    }
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const formData = new FormData();
+
+    formData.append("title", title);
+    formData.append("idea", idea);
 
     try {
-      const { data } = await axiosReq.post("/tasks/", taskData);
-      history.push(`/tasks/${data.id}`);
+      const response = await axiosReq.post("/tasks/", formData);
+      const newTask = response.data;
+      setTitle("");
+      setTaskData({
+        title: "",
+        idea: "",
+      });
+
+      setTasks((prevTasks) => ({
+        ...prevTasks,
+        results: [newTask, ...prevTasks.results],
+      }));
     } catch (err) {
+      // console.log(err);
       if (err.response?.status !== 401) {
         setErrors(err.response?.data);
       }
@@ -39,49 +62,55 @@ function TaskCreateForm() {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Container className={styles.Container}>
-        <Form.Group>
-          <Form.Label>Title</Form.Label>
-          <Form.Control
-            type="text"
-            name="title"
-            value={title}
-            onChange={handleChange}
-          />
-        </Form.Group>
-        {errors?.title?.map((message, idx) => (
-          <Alert variant="warning" key={idx}>
-            {message}
-          </Alert>
-        ))}
-
-        <Form.Group>
-          <Form.Label>Content</Form.Label>
-          <Form.Control
-            as="textarea"
-            rows={6}
-            name="content"
-            value={content}
-            onChange={handleChange}
-          />
-        </Form.Group>
-        {errors?.content?.map((message, idx) => (
-          <Alert variant="warning" key={idx}>
-            {message}
-          </Alert>
-        ))}
-
-        <Button
-          className={`${btnStyles.Button} ${btnStyles.Blue}`}
-          onClick={() => history.goBack()}
+    <Form className="mt-3" onSubmit={handleSubmit}>
+      <Form.Group>
+        <Form.Control
+          className={`${styles.Input} d-flex`}
+          placeholder="Write your idea here..."
+          as="select"
+          name="idea"
+          value={idea}
+          onChange={handleChange}
+          rows={1}
         >
-          Cancel
-        </Button>
-        <Button className={`${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
-          Create
-        </Button>
-      </Container>
+          <option>Choose an idea here...</option>
+          {ideas.map((idea) => (
+            <option key={idea.id} value={idea.id}>
+              {idea.title}
+            </option>
+          ))}
+        </Form.Control>
+      </Form.Group>
+      {errors?.idea?.map((message, idx) => (
+        <Alert variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
+
+      <Form.Group>
+        <Form.Control
+          className={`${styles.Input} d-flex`}
+          placeholder="Write the title here..."
+          as="textarea"
+          name="title"
+          value={title}
+          onChange={handleChange}
+          rows={1}
+        />
+      </Form.Group>
+      {errors?.title?.map((message, idx) => (
+        <Alert variant="warning" key={idx}>
+          {message}
+        </Alert>
+      ))}
+
+      <button
+        className={`${btnStyles.Button} btn d-block ml-auto`}
+        disabled={!title.trim()}
+        type="submit"
+      >
+        Add
+      </button>
     </Form>
   );
 }
