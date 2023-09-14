@@ -1,59 +1,72 @@
-import React from "react";
+import React, { useState } from "react";
+import styles from "../../styles/Task.module.css";
 import { Card } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
-import { MoreDropdown } from "../../components/MoreDropdown";
+import { axiosRes } from "../../api/axiosDefaults";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import { MoreDropdown } from "../../components/MoreDropdown";
+import TaskEditForm from "./TaskEditForm";
 
 const Task = (props) => {
   const {
     id,
     owner,
     title,
-    description,
-    dueDate,
-    isCompleted,
+    content,
+    updated_at,
     setTasks,
   } = props;
 
   const currentUser = useCurrentUser();
-  const isOwner = currentUser?.username === owner;
-  const history = useHistory();
+  const is_owner = currentUser?.username === owner;
+  const [showEditForm, setShowEditForm] = useState(false);
 
   const handleEdit = () => {
-    history.push(`/tasks/${id}/edit`);
+    setShowEditForm(true);
   };
 
   const handleDelete = async () => {
-    // Implement the delete logic here
-  };
-
-  const handleComplete = async () => {
-    // Implement the complete/uncomplete logic here
+    try {
+      await axiosRes.delete(`/tasks/${id}/`);
+      setTasks((prevTasks) => prevTasks.filter((task) => task.id !== id));
+    } catch (err) {
+      // console.log(err);
+    }
   };
 
   return (
-    <Card>
+    <Card className={styles.Task}>
       <Card.Body>
-        <div>
-          <h5>{title}</h5>
-          <p>{description}</p>
-          <p>Due Date: {dueDate}</p>
-          <p>Status: {isCompleted ? "Completed" : "Pending"}</p>
+        <div className="d-flex align-items-center justify-content-between">
+          <Link to={`/profiles/${owner.profile_id}`}>
+            {owner.username}
+          </Link>
+          <div className="d-flex align-items-center">
+            <span>{updated_at}</span>
+            {is_owner && (
+              <MoreDropdown
+                handleEdit={handleEdit}
+                handleDelete={handleDelete}
+              />
+            )}
+          </div>
         </div>
-        <div>
-          <Link to={`/tasks/${id}`}>Details</Link>
-          {isOwner && (
-            <MoreDropdown
-              handleEdit={handleEdit}
-              handleDelete={handleDelete}
-            />
-          )}
-          {isCompleted ? (
-            <button onClick={handleComplete}>Mark as Incomplete</button>
-          ) : (
-            <button onClick={handleComplete}>Mark as Completed</button>
-          )}
-        </div>
+      </Card.Body>
+      <Card.Body>
+        {showEditForm ? (
+          <TaskEditForm
+            id={id}
+            title={title}
+            content={content}
+            setTasks={setTasks}
+            setShowEditForm={setShowEditForm}
+          />
+        ) : (
+          <>
+            {title && <Card.Title className="text-center">{title}</Card.Title>}
+            {content && <Card.Text>{content}</Card.Text>}
+          </>
+        )}
       </Card.Body>
     </Card>
   );
