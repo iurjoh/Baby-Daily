@@ -39,6 +39,7 @@ const NavBar = () => {
       <i className="far fa-plus-square"></i>Add post
     </NavLink>
   );
+
   const loggedInIcons = (
     <>
       <NavLink
@@ -49,17 +50,18 @@ const NavBar = () => {
         <i className="fas fa-stream"></i>Feed
       </NavLink>
       <NavLink
-        lassName={styles.NavLink}
-        activeClassName={styles.Active} href="/tasks"
-      >
-        <i class="fa fa-check-square" aria-hidden="true"></i>Tasks
-      </NavLink>
-      <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}
         to="/liked"
       >
         <i className="fas fa-heart"></i>Liked
+      </NavLink>
+      <NavLink
+        className={styles.NavLink}
+        activeClassName={styles.Active}
+        to="/tasks/create"
+      >
+        <i className="fa fa-check-square" aria-hidden="true"></i>Tasks
       </NavLink>
       <NavLink className={styles.NavLink} to="/" onClick={handleSignOut}>
         <i className="fas fa-sign-out-alt"></i>Sign out
@@ -72,6 +74,7 @@ const NavBar = () => {
       </NavLink>
     </>
   );
+
   const loggedOutIcons = (
     <>
       <NavLink
