@@ -1,116 +1,111 @@
 import React, { useState } from "react";
-import { Form, Alert } from "react-bootstrap";
-import styles from "../../styles/TaskPage.module.css";
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import styles from "../../styles/TaskCreateEditForm.module.css";
+import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
-import { axiosReq } from "../../api/axiosDefaults";
 
-function TaskCreateForm(props) {
-  const { ideas, setTasks, setTitle } = props;
-
-  const [errors, setErrors] = useState({});
+function TaskCreateForm() {
   const [taskData, setTaskData] = useState({
     title: "",
-    idea: "",
+    content: "",
+    date: "",
+    priority: "",
+    done: false,
   });
 
-  const { title, idea } = taskData;
+  const { title, content, date, priority, done } = taskData;
 
   const handleChange = (event) => {
-    const { name, value } = event.target;
     setTaskData({
       ...taskData,
-      [name]: value,
+      [event.target.name]: event.target.value,
     });
-
-    if (name === "idea") {
-      const selectedIdea = ideas.find((idea) => idea.id === parseInt(value));
-      if (selectedIdea) {
-        setTaskData((prevTaskData) => ({
-          ...prevTaskData,
-          title: selectedIdea.title,
-        }));
-      }
-    }
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    const formData = new FormData();
-
-    formData.append("title", title);
-    formData.append("idea", idea);
-
-    try {
-      const response = await axiosReq.post("/tasks/", formData);
-      const newTask = response.data;
-      setTitle("");
-      setTaskData({
-        title: "",
-        idea: "",
-      });
-
-      setTasks((prevTasks) => ({
-        ...prevTasks,
-        results: [newTask, ...prevTasks.results],
-      }));
-    } catch (err) {
-      // console.log(err);
-      if (err.response?.status !== 401) {
-        setErrors(err.response?.data);
-      }
-    }
+  const handleDoneToggle = () => {
+    setTaskData({
+      ...taskData,
+      done: !done,
+    });
   };
 
-  return (
-    <Form className="mt-3" onSubmit={handleSubmit}>
+  const textFields = (
+    <div className="text-center">
       <Form.Group>
+        <Form.Label>Title</Form.Label>
         <Form.Control
-          className={`${styles.Input} d-flex`}
-          placeholder="Write your idea here..."
-          as="select"
-          name="idea"
-          value={idea}
-          onChange={handleChange}
-          rows={1}
-        >
-          <option>Choose an idea here...</option>
-          {ideas.map((idea) => (
-            <option key={idea.id} value={idea.id}>
-              {idea.title}
-            </option>
-          ))}
-        </Form.Control>
-      </Form.Group>
-      {errors?.idea?.map((message, idx) => (
-        <Alert variant="warning" key={idx}>
-          {message}
-        </Alert>
-      ))}
-
-      <Form.Group>
-        <Form.Control
-          className={`${styles.Input} d-flex`}
-          placeholder="Write the title here..."
-          as="textarea"
+          type="text"
           name="title"
           value={title}
           onChange={handleChange}
-          rows={1}
         />
       </Form.Group>
-      {errors?.title?.map((message, idx) => (
-        <Alert variant="warning" key={idx}>
-          {message}
-        </Alert>
-      ))}
+      <Form.Group>
+        <Form.Label>Content</Form.Label>
+        <Form.Control
+          as="textarea"
+          rows={6}
+          name="content"
+          value={content}
+          onChange={handleChange}
+        />
+      </Form.Group>
+      <Form.Group>
+        <Form.Label>Date</Form.Label>
+        <Form.Control
+          type="date"
+          name="date"
+          value={date}
+          onChange={handleChange}
+        />
+      </Form.Group>
+      <Form.Group>
+        <Form.Label>Priority</Form.Label>
+        <Form.Control
+          as="select"
+          name="priority"
+          value={priority}
+          onChange={handleChange}
+        >
+          <option value="">Select Priority</option>
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </Form.Control>
+      </Form.Group>
 
-      <button
-        className={`${btnStyles.Button} btn d-block ml-auto`}
-        disabled={!title.trim()}
-        type="submit"
+      <Form.Group className="mb-3" controlId="formBasicCheckbox">
+        <Form.Check
+          type="checkbox"
+          label="Done"
+          checked={done}
+          onChange={handleDoneToggle}
+        />
+      </Form.Group>
+
+      <Button
+        className={`${btnStyles.Button} ${btnStyles.Blue}`}
+        onClick={() => {}}
       >
-        Add
-      </button>
+        Cancel
+      </Button>
+      <Button className={`${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
+        Create
+      </Button>
+    </div>
+  );
+
+  return (
+    <Form>
+      <Row>
+        <Col md={5} lg={8} className="d-none d-md-block p-0 p-md-2">
+          <Container className={appStyles.Content}>{textFields}</Container>
+        </Col>
+      </Row>
     </Form>
   );
 }
