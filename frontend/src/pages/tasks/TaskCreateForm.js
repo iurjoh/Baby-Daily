@@ -7,6 +7,7 @@ import Container from "react-bootstrap/Container";
 import styles from "../../styles/TaskCreateEditForm.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
+import { useHistory } from "react-router-dom";
 
 function TaskCreateForm() {
   const [taskData, setTaskData] = useState({
@@ -18,6 +19,8 @@ function TaskCreateForm() {
   });
 
   const { title, content, date, priority, done } = taskData;
+
+  const history = useHistory();
 
   const handleChange = (event) => {
     setTaskData({
@@ -89,7 +92,9 @@ function TaskCreateForm() {
 
       <Button
         className={`${btnStyles.Button} ${btnStyles.Blue}`}
-        onClick={() => {}}
+        onClick={() => {
+          history.push("/");
+        }}
       >
         Cancel
       </Button>

@@ -1,27 +1,26 @@
-from rest_framework import generics, permissions, filters
+from rest_framework import generics, permissions
 from django_filters.rest_framework import DjangoFilterBackend
 from bd_backend.permissions import IsOwnerOrReadOnly
 from .models import Task
 from .serializers import TaskSerializer
 
-
 class TaskList(generics.ListCreateAPIView):
+    """
+    List tasks or create a task if logged in.
+    """
     serializer_class = TaskSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get_queryset(self):
-        return Task.objects.filter(owner=self.request.user)
+    permission_classes = [permissions.IsAuthenticatedOrReadOnly]
+    queryset = Task.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['owner']
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
-class TaskCreate(generics.CreateAPIView):
-    queryset = Task.objects.all()
-    serializer_class = TaskSerializer
-
 class TaskDetail(generics.RetrieveUpdateDestroyAPIView):
+    """
+    Retrieve a task, or update or delete it by id if you own it.
+    """
+    permission_classes = [IsOwnerOrReadOnly]
     serializer_class = TaskSerializer
-    permission_classes = [permissions.IsAuthenticated]
-
-    def get_queryset(self):
-        return Task.objects.filter(owner=self.request.user)
+    queryset = Task.objects.all()
