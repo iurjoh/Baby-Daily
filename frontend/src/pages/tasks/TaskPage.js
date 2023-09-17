@@ -1,38 +1,46 @@
 import React, { useEffect, useState } from "react";
-import { Col, Row, Container } from "react-bootstrap";
+import { Col, Row, Container, Button } from "react-bootstrap";
 import appStyles from "../../App.module.css";
 import taskStyles from "../../styles/TaskPage.module.css";
-import { useParams } from "react-router";
+import { useParams, useHistory } from "react-router";
 import { axiosReq } from "../../api/axiosDefaults";
-
-import InfiniteScroll from "react-infinite-scroll-component";
-import Asset from "../../components/Asset";
-import { fetchMoreData } from "../../utils/utils";
-
-import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import TaskCreateForm from "./TaskCreateForm";
-import Task from "./Task";
+import TaskItem from "./TaskItem"; // Import TaskItem component
 
 function TaskPage() {
   const { id } = useParams();
+  const history = useHistory();
 
-  const currentUser = useCurrentUser();
-  const [tasks, setTasks] = useState({ results: [] });
+  const [tasks, setTasks] = useState([]);
+  const [showCompletedTasks, setShowCompletedTasks] = useState(false);
   const [title, setTitle] = useState("");
 
   useEffect(() => {
     const fetchTasks = async () => {
       try {
         const response = await axiosReq.get(`/tasks/`);
-        const tasksData = response.data;
+        const tasksData = response.data.results;
+        console.log(tasks);
         setTasks(tasksData);
       } catch (err) {
-        // console.log(err);
+        // Handle error
       }
     };
 
     fetchTasks();
   }, [id, title]);
+
+  const handleMarkAsDone = async (taskId) => {
+    // Handle marking a task as done
+  };
+
+  const handleMarkAsNotDone = async (taskId) => {
+    // Handle marking a task as not done
+  };
+
+  const redirectToCreateTask = () => {
+    history.push("/tasks/create");
+  };
 
   return (
     <Container>
@@ -42,35 +50,29 @@ function TaskPage() {
             Todo Task
           </h2>
           <div className={`${appStyles.Content} p-4`}>
-            <TaskCreateForm setTasks={setTasks} setTitle={setTitle} />
+            <TaskCreateForm setTitle={setTitle} />
           </div>
         </Col>
       </Row>
-      <h2 className={`text-center mt-5`}>Tasks list</h2>
-      {currentUser ? (
-        <br />
-      ) : tasks.results.length ? (
-        "Tasks"
-      ) : null}
-      {tasks.results.length ? (
-        <InfiniteScroll
-          children={tasks.results.map((task) => (
-            <Col key={task.id} lg={4} className={`${taskStyles.TodoCard}`}>
-              <Task {...task} setTasks={setTasks} />
-            </Col>
+      <Row>
+        <Col md={6}>
+          <Button onClick={redirectToCreateTask}>Create Task</Button>
+          <h2 className={`text-center mt-5`}>
+            {showCompletedTasks ? "Completed Tasks" : "All Tasks"}
+          </h2>
+          <Button onClick={() => setShowCompletedTasks(!showCompletedTasks)}>
+            {showCompletedTasks ? "Show All Tasks" : "Show Completed Tasks"}
+          </Button>
+          {tasks.map((task) => (
+            <TaskItem
+              key={task.id}
+              task={task}
+              onMarkAsDone={handleMarkAsDone}
+              onMarkAsNotDone={handleMarkAsNotDone}
+            />
           ))}
-          dataLength={tasks.results.length}
-          loader={<Asset spinner />}
-          hasMore={!!tasks.next}
-          next={() => fetchMoreData(tasks, setTasks)}
-        />
-      ) : currentUser ? (
-        <span>No tasks... yet</span>
-      ) : (
-        <Container>
-          <Asset spinner />
-        </Container>
-      )}
+        </Col>
+      </Row>
     </Container>
   );
 }
