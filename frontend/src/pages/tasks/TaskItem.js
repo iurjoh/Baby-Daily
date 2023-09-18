@@ -7,14 +7,14 @@ const TaskItem = ({ task, onMarkAsDone, onMarkAsNotDone }) => {
     try {
       const updatedStatus = !task.completed;
       await axiosReq.put(`/tasks/${taskId}/`, { completed: updatedStatus });
-      
+
       if (updatedStatus) {
         onMarkAsDone(taskId);
       } else {
         onMarkAsNotDone(taskId);
       }
     } catch (err) {
-      // console.log(err);
+      // Handle error
     }
   };
 

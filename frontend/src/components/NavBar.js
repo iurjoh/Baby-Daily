@@ -59,7 +59,7 @@ const NavBar = () => {
       <NavLink
         className={styles.NavLink}
         activeClassName={styles.Active}
-        to="/tasks/create"
+        to="/tasks"
       >
         <i className="fa fa-check-square" aria-hidden="true"></i>Tasks
       </NavLink>
