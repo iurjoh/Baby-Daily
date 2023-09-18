@@ -1,26 +1,35 @@
 import React, { useEffect, useState } from "react";
-import { Col, Row, Container, Button } from "react-bootstrap";
-import appStyles from "../../App.module.css";
-import taskStyles from "../../styles/TaskPage.module.css";
-import { useParams, useHistory } from "react-router";
+import { Col, Row, Container, Button, Form } from "react-bootstrap";
+import { useHistory } from "react-router-dom";
 import { axiosReq } from "../../api/axiosDefaults";
 import TaskCreateForm from "./TaskCreateForm";
-import TaskItem from "./TaskItem"; // Import TaskItem component
+import TaskItem from "./TaskItem";
+import taskStyles from "../../styles/TaskPage.module.css";
+import appStyles from "../../App.module.css";
 
 function TaskPage() {
-  const { id } = useParams();
   const history = useHistory();
 
   const [tasks, setTasks] = useState([]);
   const [showCompletedTasks, setShowCompletedTasks] = useState(false);
-  const [title, setTitle] = useState("");
+  const [searchQuery, setSearchQuery] = useState("");
+  const fetchTasks = async () => {
+    try {
+      const response = await axiosReq.get(`/tasks/?search=${searchQuery}`);
+      const tasksData = response.data.results;
+      console.log(tasksData); // Add this line for debugging
+      setTasks(tasksData);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+  
 
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axiosReq.get(`/tasks/`);
+        const response = await axiosReq.get(`/tasks/?search=${searchQuery}`);
         const tasksData = response.data.results;
-        console.log(tasks);
         setTasks(tasksData);
       } catch (err) {
         // Handle error
@@ -28,49 +37,73 @@ function TaskPage() {
     };
 
     fetchTasks();
-  }, [id, title]);
+  }, [searchQuery]);
 
-  const handleMarkAsDone = async (taskId) => {
-    // Handle marking a task as done
+  const handleSearch = (event) => {
+    setSearchQuery(event.target.value);
   };
 
-  const handleMarkAsNotDone = async (taskId) => {
-    // Handle marking a task as not done
+  const handleMarkAsDone = (taskId) => {
+    // Update the task status to "done" locally
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === taskId ? { ...task, is_done: true } : task
+      )
+    );
   };
 
-  const redirectToCreateTask = () => {
-    history.push("/tasks/create");
+  const handleMarkAsNotDone = (taskId) => {
+    // Update the task status to "not done" locally
+    setTasks((prevTasks) =>
+      prevTasks.map((task) =>
+        task.id === taskId ? { ...task, is_done: false } : task
+      )
+    );
+  };
+
+  const handleCreateTask = (newTask) => {
+    // Add the newly created task to the list of tasks locally
+    setTasks((prevTasks) => [...prevTasks, newTask]);
   };
 
   return (
     <Container>
       <Row>
         <Col className="py-3 p-lg-3" lg={12}>
-          <h2 className={`${taskStyles.Header} text-center mt-5`}>
-            Todo Task
-          </h2>
+          <h2 className={`${taskStyles.Header} text-center mt-5`}>Todo Task</h2>
+          <Form>
+            <Form.Group controlId="searchQuery">
+              <Form.Control
+                type="text"
+                placeholder="Search tasks..."
+                value={searchQuery}
+                onChange={handleSearch}
+              />
+            </Form.Group>
+          </Form>
           <div className={`${appStyles.Content} p-4`}>
-            <TaskCreateForm setTitle={setTitle} />
+            <TaskCreateForm setTasks={handleCreateTask} />
           </div>
         </Col>
       </Row>
       <Row>
         <Col md={6}>
-          <Button onClick={redirectToCreateTask}>Create Task</Button>
           <h2 className={`text-center mt-5`}>
             {showCompletedTasks ? "Completed Tasks" : "All Tasks"}
           </h2>
           <Button onClick={() => setShowCompletedTasks(!showCompletedTasks)}>
             {showCompletedTasks ? "Show All Tasks" : "Show Completed Tasks"}
           </Button>
-          {tasks.map((task) => (
-            <TaskItem
-              key={task.id}
-              task={task}
-              onMarkAsDone={handleMarkAsDone}
-              onMarkAsNotDone={handleMarkAsNotDone}
-            />
-          ))}
+          {tasks.map((task) =>
+            !showCompletedTasks && task.is_done ? null : (
+              <TaskItem
+                key={task.id}
+                task={task}
+                onMarkAsDone={handleMarkAsDone}
+                onMarkAsNotDone={handleMarkAsNotDone}
+              />
+            )
+          )}
         </Col>
       </Row>
     </Container>

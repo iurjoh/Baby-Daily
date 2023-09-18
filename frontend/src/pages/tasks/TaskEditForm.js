@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
-import { axiosReq } from "../../api/axiosDefaults";
-import styles from "../../styles/CommentCreateEditForm.module.css";
+import { axiosRes } from "../../api/axiosDefaults";
+
+import styles from "../../styles/TaskCreateEditForm.module.css";
 
 function TaskEditForm(props) {
   const { id, title, setShowEditForm, setTasks } = props;
@@ -20,7 +21,7 @@ function TaskEditForm(props) {
         return;
       }
 
-      await axiosReq.put(`/tasks/${id}/`, {
+      await axiosRes.put(`/tasks/${id}/`, {
         title: formTitle.trim(),
       });
 
@@ -38,7 +39,7 @@ function TaskEditForm(props) {
       }));
       setShowEditForm(false);
     } catch (err) {
-      // console.log(err);
+      // Handle error
     }
   };
 
@@ -47,10 +48,9 @@ function TaskEditForm(props) {
       <Form.Group className="pr-1">
         <Form.Control
           className={styles.Form}
-          as="textarea"
+          type="text"
           value={formTitle}
           onChange={handleChange}
-          rows={2}
         />
       </Form.Group>
       <div className="text-right">

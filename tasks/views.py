@@ -12,7 +12,9 @@ class TaskList(generics.ListCreateAPIView):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Task.objects.all()
     filter_backends = [DjangoFilterBackend]
-    filterset_fields = ['owner']
+    
+    # Use 'owner__username' to filter by the owner's username
+    filterset_fields = ['owner__username']
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
