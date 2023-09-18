@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import { Card } from "react-bootstrap";
 import { MoreDropdown } from "../../components/MoreDropdown";
-import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosRes } from "../../api/axiosDefaults";
-import taskStyle from "../../styles/TaskPage.module.css";
 import TaskEditForm from "./TaskEditForm";
+
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import taskStyle from "../../styles/TaskPage.module.css";
 
 const Task = (props) => {
   const { id, title, owner, setTasks } = props;
@@ -12,7 +13,7 @@ const Task = (props) => {
   const [showEditForm, setShowEditForm] = useState(false);
 
   const currentUser = useCurrentUser();
-  const is_owner = currentUser?.username === owner;
+  const isOwner = currentUser?.username === owner;
 
   const handleDelete = async () => {
     try {
@@ -22,7 +23,7 @@ const Task = (props) => {
         results: prevTasks.results.filter((task) => task.id !== id),
       }));
     } catch (err) {
-      // console.log(err);
+      // Handle error
     }
   };
 
@@ -43,7 +44,7 @@ const Task = (props) => {
         ) : (
           <Card.Title className="d-flex pt-2 m-0 text-right">
             {title}{" "}
-            {is_owner && (
+            {isOwner && (
               <MoreDropdown handleEdit={handleEdit} handleDelete={handleDelete} />
             )}
           </Card.Title>
