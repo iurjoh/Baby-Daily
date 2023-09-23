@@ -1,73 +1,64 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 import { axiosRes } from "../../api/axiosDefaults";
+import { useHistory } from "react-router-dom";
 
-import styles from "../../styles/TaskCreateEditForm.module.css";
-
-function TaskEditForm(props) {
-  const { id, title, setShowEditForm, setTasks } = props;
-
-  const [formTitle, setFormTitle] = useState(title);
+function TaskEditForm({ id, title: initialTitle, setShowEditForm, setTasks }) {
+  const [title, setTitle] = useState(initialTitle);
+  const history = useHistory();
 
   const handleChange = (event) => {
-    setFormTitle(event.target.value);
+    setTitle(event.target.value);
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+
     try {
-      if (formTitle.trim() === title) {
+      if (title.trim() === initialTitle) {
         setShowEditForm(false);
         return;
       }
 
       await axiosRes.put(`/tasks/${id}/`, {
-        title: formTitle.trim(),
+        title: title.trim(),
       });
 
-      setTasks((prevTasks) => ({
-        ...prevTasks,
-        results: prevTasks.results.map((task) =>
-          task.id === id
-            ? {
-                ...task,
-                title: formTitle.trim(),
-                updated_at: "now",
-              }
-            : task
-        ),
-      }));
+      setTasks((prevTasks) =>
+        prevTasks.map((task) =>
+          task.id === id ? { ...task, title: title.trim() } : task
+        )
+      );
       setShowEditForm(false);
+      history.push(`/tasks/${id}`);
     } catch (err) {
-      // Handle error
+      console.log(err);
     }
   };
 
   return (
     <Form onSubmit={handleSubmit}>
-      <Form.Group className="pr-1">
+      <Form.Group controlId="title">
         <Form.Control
-          className={styles.Form}
           type="text"
-          value={formTitle}
+          value={title}
           onChange={handleChange}
         />
       </Form.Group>
-      <div className="text-right">
-        <button
-          className={styles.Button}
+      <div className="text-center">
+        <Button
+          variant="secondary"
           onClick={() => setShowEditForm(false)}
-          type="button"
         >
           Cancel
-        </button>
-        <button
-          className={styles.Button}
-          disabled={!formTitle.trim() || formTitle.trim() === title}
+        </Button>
+        <Button
+          variant="primary"
           type="submit"
         >
           Save
-        </button>
+        </Button>
       </div>
     </Form>
   );

@@ -1,33 +1,21 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import btnStyles from "../../styles/Button.module.css";
+import { axiosReq } from "../../api/axiosDefaults";
 import { useHistory } from "react-router-dom";
-import { axiosRes } from "../../api/axiosDefaults";
 
-import styles from "../../styles/TaskCreateEditForm.module.css";
-
-function TaskCreateForm({ setTasks }) {
+function TaskCreateForm({ onTaskCreated }) {
   const [taskData, setTaskData] = useState({
     title: "",
     description: "",
-    date: "", // Set the initial value to an empty string
+    date: new Date().toISOString().split("T")[0],
     priority: "medium",
     is_done: false,
   });
 
-  const history = useHistory();
-
   const { title, description, date, priority, is_done } = taskData;
-
-  useEffect(() => {
-    // Set the default value for the date field to "today"
-    const today = new Date();
-    const formattedDate = today.toISOString().split("T")[0];
-    setTaskData({
-      ...taskData,
-      date: formattedDate,
-    });
-  }, []); // This effect runs once when the component mounts
+  const history = useHistory();
 
   const handleChange = (event) => {
     setTaskData({
@@ -36,24 +24,21 @@ function TaskCreateForm({ setTasks }) {
     });
   };
 
-  const handleDoneToggle = () => {
-    setTaskData({
-      ...taskData,
-      is_done: !is_done,
-    });
-  };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
+    const formData = new FormData();
+
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("date", date);
+    formData.append("priority", priority);
+    formData.append("is_done", is_done);
+    console.log(formData, "hello")
     try {
-      await axiosRes.post("/tasks/", taskData);
-      setTasks((prevTasks) => ({
-        ...prevTasks,
-        results: [...prevTasks.results, taskData],
-      }));
-      history.push("/tasks"); // Redirect to the task list page
+      const { data } = await axiosReq.post("/tasks/", formData);
+      history.push("/tasks");
     } catch (err) {
-      // Handle error
+      console.log(err);
     }
   };
 
@@ -109,19 +94,19 @@ function TaskCreateForm({ setTasks }) {
           type="checkbox"
           label="Done"
           checked={is_done}
-          onChange={handleDoneToggle}
+          onChange={(e) =>
+            setTaskData({ ...taskData, is_done: e.target.checked })
+          }
         />
       </Form.Group>
 
       <Button
-        className={`${styles.Button} ${styles.Blue}`}
-        onClick={() => {
-          history.push("/tasks");
-        }}
+        className={`${btnStyles.Button} ${btnStyles.Blue}`}
+        onClick={() => history.goBack()}
       >
         Cancel
       </Button>
-      <Button className={`${styles.Button} ${styles.Blue}`} type="submit">
+      <Button className={`${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
         Create
       </Button>
     </Form>
