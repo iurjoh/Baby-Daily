@@ -58,7 +58,7 @@ REST_AUTH_SERIALIZERS = {
 SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 'DEV' in os.environ
+DEBUG = 'DEBUG' in os.environ
 
 ALLOWED_HOSTS = ['localhost', '8000-urjoh-babydaily-9fkogjf1s6p.ws-eu104.gitpod.io', 'iurjoh-baby-daily-backend-api-1674476236b8.herokuapp.com']
 
