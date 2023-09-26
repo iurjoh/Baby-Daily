@@ -1,36 +1,52 @@
-import React from "react";
-import { Card, Button } from "react-bootstrap";
-import { axiosReq } from "../../api/axiosDefaults";
+import React, { useState } from "react";
+import { Card } from "react-bootstrap";
+import { MoreDropdown } from "../../components/MoreDropdown";
+import TaskEditForm from "./TaskEditForm";
 
-const TaskItem = ({ task, onMarkAsDone, onMarkAsNotDone }) => {
-  const handleTaskCompletion = async (taskId) => {
-    try {
-      const updatedStatus = !task.completed;
-      await axiosReq.put(`/tasks/${taskId}/`, { completed: updatedStatus });
+const TaskItem = ({ task, onMarkAsDone, onMarkAsNotDone, onDelete }) => {
+  const [showFullTask, setShowFullTask] = useState(false);
+  const [showEditForm, setShowEditForm] = useState(false);
 
-      if (updatedStatus) {
-        onMarkAsDone(taskId);
-      } else {
-        onMarkAsNotDone(taskId);
-      }
-    } catch (err) {
-      // Handle error
-    }
+  const handleTitleClick = () => {
+    setShowFullTask(!showFullTask);
+  };
+
+  const handleEdit = () => {
+    setShowEditForm(true);
+  };
+
+  const handleDelete = () => {
+    onDelete(task.id);
   };
 
   return (
-    <Card className="mb-4">
-      <Card.Body>
-        <Card.Title>{task.title}</Card.Title>
-        <Card.Text>{task.description}</Card.Text>
-        <Button
-          variant={task.completed ? "success" : "secondary"}
-          onClick={() => handleTaskCompletion(task.id)}
-        >
-          {task.completed ? "Mark as Not Done" : "Mark as Done"}
-        </Button>
-      </Card.Body>
-    </Card>
+    <div>
+      <Card className="mb-4" style={{ height: "auto" }}>
+        <Card.Body onClick={handleTitleClick}>
+          <Card.Title>{task.title}</Card.Title>
+          {!showFullTask ? null : (
+            <>
+              <Card.Text>Description: {task.description}</Card.Text>
+              <Card.Text>Date: {task.date}</Card.Text>
+              <Card.Text>Priority: {task.priority}</Card.Text>
+              <Card.Text>Is Done: {task.is_done ? "Yes" : "No"}</Card.Text>
+            </>
+          )}
+        </Card.Body>
+        <MoreDropdown
+          handleEdit={handleEdit}
+          handleDelete={handleDelete}
+          showEdit={!showEditForm && showFullTask}
+          showDelete={!showEditForm && showFullTask}
+        />
+      </Card>
+      {showEditForm && (
+        <TaskEditForm
+          task={task} // Pass the task data to TaskEditForm
+          onEditFormClose={() => setShowEditForm(false)} // Add a callback to close the edit form
+        />
+      )}
+    </div>
   );
 };
 
