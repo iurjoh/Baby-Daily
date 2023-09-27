@@ -2,11 +2,13 @@ import React, { useState } from "react";
 import { Card } from "react-bootstrap";
 import { MoreDropdown } from "../../components/MoreDropdown";
 import TaskEditForm from "./TaskEditForm";
+import DeleteConfirmationModal from "./DeleteConfirmationModal"; // Import the modal
 
-const TaskItem = ({ task, onMarkAsDone, onMarkAsNotDone, onDelete }) => {
+const TaskItem = ({ task, onMarkAsDone, onMarkAsNotDone, onDeleteTask, onEditTask }) => {
   const [showFullTask, setShowFullTask] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
-  const [editedTask, setEditedTask] = useState(task); // Store the edited task
+  const [showDeleteModal, setShowDeleteModal] = useState(false); // State for the delete confirmation modal
+  const [editedTask, setEditedTask] = useState({ ...task });
 
   const handleTitleClick = () => {
     setShowFullTask(!showFullTask);
@@ -14,14 +16,19 @@ const TaskItem = ({ task, onMarkAsDone, onMarkAsNotDone, onDelete }) => {
 
   const handleEdit = () => {
     setShowEditForm(true);
+    onEditTask(task);
   };
 
   const handleDelete = () => {
-    onDelete(task.id);
+    setShowDeleteModal(true); // Show the delete confirmation modal
+  };
+
+  const confirmDelete = () => {
+    onDeleteTask(task.id); // Call onDeleteTask when confirmed
+    setShowDeleteModal(false); // Close the modal
   };
 
   const handleUpdateTask = (updatedTask) => {
-    // Update the edited task and close the form
     setEditedTask(updatedTask);
     setShowEditForm(false);
   };
@@ -33,17 +40,17 @@ const TaskItem = ({ task, onMarkAsDone, onMarkAsNotDone, onDelete }) => {
           <Card.Title>{editedTask.title}</Card.Title>
           {!showFullTask ? null : (
             <Card.Body onClick={handleTitleClick}>
-            <Card.Title>{editedTask.title}</Card.Title>
-            {!showFullTask ? null : (
-              <>
-                <Card.Text>Title: {editedTask.title}</Card.Text>
-                <Card.Text>Description: {editedTask.description}</Card.Text>
-                <Card.Text>Date: {editedTask.date}</Card.Text>
-                <Card.Text>Priority: {editedTask.priority}</Card.Text>
-                <Card.Text>Is Done: {editedTask.is_done ? "Yes" : "No"}</Card.Text>
-              </>
-            )}
-          </Card.Body>
+              <Card.Title>{editedTask.title}</Card.Title>
+              {!showFullTask ? null : (
+                <>
+                  <Card.Text>Title: {editedTask.title}</Card.Text>
+                  <Card.Text>Description: {editedTask.description}</Card.Text>
+                  <Card.Text>Date: {editedTask.date}</Card.Text>
+                  <Card.Text>Priority: {editedTask.priority}</Card.Text>
+                  <Card.Text>Is Done: {editedTask.is_done ? "Yes" : "No"}</Card.Text>
+                </>
+              )}
+            </Card.Body>
           )}
         </Card.Body>
         <MoreDropdown
@@ -60,6 +67,11 @@ const TaskItem = ({ task, onMarkAsDone, onMarkAsNotDone, onDelete }) => {
           onUpdateTask={handleUpdateTask}
         />
       )}
+      <DeleteConfirmationModal
+        show={showDeleteModal}
+        onClose={() => setShowDeleteModal(false)}
+        onDelete={confirmDelete}
+      />
     </div>
   );
 };
