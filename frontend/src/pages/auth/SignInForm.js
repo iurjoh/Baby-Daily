@@ -17,6 +17,7 @@ import appStyles from "../../App.module.css";
 import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 import { useRedirect } from "../../hooks/useRedirect";
 import { setTokenTimestamp } from "../../utils/utils";
+import signinImage from '../../assets/signin.jpg';
 
 function SignInForm() {
   const setCurrentUser = useSetCurrentUser();
@@ -115,7 +116,8 @@ function SignInForm() {
       >
         <Image
           className={`${appStyles.FillerImage}`}
-          src={"https://codeinstitute.s3.amazonaws.com/AdvancedReact/hero.jpg"}
+          src={signinImage}
+          alt="Sign In Image"
         />
       </Col>
     </Row>

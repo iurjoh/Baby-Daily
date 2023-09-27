@@ -4,8 +4,8 @@ import Button from "react-bootstrap/Button";
 import { axiosRes } from "../../api/axiosDefaults";
 import { useHistory } from "react-router-dom";
 
-function TaskEditForm({ task, onEditFormClose }) {
-  const [editedTask, setEditedTask] = useState(task); // Initialize with task data
+function TaskEditForm({ task, onEditFormClose, onUpdateTask }) {
+  const [editedTask, setEditedTask] = useState(task);
   const history = useHistory();
 
   const handleChange = (event) => {
@@ -21,15 +21,18 @@ function TaskEditForm({ task, onEditFormClose }) {
     event.preventDefault();
 
     try {
-      await axiosRes.put(`/tasks/${editedTask.id}/`, editedTask);
+      const updatedTask = await axiosRes.put(`/tasks/${editedTask.id}/`, editedTask);
 
-      // Handle success and close the form
+      // Update the task in the parent component
+      onUpdateTask(updatedTask);
+
+      // Close the form
       onEditFormClose();
-      
-      // Optionally, you can redirect to the task page
-      history.push(`/tasks/${editedTask.id}`);
+
+      // Redirect to the task page
+      history.push('/tasks/');
     } catch (err) {
-      console.log(err);
+      console.log("wrong redirect");
     }
   };
 
