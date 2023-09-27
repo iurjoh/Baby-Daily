@@ -80,7 +80,6 @@ function TaskPage() {
   return (
     <Container>
       <div className={`${taskStyles.Header} text-center mt-5`}>
-        <h2>Tasks</h2>
         <Button
           className="mb-3"
           onClick={handleCreateTask}
