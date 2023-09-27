@@ -9,8 +9,9 @@ import taskStyles from "../../styles/TaskPage.module.css";
 function TaskPage() {
   const [tasks, setTasks] = useState([]);
   const [showCompletedTasks, setShowCompletedTasks] = useState(false);
+  const [editingTask, setEditingTask] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [currentUser, setCurrentUser] = useState(null); // Assuming you have a way to get the current user
+  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
     const fetchTasks = async () => {
@@ -63,12 +64,12 @@ function TaskPage() {
       await axiosReq.delete(`/tasks/${taskId}/`);
       setTasks((prevTasks) => prevTasks.filter((task) => task.id !== taskId));
     } catch (err) {
-      console.log(err);
+      console.error("Error deleting task:", err);
     }
   };
 
   const handleEditTask = (task) => {
-    // Implement edit task logic here
+    setEditingTask(task);
   };
 
   const history = useHistory();
@@ -113,13 +114,14 @@ function TaskPage() {
               return new Date(b.updated_at) - new Date(a.updated_at);
             })
             .map((task) => (
-              <TaskItem
-                key={task.id}
-                task={task}
-                onMarkAsDone={handleMarkAsDone}
-                onMarkAsNotDone={handleMarkAsNotDone}
-                onDeleteTask={handleDeleteTask}
-              />
+            <TaskItem
+              key={task.id}
+              task={task}
+              onMarkAsDone={handleMarkAsDone}
+              onMarkAsNotDone={handleMarkAsNotDone}
+              onDeleteTask={handleDeleteTask}
+              onEditTask={handleEditTask} // Pass the function to edit a task
+            />
             ))
         )}
       </div>
