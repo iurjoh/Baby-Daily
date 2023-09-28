@@ -18,9 +18,9 @@ import Task from "./pages/tasks/Task";
 import TaskCreateForm from "./pages/tasks/TaskCreateForm";
 import TaskEditForm from "./pages/tasks/TaskEditForm";
 import TaskPage from "./pages/tasks/TaskPage";
-import WishList from "./pages/wishes/WishList";
+import WishPage from "./pages/wishes/WishPage";
+import WishItem from "./pages/wishes/WishItem";
 import WishCreateForm from "./pages/wishes/WishCreateForm";
-import WishDetail from "./pages/wishes/WishDetailPage";
 import WishEditForm from "./pages/wishes/WishEditForm";
 import NotFound from "./components/NotFound";
 
@@ -65,9 +65,9 @@ function App() {
           <Route exact path="/tasks/create" render={() => <TaskCreateForm />} />
           <Route exact path="/tasks/:id" render={() => <Task />} />
           <Route exact path="/tasks/:id/edit" render={() => <TaskEditForm />} />
-          <Route exact path="/wishes" render={() => <WishList />} />
+          <Route exact path="/wishes" render={() => <WishPage />} />
           <Route exact path="/wishes/create" render={() => <WishCreateForm />} />
-          <Route exact path="/wishes/:id" render={() => <WishDetail />} />
+          <Route exact path="/wishes/:id" render={() => <WishItem />} />
           <Route exact path="/wishes/:id/edit" render={() => <WishEditForm />} />
           <Route exact path="/signin" render={() => <SignInForm />} />
           <Route exact path="/signup" render={() => <SignUpForm />} />

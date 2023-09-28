@@ -63,6 +63,13 @@ const NavBar = () => {
       >
         <i className="fa fa-check-square" aria-hidden="true"></i>Tasks
       </NavLink>
+      <NavLink
+        className={styles.NavLink}
+        activeClassName={styles.Active}
+        to="/wishes"
+      >
+        <i className="fa fa-gift" aria-hidden="true"></i>Wishes
+      </NavLink>
       <NavLink className={styles.NavLink} to="/" onClick={handleSignOut}>
         <i className="fas fa-sign-out-alt"></i>Sign out
       </NavLink>
