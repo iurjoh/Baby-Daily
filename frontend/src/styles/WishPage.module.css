@@ -1,0 +1,49 @@
+.AddBtn {
+    height: 38px;
+    border-radius: 5px;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.Input {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+    border-right: 0;
+}
+
+.IdeasWrapper {
+    height: 453px;
+    overflow-y: scroll;
+}
+
+.Todo {
+    width: 100%;
+}
+
+.TodoCard {
+    display: inline-flex;
+}
+
+@media screen and (max-width: 1200px) {
+    .Header {
+        font-size: 36px;
+    }
+}
+
+@media screen and (max-width: 791px) {
+    .Header {
+        font-size: 30px;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .Header {
+        font-size: 25px;
+    }
+}
+
+@media screen and (max-width: 370px) {
+    .Header {
+        font-size: 20px;
+    }
+}
