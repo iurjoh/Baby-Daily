@@ -3,8 +3,8 @@ import { Container, Button, Form } from "react-bootstrap";
 import { axiosReq } from "../../api/axiosDefaults";
 import { useHistory } from "react-router-dom";
 
-import WishItem from "./WishItem"; // You'll need to create this component
-import wishStyles from "../../styles/WishPage.module.css"; // Define your own CSS styles
+import WishItem from "./WishItem";
+import wishStyles from "../../styles/WishPage.module.css"; // Define CSS styles
 
 function WishPage() {
   const [wishes, setWishes] = useState([]);
@@ -120,7 +120,7 @@ function WishPage() {
                 onFulfillWish={handleFulfillWish}
                 onUnfulfillWish={handleUnfulfillWish}
                 onDeleteWish={handleDeleteWish}
-                onEditWish={handleEditWish} // Pass the function to edit a wish
+                onEditWish={handleEditWish}
               />
             ))
         )}
