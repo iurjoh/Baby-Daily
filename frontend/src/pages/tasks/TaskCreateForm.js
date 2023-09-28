@@ -33,7 +33,6 @@ function TaskCreateForm({ onTaskCreated }) {
     formData.append("date", date);
     formData.append("priority", priority);
     formData.append("is_done", is_done);
-    console.log(formData, "hello")
     try {
       const { data } = await axiosReq.post("/tasks/", formData);
       history.push("/tasks");

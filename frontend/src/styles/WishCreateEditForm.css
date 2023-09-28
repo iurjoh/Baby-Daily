@@ -1,4 +1,20 @@
 .Container {
-    min-height: 343px;
-  }
-  
+  min-height: 343px;
+}
+
+.priceGroup {
+  display: flex;
+  align-items: center;
+}
+
+.priceGroup .imageContainer {
+  margin-left: auto;
+}
+
+.priceGroup .image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border: 1px solid #ccc;
+  margin-left: 10px;
+}
