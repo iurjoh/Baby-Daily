@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import { Card } from "react-bootstrap";
 import { MoreDropdown } from "../../components/MoreDropdown";
 import TaskEditForm from "./TaskEditForm";
-import DeleteConfirmationModal from "./DeleteConfirmationModal"; // Import the modal
+import DeleteConfirmationModal from "./DeleteConfirmationModal";
 
 const TaskItem = ({ task, onMarkAsDone, onMarkAsNotDone, onDeleteTask, onEditTask }) => {
   const [showFullTask, setShowFullTask] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
-  const [showDeleteModal, setShowDeleteModal] = useState(false); // State for the delete confirmation modal
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [editedTask, setEditedTask] = useState({ ...task });
 
   const handleTitleClick = () => {
@@ -20,12 +20,12 @@ const TaskItem = ({ task, onMarkAsDone, onMarkAsNotDone, onDeleteTask, onEditTas
   };
 
   const handleDelete = () => {
-    setShowDeleteModal(true); // Show the delete confirmation modal
+    setShowDeleteModal(true);
   };
 
   const confirmDelete = () => {
-    onDeleteTask(task.id); // Call onDeleteTask when confirmed
-    setShowDeleteModal(false); // Close the modal
+    onDeleteTask(task.id);
+    setShowDeleteModal(false);
   };
 
   const handleUpdateTask = (updatedTask) => {

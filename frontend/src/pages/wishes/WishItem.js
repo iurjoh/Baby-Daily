@@ -1,14 +1,21 @@
-import React, { useState } from "react";
-import { Card } from "react-bootstrap";
+import React, { useState, useEffect } from "react";
+import { Card, Button } from "react-bootstrap";
 import { MoreDropdown } from "../../components/MoreDropdown";
-import WishEditForm from "./WishEditForm"; // Import the wish edit form component
-import DeleteConfirmationModal from "./DeleteConfirmationModal"; // Import the delete confirmation modal
+import WishEditForm from "./WishEditForm";
+import DeleteConfirmationModal from "./DeleteConfirmationModal";
 
-const WishItem = ({ wish, onFulfillWish, onUnfulfillWish, onDeleteWish, onEditWish }) => {
+const WishItem = ({
+  wish,
+  onFulfillWish,
+  onUnfulfillWish,
+  onDeleteWish,
+  onEditWish,
+}) => {
   const [showFullWish, setShowFullWish] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [editedWish, setEditedWish] = useState({ ...wish });
+  const [isFulfilled, setIsFulfilled] = useState(wish.is_fulfilled);
 
   const handleTitleClick = () => {
     setShowFullWish(!showFullWish);
@@ -29,8 +36,17 @@ const WishItem = ({ wish, onFulfillWish, onUnfulfillWish, onDeleteWish, onEditWi
   };
 
   const handleUpdateWish = (updatedWish) => {
-    setEditedWish(updatedWish);
+    setEditedWish(updatedWish.data);
     setShowEditForm(false);
+  };
+
+  const handleToggleFulfill = () => {
+    if (isFulfilled) {
+      onUnfulfillWish(wish.id);
+    } else {
+      onFulfillWish(wish.id);
+    }
+    setIsFulfilled(!isFulfilled);
   };
 
   return (
@@ -46,10 +62,29 @@ const WishItem = ({ wish, onFulfillWish, onUnfulfillWish, onDeleteWish, onEditWi
                   <Card.Text>Title: {editedWish.title}</Card.Text>
                   <Card.Text>Price: {editedWish.price}</Card.Text>
                   <Card.Text>Description: {editedWish.description}</Card.Text>
-                  <Card.Text>Purchase Link: {editedWish.purchase_link}</Card.Text>
-                  {/* Add more wish details here */}
                   <Card.Text>
-                    Fulfilled: {editedWish.is_fulfilled ? "Yes" : "No"}
+                    <a
+                      href={editedWish.purchase_link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      Buy Here
+                    </a>
+                  </Card.Text>
+                  <Card.Text>
+                    <img
+                      src={editedWish.image}
+                      alt={editedWish.title}
+                      style={{ maxWidth: "100%" }}
+                    />
+                  </Card.Text>
+                  <Card.Text>
+                    <Button
+                      variant={isFulfilled ? "success" : "primary"}
+                      onClick={handleToggleFulfill}
+                    >
+                      {isFulfilled ? "Wish Granted" : "Grant this Wish!"}
+                    </Button>
                   </Card.Text>
                 </>
               )}
