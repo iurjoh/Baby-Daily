@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Card, Button, Form } from "react-bootstrap";
 import { useHistory } from "react-router-dom";
-import { axiosRes } from "../../api/axiosDefaults"; // Import axiosRes from your Axios configuration or instance
+import { axiosRes } from "../../api/axiosDefaults";
 
 const Task = ({ task }) => {
   const history = useHistory();
@@ -26,8 +26,7 @@ const Task = ({ task }) => {
 
   const handleSave = async () => {
     try {
-      await axiosRes.put(`/tasks/${task.id}/`, editedTask); // Assuming your API endpoint is correct
-      // Redirect to the task page after saving
+      await axiosRes.put(`/tasks/${task.id}/`, editedTask);
       history.push('/tasks/');
 
       setIsEditing(false);
