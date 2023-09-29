@@ -19,6 +19,7 @@ function WishEditForm({ wish, onEditFormClose, onUpdateWish }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    console.log(Form.value)
 
     try {
       const updatedWish = await axiosRes.put(`/wishes/${editedWish.id}/`, editedWish);
@@ -28,7 +29,6 @@ function WishEditForm({ wish, onEditFormClose, onUpdateWish }) {
     } catch (err) {
       console.log("Error updating wish:", err);
       console.log(err.response);
-
     }
   };
 

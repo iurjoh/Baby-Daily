@@ -5,6 +5,7 @@ import btnStyles from "../../styles/Button.module.css";
 import { axiosReq } from "../../api/axiosDefaults";
 import { useHistory } from "react-router-dom";
 
+
 function WishCreateForm({ onWishCreated }) {
   const [wishData, setWishData] = useState({
     title: "",
@@ -22,7 +23,7 @@ function WishCreateForm({ onWishCreated }) {
       ...wishData,
       [event.target.name]: event.target.value,
     });
-  };  
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -35,8 +36,12 @@ function WishCreateForm({ onWishCreated }) {
     formData.append("is_fulfilled", isFulfilled);
 
     try {
-      const { data } = await axiosReq.post("/wishes/", formData);
-      history.push("/wishes");
+      const { data } = await axiosReq.post("/wishes/", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
+      history.push(`/wishes/${data.id}`);
     } catch (err) {
       console.log(err);
     }
