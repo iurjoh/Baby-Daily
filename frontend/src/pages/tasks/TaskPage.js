@@ -70,6 +70,7 @@ function TaskPage() {
 
   const handleEditTask = (task) => {
     setEditingTask(task);
+    console.log(task, "Hi")
   };
 
   const history = useHistory();
