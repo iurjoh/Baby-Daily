@@ -77,18 +77,6 @@ const Wish = ({ wish }) => {
                   onChange={handleChange}
                 />
               </Form.Group>
-              <Form.Group controlId="image">
-                <Form.Label>Image</Form.Label>
-                {typeof editedWish.image === "string" ? (
-                  <img src={editedWish.image} alt="Wish" />
-                ) : (
-                  <Form.Control
-                    type="file"
-                    name="image"
-                    onChange={handleChange}
-                  />
-                )}
-              </Form.Group>
               <Button onClick={handleSave}>Save</Button>
             </>
           ) : (

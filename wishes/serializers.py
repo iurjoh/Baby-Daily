@@ -13,5 +13,5 @@ class WishSerializer(serializers.ModelSerializer):
         model = Wish
         fields = [
             'id', 'owner', 'is_owner', 'created_at', 'title',
-            'price', 'description', 'purchase_link', 'image', 'is_fulfilled',
+            'price', 'description', 'purchase_link', 'is_fulfilled',
         ]

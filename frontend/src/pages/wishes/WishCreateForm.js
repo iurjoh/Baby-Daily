@@ -4,7 +4,6 @@ import Button from "react-bootstrap/Button";
 import btnStyles from "../../styles/Button.module.css";
 import { axiosReq } from "../../api/axiosDefaults";
 import { useHistory } from "react-router-dom";
-import defaultImage from "../../assets/product.png"; // Import the default image
 
 function WishCreateForm({ onWishCreated }) {
   const [wishData, setWishData] = useState({
@@ -12,11 +11,10 @@ function WishCreateForm({ onWishCreated }) {
     price: 0,
     description: "",
     purchaseLink: "",
-    image: null,
     isFulfilled: false,
   });
 
-  const { title, price, description, purchaseLink, image, isFulfilled } = wishData;
+  const { title, price, description, purchaseLink, isFulfilled } = wishData;
   const history = useHistory();
 
   const handleChange = (event) => {
@@ -24,14 +22,7 @@ function WishCreateForm({ onWishCreated }) {
       ...wishData,
       [event.target.name]: event.target.value,
     });
-  };
-
-  const handleImageChange = (event) => {
-    setWishData({
-      ...wishData,
-      image: event.target.files[0],
-    });
-  };
+  };  
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -41,15 +32,10 @@ function WishCreateForm({ onWishCreated }) {
     formData.append("price", price);
     formData.append("description", description);
     formData.append("purchase_link", purchaseLink);
-    formData.append("image", image);
     formData.append("is_fulfilled", isFulfilled);
 
     try {
-      const { data } = await axiosReq.post("/wishes/", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const { data } = await axiosReq.post("/wishes/", formData);
       history.push("/wishes");
     } catch (err) {
       console.log(err);
@@ -96,26 +82,6 @@ function WishCreateForm({ onWishCreated }) {
           name="purchaseLink"
           value={purchaseLink}
           onChange={handleChange}
-        />
-      </Form.Group>
-
-      <Form.Group controlId="image">
-        <label htmlFor="image" className="custom-file-upload">
-          Upload product image here
-        </label>
-        <input
-          type="file"
-          id="image"
-          name="image"
-          onChange={handleImageChange}
-          style={{ display: "none" }}
-        />
-        <img
-          src={image ? URL.createObjectURL(image) : defaultImage}
-          alt="Default"
-          width={100}
-          height={100}
-          style={{ width: "100px", height: "100px" }}
         />
       </Form.Group>
 

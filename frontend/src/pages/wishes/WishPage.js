@@ -4,7 +4,7 @@ import { axiosReq } from "../../api/axiosDefaults";
 import { useHistory } from "react-router-dom";
 
 import WishItem from "./WishItem";
-import wishStyles from "../../styles/WishPage.module.css"; // Define CSS styles
+import wishStyles from "../../styles/WishPage.module.css";
 
 function WishPage() {
   const [wishes, setWishes] = useState([]);
@@ -104,25 +104,26 @@ function WishPage() {
         {wishes.length === 0 ? (
           <p>No wishes at the moment</p>
         ) : (
-          wishes
-            .filter(
-              (wish) =>
-                !showFulfilledWishes || (wish.is_fulfilled && showFulfilledWishes)
-            )
-            .sort((a, b) => {
-              // Sort wishes by creation time
-              return new Date(b.created_at) - new Date(a.created_at);
-            })
-            .map((wish) => (
-              <WishItem
-                key={wish.id}
-                wish={wish}
-                onFulfillWish={handleFulfillWish}
-                onUnfulfillWish={handleUnfulfillWish}
-                onDeleteWish={handleDeleteWish}
-                onEditWish={handleEditWish}
-              />
-            ))
+        wishes
+          .filter(
+            (wish) =>
+              !showFulfilledWishes || (wish.is_fulfilled && showFulfilledWishes)
+          )
+          .sort((a, b) => {
+            const dateA = new Date(b.last_modified || b.created_at);
+            const dateB = new Date(a.last_modified || a.created_at);
+            return dateA - dateB;
+          })
+          .map((wish) => (
+            <WishItem
+              key={wish.id}
+              wish={wish}
+              onFulfillWish={handleFulfillWish}
+              onUnfulfillWish={handleUnfulfillWish}
+              onDeleteWish={handleDeleteWish}
+              onEditWish={handleEditWish}
+            />
+          ))        
         )}
       </div>
     </Container>

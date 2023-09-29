@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { axiosRes } from "../../api/axiosDefaults";
@@ -22,15 +22,8 @@ function TaskEditForm({ task, onEditFormClose, onUpdateTask }) {
 
     try {
       const updatedTask = await axiosRes.put(`/tasks/${editedTask.id}/`, editedTask);
-
-
-      // Update the task in the parent component
       onUpdateTask(updatedTask);
-
-      // Close the form
       onEditFormClose();
-
-      // Redirect to the task page
       history.push('/tasks/');
     } catch (err) {
       console.log("wrong redirect");

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import { axiosRes } from "../../api/axiosDefaults"; // Update the import
+import { axiosRes } from "../../api/axiosDefaults";
 import { useHistory } from "react-router-dom";
 
-function WishEditForm({ wish, onEditFormClose, onUpdateWish }) { // Update the component name and prop names
+function WishEditForm({ wish, onEditFormClose, onUpdateWish }) {
   const [editedWish, setEditedWish] = useState(wish);
   const history = useHistory();
 
@@ -21,23 +21,19 @@ function WishEditForm({ wish, onEditFormClose, onUpdateWish }) { // Update the c
     event.preventDefault();
 
     try {
-      const updatedWish = await axiosRes.put(`/wishes/${editedWish.id}/`, editedWish); // Update the API endpoint
-
-      // Update the wish in the parent component
+      const updatedWish = await axiosRes.put(`/wishes/${editedWish.id}/`, editedWish);
       onUpdateWish(updatedWish);
-
-      // Close the form
       onEditFormClose();
-
-      // Redirect to the wish page
       history.push('/wishes/');
     } catch (err) {
       console.log("Error updating wish:", err);
+      console.log(err.response);
+
     }
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit} encType="multipart/form-data">
       <Form.Group controlId="title">
         <Form.Label>Title</Form.Label>
         <Form.Control
@@ -71,28 +67,6 @@ function WishEditForm({ wish, onEditFormClose, onUpdateWish }) { // Update the c
           type="url"
           name="purchase_link"
           value={editedWish.purchase_link}
-          onChange={handleChange}
-        />
-      </Form.Group>
-      <Form.Group controlId="image">
-        <Form.Label>Image</Form.Label>
-        {typeof editedWish.image === "string" ? (
-            <img src={editedWish.image} alt="Wish" />
-        ) : (
-        <Form.Control
-            type="file"
-            name="image"
-            onChange={handleChange}
-        />
-  )}
-</Form.Group>
-
-      <Form.Group controlId="image">
-        <Form.Label>Image</Form.Label>
-        <Form.Control
-          type="text"
-          name="image"
-          value={editedWish.image}
           onChange={handleChange}
         />
       </Form.Group>

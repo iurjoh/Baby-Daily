@@ -111,7 +111,6 @@ function TaskPage() {
                 !showCompletedTasks || (task.is_done && showCompletedTasks)
             )
             .sort((a, b) => {
-              // Sort tasks by last create/edit time
               return new Date(b.updated_at) - new Date(a.updated_at);
             })
             .map((task) => (
@@ -121,7 +120,7 @@ function TaskPage() {
               onMarkAsDone={handleMarkAsDone}
               onMarkAsNotDone={handleMarkAsNotDone}
               onDeleteTask={handleDeleteTask}
-              onEditTask={handleEditTask} // Pass the function to edit a task
+              onEditTask={handleEditTask}
             />
             ))
         )}
