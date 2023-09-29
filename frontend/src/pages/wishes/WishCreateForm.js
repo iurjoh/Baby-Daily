@@ -50,7 +50,7 @@ function WishCreateForm({ onWishCreated }) {
           "Content-Type": "multipart/form-data",
         },
       });
-      history.push(`/wishes/${data.id}`);
+      history.push("/wishes");
     } catch (err) {
       console.log(err);
     }
