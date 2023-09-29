@@ -1,39 +1,31 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
+[Baby Daily - Smiles, steps and stories. Daily!](https://iurjoh-baby-daily-backend-api-1674476236b8.herokuapp.com/)
 
-Welcome,
 
-This is the Code Institute student template for Codeanywhere. If you are using Gitpod then you need [this template](https://github.com/Code-Institute-Org/gitpod-full-template) instead.  We have preinstalled all of the tools you need to get started. It's perfectly ok to use this template as the basis for your project submissions.
 
-You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Codeanywhere and the extensions we use. Some of this information has been updated since the video content was created. The last update to this file was: **July 26th, 2023**
+This project was incomplete due to force majeure circumstances.
 
-## Codeanywhere Reminders
+Two new components were created: Tasks and Wishes
 
-To run a frontend (HTML, CSS, Javascript only) application in Codeanywhere, in the terminal, type:
+In both CRUD functionalities are working perfectly.
 
-`python3 -m http.server`
+In Tasks it will be possible to organize and manage the necessary activities and tasks to be carried out throughout pregnancy and the first months of life.
 
-A button should appear to click: _Open Preview_ or _Open Browser_.
+In Wishes a list of gifts can be viewed and other users can offer to buy the items listed to help the newly arrived baby and new parents.
 
-To run a frontend (HTML, CSS, Javascript only) application in Codeanywhere with no-cache, you can use this alias for `python3 -m http.server`.
 
-`http_server`
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
+( --->>> still to be done <<<--- )
 
-A button should appear to click: _Open Preview_ or _Open Browser_.
+Tests were carried out throughout development but were not documented to be added satisfactorily at the moment (still to be completed).
 
-In Codeanywhere you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+The design part follows the mold of the "Moments" project model, but future updates will give a more authorial look to the project.
 
-To log into the Heroku toolbelt CLI:
+All Agile, user stories and other development assistance tools will be documented in a future update.
 
-1. Log in to your Heroku account and go to _Account Settings_ in the menu under your avatar.
-2. Scroll down to the _API Key_ and click _Reveal_
-3. Copy the key
-4. In Codeanywhere, from the terminal, run `heroku_config`
-5. Paste in your API key when asked
+After the first evaluation of this project I will work even harder to resolve and implement the criticisms and suggestions that may be made, as well as I will work so that all other basic requirements for this PP5 Advanced Frontend can be achieved in the next update.
 
-You can now use the `heroku` CLI program - try running `heroku apps` to confirm it works. This API key is unique and private to you so do not share it. If you accidentally make it public then you can create a new one with _Regenerate API Key_.
+Thank you for your understanding and attention!
 
----
+Iurjoh
 
-Happy coding!
+A developer in the race and a father-to-be finding his space.
