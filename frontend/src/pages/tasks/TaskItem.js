@@ -29,7 +29,7 @@ const TaskItem = ({ task, onMarkAsDone, onMarkAsNotDone, onDeleteTask, onEditTas
   };
 
   const handleUpdateTask = (updatedTask) => {
-    setEditedTask(updatedTask);
+    setEditedTask(updatedTask.data);
     setShowEditForm(false);
   };
 

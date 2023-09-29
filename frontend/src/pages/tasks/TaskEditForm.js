@@ -23,6 +23,7 @@ function TaskEditForm({ task, onEditFormClose, onUpdateTask }) {
     try {
       const updatedTask = await axiosRes.put(`/tasks/${editedTask.id}/`, editedTask);
 
+
       // Update the task in the parent component
       onUpdateTask(updatedTask);
 
