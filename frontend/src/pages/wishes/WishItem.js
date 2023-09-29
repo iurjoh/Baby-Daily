@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Card, Button } from "react-bootstrap";
 import { MoreDropdown } from "../../components/MoreDropdown";
 import WishEditForm from "./WishEditForm";
@@ -70,13 +70,6 @@ const WishItem = ({
                     >
                       Buy Here
                     </a>
-                  </Card.Text>
-                  <Card.Text>
-                    <img
-                      src={editedWish.image}
-                      alt={editedWish.title}
-                      style={{ maxWidth: "100%" }}
-                    />
                   </Card.Text>
                   <Card.Text>
                     <Button

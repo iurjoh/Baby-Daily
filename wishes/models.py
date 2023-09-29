@@ -8,7 +8,6 @@ class Wish(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2)
     description = models.TextField()
     purchase_link = models.URLField()
-    image = models.ImageField(upload_to='wishes/')
     is_fulfilled = models.BooleanField(default=False)
 
     class Meta:
