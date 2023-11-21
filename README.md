@@ -54,44 +54,49 @@ Visit the site [here](https://iurjoh-baby-daily-backend-api-1674476236b8.herokua
 
 ## User Experience (UX)
 
-Initial Discussion: Baby Daily
+### Initial Discussion
 
 Baby Daily is a secure online platform designed exclusively for parents to share precious moments, updates, and create a private community with family and friends. Users can post photos, create wish lists, mark tasks, leave comments, like posts, and more, all within their trusted and private circle.
 
-Key Information for the Site:
-* 
-Dashboard Overview:
+#### Key Information for the Site:
 
-Upon login, parents are greeted with an intuitive dashboard displaying recent posts, comments, and updates from their private circle.
-Quick access to essential features like creating a new post, viewing notifications, and managing account settings.
-Monthly Highlights:
-
-A dedicated section highlighting the current month's key events, milestones, or featured posts.
-Carousel or visually appealing display for easy navigation through monthly highlights.
-Upcoming Events and Milestones:
-
-Clear visibility of upcoming events, birthdays, and milestones within the private circle.
-Integration with a calendar feature to mark and remind users of important dates.
-Membership and Participation:
-
-Easily accessible information on how to become a member, with a prominent "Join" button on the homepage.
-Step-by-step guide for new users on creating their private circle, inviting family and friends, and setting up personalized preferences.
-Community Engagement:
-
-An interactive section where users can engage with posts by leaving comments, liking, and sharing within their private circle.
-Notifications for new comments or likes to encourage ongoing engagement.
-Help and Support:
-
-A dedicated support center or FAQ section addressing common questions and concerns.
-Direct messaging feature for users to contact Baby Daily's support team for personalized assistance or recommendations.
-Future Updates Sneak Peek:
-
-Teasers or brief descriptions of upcoming features and improvements planned for Baby Daily in 2023.
-Encourage users to stay connected and excited about the platform's evolving capabilities.
+* Safe interactions between parents and their friends and family.
+* Space for comments on each photo.
+* Like each of the cutest photos and keep your likes list updated.
+* A task list for users to track their baby's milestones and activities.
+* Parents' wish list with useful products for the baby.
+* User area with your photo, brief profile description, your posts, followers and followings
 
 ### User Stories
 
-Add your user stories here. You want to include first time visitors and returning visitors here as a minimum. Think about each group, and the experience and journey you want them to have on your site. It really helps to think about this before you start coding, and will really help with creating your wireframes.
+* View post list: As a **Site User** I can **view a list of posts** so that **I can select one to view and interact**
+* Open a post: As a **Site User** I can **click on a post** so that **I can open it and interact**
+* View likes: As a **Site User / Admin** I can **view the number of likes on each post** so that **I can see which is the most popular or viral**
+* View comments: As a **Site User / Admin** I can **view comments on an individual post** so that **I can read the conversation**
+* Account registration: As a **Site User** I **can register an account** so that **I can get access to all functions like post, comments and others**
+* Comment on a post: As a **Site User** I can **leave comments on a post** so that **I can be involved in the conversation**
+* Like/Unlike: As a **Site User** I can **like or unlike an another user's post** so that **I can interact with the content**
+* Manage posts: As a **Site Admin** I can **create, read, update and delete posts** so that **I can manage all posted content**
+* Site pagination: As a **Site User** I can **view a paginated list of posts** so that **easily select a post to view**
+* Create post: As a **Site User** I can **create a new post when I am logged** so that **I can create new content**
+* Edit post: As a **Site User** I can **edit a post when I am logged and be the owner** so that **I can edit a posted content**
+* Delete post: As a **Site User** I can **delete a post when I am logged and be the owner** so that **I can delete a posted content**
+* View task list: As a **Site User** I can **view a list of tasks** so that **I can select one to view and interact**
+* Create task: As a **Site Admin** I can **create a new task when I am logged** so that **I can create new tasks to task list**
+* Edit task: As a **Site Admin** I can **edit a task when I am logged** so that **I can edit a task from task list**
+* Delete task: As a **Site Admin** I can **delete a task when I am logged** so that **I can delete a task from task list**
+* View wish list: As a **Site User** I can **view a list of wishes** so that **I can select one to view and interact**
+* Create wish: As a **Site User** I can **create a new wish when I am logged** so that **I can create new wishes to wish list**
+* Edit wish: As a **Site User** I can **edit a wish when I am logged and be the owner** so that **I can edit a wish from wishes list**
+* Delete wish: As a **Site User** I can **delete a wish when I am logged and be the owner** so that **I can delete a wish from wishes list**
+* 
+* 
+* 
+* 
+* 
+* 
+
+
 
 ## Design
 
