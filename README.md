@@ -6,8 +6,6 @@ Baby Daily is a website designed to be responsive that allows users to create th
 
 Visit the site [here](https://iurjoh-baby-daily-backend-api-1674476236b8.herokuapp.com/)
 
----
-
 ## CONTENTS
 
 * [User Experience (UX)](#User-Experience-(UX))
@@ -17,8 +15,6 @@ Visit the site [here](https://iurjoh-baby-daily-backend-api-1674476236b8.herokua
 * [Design](#Design)
   * [Colour Scheme](#Colour-Scheme)
   * [Typography](#Typography)
-  * [Imagery](#Imagery)
-  * [Wireframes](#Wireframes)
   * [Features](#Features)
   * [Accessibility](#Accessibility)
 
@@ -69,6 +65,14 @@ Baby Daily is a secure online platform designed exclusively for parents to share
 
 ### User Stories
 
+All User Stories were efficiently organized within the Kanban board available within GitHub itself where the project can be publicly accessed. Strategically all stories were prioritized using MoSCoW technique (acronym MoSCoW stands for “must-have,” “should-have,” “could-have,” and “won't-have"). The Kanban board was divided into three sections to oversee different phases of the project:
+
+* To do: This item hasn't been started yet.
+* In Progress: This item is actively being worked on in the Backend and/or Frontend.
+* Done: All tasks have been completed.
+
+Here is a list of all my User Sotories create for this project:
+
 * View post list: As a **Site User** I can **view a list of posts** so that **I can select one to view and interact**
 * Open a post: As a **Site User** I can **click on a post** so that **I can open it and interact**
 * View likes: As a **Site User / Admin** I can **view the number of likes on each post** so that **I can see which is the most popular or viral**
@@ -89,54 +93,46 @@ Baby Daily is a secure online platform designed exclusively for parents to share
 * Create wish: As a **Site User** I can **create a new wish when I am logged** so that **I can create new wishes to wish list**
 * Edit wish: As a **Site User** I can **edit a wish when I am logged and be the owner** so that **I can edit a wish from wishes list**
 * Delete wish: As a **Site User** I can **delete a wish when I am logged and be the owner** so that **I can delete a wish from wishes list**
-* 
-* 
-* 
-* 
-* 
-* 
+* User profile: As a **Site User** I can **edit my own profile** so that **I can update my photo, description and other details**
 
+![User stories](./frontend/src/assets/user%20stories.JPG)
 
+- - -
 
 ## Design
 
-👩🏻‍💻 View an example of a completed design section [here](https://github.com/kera-cudmore/earth-day-hackathon-2022#Design)
-
 ### Colour Scheme
 
-Add all information about your colour scheme for your site here. You can explain why you choose the colours you did?
-
-I like to include a palette of the colour scheme here, my favourite site for creating a colour palette is [coolors](https://coolors.co/), but there are lots of other sites that also do the same thing, like [ColorSpace](https://mycolor.space/?hex=%23F5F5F5&sub=1), [Muzli Colors](https://colors.muz.li/), [Adobe Colour Wheel](https://color.adobe.com/create/color-wheel) and [Canva](https://www.canva.com/colors/color-palette-generator/) to name a few.
+I tried to use colors based on shades of blue that evoke a newborn. Calm and light colors, which reflect tranquility and security, conducive to this website.
+ 
+![Coolors](./frontend/src/assets/coolors.jpg)
 
 ### Typography
 
-If you've imported fonts to use in your project, add some information about them here. You can include information like:
-
-Why did you choose the font you have?
-Is this an accessibly friendly font?
-What weights have you included?
+The font DM Sans, from Google Fonts and linked to San Serif family, was chosen because it is accessible friendly and has a clear and modern style, easy to read and good layout.
 
 I also like to include an image of the fonts chosen as a reference.
 
-[Google Fonts](https://fonts.google.com/) is a popular choice for importing fonts to use in your project, as it doesn't require you to download the fonts to use them.
-
-### Imagery
-
-Use this section to explain what sort of imagery you plan to use through your site.
-
-### Wireframes
-
-Add the images or links for your wireframes here.
-
-There are lots of different options to create your wireframes - Code Institute students can access [Balsamiq](https://balsamiq.com/) as part of the course.
-
-Some other options include [Figma](https://www.figma.com/), [AdobeXD](https://www.adobe.com/products/xd.html), [Sketch](https://www.sketch.com/?utm_source=google&utm_medium=cpc&adgroup=uxui&device=c&matchtype=e&utm_campaign=ADDICTMOBILE_SKETCH_GAD_DG_UK_T1_ALWAYS-ON_S_TRF_PROS_BRAND&utm_term=sketch&utm_source=google&utm_medium=cpc&utm_content=TOF_BRND__generic&hsa_acc=8710913982&hsa_cam=16831089317&hsa_grp=134620695759&hsa_ad=592060065319&hsa_src=g&hsa_tgt=kwd-14921750&hsa_kw=sketch&hsa_mt=e&hsa_net=adwords&hsa_ver=3&gclid=Cj0KCQjwr4eYBhDrARIsANPywCjRIFn93DMezYnsyE5Fic_8l8kynJtut0GYMU01TiohHjwziFtlH0gaAhteEALw_wcB) and [Mockup](https://apps.apple.com/us/app/mockup-sketch-ui-ux/id1527554407) to name just a few! Or you can even go old school and get those wireframes completed using pen and paper. Just snap an image of the completed wireframes to add the images to the README.
+![Font](./frontend/src/assets/font.JPG)
 
 ## Features
 
-👩🏻‍💻 View an example of a completed user experience section [here](https://github.com/kera-cudmore/TheQuizArms#Features)
-
-This section can be used to explain what pages your site is made up of.
+* Sign Up form: User-friendly form for new users to register and create an account on the platform.
+* Sign In form: Secure login interface allowing registered users to access their accounts.
+* Comments page: Centralized space displaying comments on various posts, facilitating user engagement.
+* Comments create/edit form: Interactive form enabling users to create or modify comments on posts.
+* Post page: Dedicated page showcasing individual posts, containing user-generated content.
+* Posts page: Dedicated page showcasing all posts, in an infinite scrolling screen.
+* Post create/edit form: User-friendly form allowing the creation or modification of posts with associated content.
+* Profiles page: Overview of user profiles, providing a snapshot of individual users and their details.
+* Popular profiles: Curated list highlighting the most active or influential profiles on the platform.
+* Profile edit form: Customizable form enabling users to edit and update their profile information.
+* User name form: Form specifically designed for users to set or modify their displayed username.
+* Profile page: Comprehensive view of an individual user's profile, aggregating their posts and activities.
+* Tasks list page: Centralized view presenting a comprehensive list of tasks, providing an overview of ongoing and completed activities.
+* Task create/edit form: User-friendly form facilitating the creation or modification of tasks, ensuring efficient task management.
+* Wish list page: Dedicated page displaying a curated collection of user-generated wish lists, offering insights into parents wish list preferences for the baby.
+* Wish list create/edit form: Interactive form empowering users to create or edit personalized wish lists, enhancing the user experience in expressing desires and preferences.
 
 ### General features on each page
 
@@ -160,6 +156,8 @@ Have you chosen fonts that are dyslexia/accessible friendly?
 
 Code Institute have an amazing channel for all things accessibility (a11y-accessibility) I would highly recommend joining this channel as it contains a wealth of information about accessibility and what we can do as developers to be more inclusive.
 
+- - -
+
 ## Technologies Used
 
 👩🏻‍💻 View an example of a completed Technologies Used section [here](https://github.com/kera-cudmore/Bully-Book-Club#Technologies-Used)
@@ -175,6 +173,8 @@ Add any frameworks, libraries or programs used while creating your project.
 Make sure to include things like git, GitHub, the program used to make your wireframes, any programs used to compress your images, did you use a CSS framework like Bootstrap? If so add it here (add the version used).
 
 A great tip for this section is to include them as you use them, that way you won't forget what you ended up using when you get to the end of your project.
+
+- - -
 
 ## Deployment & Local Development
 
@@ -196,6 +196,8 @@ Place instructions on how to fork your project here.
 
 Place instructions on how to clone your project here.
 
+- - -
+
 ## Testing
 
 Start as you mean to go on - and get used to writing a TESTING.md file from the very first project!
@@ -203,6 +205,8 @@ Start as you mean to go on - and get used to writing a TESTING.md file from the 
 Testing requirements aren't massive for your first project, however if you start using a TESTING.md file from your first project you will thank yourself later when completing your later projects, which will contain much more information.
   
 Use this part of the README to link to your TESTING.md file - you can view the example TESTING.md file [here](milestone1-testing.md)
+
+- - -
 
 ## Credits
 
