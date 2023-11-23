@@ -5,32 +5,30 @@ import { useHistory } from "react-router-dom";
 
 import TaskItem from "./TaskItem";
 import taskStyles from "../../styles/TaskPage.module.css";
+import btnStyles from "../../styles/Button.module.css";
 
 function TaskPage() {
   const [tasks, setTasks] = useState([]);
   const [showCompletedTasks, setShowCompletedTasks] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
-  const [searchQuery, setSearchQuery] = useState("");
   const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
     const fetchTasks = async () => {
       try {
-        const response = await axiosReq.get(`/tasks/?search=${searchQuery}`);
-        console.log(response, "Tasks")
+        const response = await axiosReq.get("/tasks/");
         const tasksData = response.data.results;
-        setTasks(tasksData);
+        const sortedTasks = tasksData.sort(
+          (a, b) => new Date(b.updated_at) - new Date(a.updated_at)
+        );
+        setTasks(sortedTasks);
       } catch (err) {
         console.log(err);
       }
     };
 
     fetchTasks();
-  }, [searchQuery]);
-
-  const handleSearch = (event) => {
-    setSearchQuery(event.target.value);
-  };
+  }, []);
 
   const handleMarkAsDone = async (taskId) => {
     try {
@@ -42,7 +40,7 @@ function TaskPage() {
       );
     } catch (err) {
       console.log(err);
-      console.log(err.response.data)
+      console.log(err.response.data);
     }
   };
 
@@ -70,12 +68,12 @@ function TaskPage() {
 
   const handleEditTask = (task) => {
     setEditingTask(task);
-    console.log(task, "Hi")
+    console.log(task, "Hi");
   };
 
   const history = useHistory();
 
-  const handleCreateTask = async () => {
+  const handleCreateTask = () => {
     history.push("/tasks/create");
   };
 
@@ -83,37 +81,20 @@ function TaskPage() {
     <Container>
       <div className={`${taskStyles.Header} text-center mt-5`}>
         <Button
-          className="mb-3"
+          className={`${btnStyles.Button} ${btnStyles.Blue}`}
           onClick={handleCreateTask}
           variant="primary"
           size="lg"
+          style={{ marginBottom: '20px' }}
         >
           Create Task
         </Button>
-        <Form>
-          <Form.Group controlId="searchQuery">
-            <Form.Control
-              type="text"
-              placeholder="Search tasks..."
-              value={searchQuery}
-              onChange={handleSearch}
-            />
-          </Form.Group>
-        </Form>
       </div>
       <div className={`${taskStyles.TaskListContainer}`}>
         {tasks.length === 0 ? (
           <p>No tasks at the moment</p>
         ) : (
-          tasks
-            .filter(
-              (task) =>
-                !showCompletedTasks || (task.is_done && showCompletedTasks)
-            )
-            .sort((a, b) => {
-              return new Date(b.updated_at) - new Date(a.updated_at);
-            })
-            .map((task) => (
+          tasks.map((task) => (
             <TaskItem
               key={task.id}
               task={task}
@@ -122,7 +103,7 @@ function TaskPage() {
               onDeleteTask={handleDeleteTask}
               onEditTask={handleEditTask}
             />
-            ))
+          ))
         )}
       </div>
     </Container>
