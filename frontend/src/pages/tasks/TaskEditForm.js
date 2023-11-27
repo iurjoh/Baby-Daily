@@ -27,7 +27,9 @@ function TaskEditForm({ task, onEditFormClose, onUpdateTask }) {
     if (!editedTask.description.trim()) {
       errors.description = "Description cannot be empty";
     }
-    // Add additional validations for other fields if needed
+    if (!editedTask.date) {
+      errors.date = "Date cannot be empty";
+    }
 
     setValidationErrors(errors);
     return Object.keys(errors).length === 0;
@@ -37,7 +39,7 @@ function TaskEditForm({ task, onEditFormClose, onUpdateTask }) {
     event.preventDefault();
 
     if (!validateForm()) {
-      return; // If there are validation errors, do not proceed with submission
+      return;
     }
 
     try {
@@ -83,7 +85,41 @@ function TaskEditForm({ task, onEditFormClose, onUpdateTask }) {
           {validationErrors.description}
         </Form.Control.Feedback>
       </Form.Group>
-      {/* Other form groups with similar structure for date, priority, and is_done */}
+      <Form.Group controlId="date">
+        <Form.Label>Date</Form.Label>
+        <Form.Control
+          type="date"
+          name="date"
+          value={editedTask.date}
+          onChange={handleChange}
+          isInvalid={!!validationErrors.date}
+        />
+        <Form.Control.Feedback type="invalid">
+          {validationErrors.date}
+        </Form.Control.Feedback>
+      </Form.Group>
+      <Form.Group controlId="priority">
+        <Form.Label>Priority</Form.Label>
+        <Form.Control
+          as="select"
+          name="priority"
+          value={editedTask.priority}
+          onChange={handleChange}
+        >
+          <option value="low">Low</option>
+          <option value="medium">Medium</option>
+          <option value="high">High</option>
+        </Form.Control>
+      </Form.Group>
+      <Form.Group controlId="is_done">
+        <Form.Check
+          type="checkbox"
+          name="is_done"
+          checked={editedTask.is_done}
+          onChange={handleChange}
+          label="Is Done"
+        />
+      </Form.Group>
       <div className="text-center">
         <Button
           variant="secondary"
