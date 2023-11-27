@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Card, Button } from "react-bootstrap";
+import { Card, Button, Badge } from "react-bootstrap";
 import { MoreDropdown } from "../../components/MoreDropdown";
 import WishEditForm from "./WishEditForm";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
@@ -10,6 +10,7 @@ const WishItem = ({
   onUnfulfillWish,
   onDeleteWish,
   onEditWish,
+  onUpdateWishStatus, // New prop to update wish status
 }) => {
   const [showFullWish, setShowFullWish] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
@@ -37,7 +38,9 @@ const WishItem = ({
 
   const handleUpdateWish = (updatedWish) => {
     setEditedWish(updatedWish.data);
+    setIsFulfilled(updatedWish.data.is_fulfilled); // Update isFulfilled state
     setShowEditForm(false);
+    onUpdateWishStatus(updatedWish.data.id, updatedWish.data.is_fulfilled); // Notify parent component
   };
 
   const handleToggleFulfill = () => {
@@ -47,13 +50,28 @@ const WishItem = ({
       onFulfillWish(wish.id);
     }
     setIsFulfilled(!isFulfilled);
+    updateBadge(!isFulfilled);
+  };
+
+  const updateBadge = (isFulfilled) => {
+    // Update the badge variant
+    const newBadgeVariant = isFulfilled ? "success" : "primary";
+    onUpdateWishStatus(wish.id, isFulfilled); // Notify parent component
   };
 
   return (
     <div>
       <Card className="mb-4" style={{ height: "auto" }}>
         <Card.Body onClick={handleTitleClick}>
-          <Card.Title>{editedWish.title}</Card.Title>
+          <Card.Title>
+            {editedWish.title}
+            <Badge
+              variant={isFulfilled ? "success" : "primary"}
+              className="ml-2"
+            >
+              {isFulfilled ? "Fulfilled" : "Not Fulfilled"}
+            </Badge>
+          </Card.Title>
           {!showFullWish ? null : (
             <Card.Body onClick={handleTitleClick}>
               <Card.Title>{editedWish.title}</Card.Title>

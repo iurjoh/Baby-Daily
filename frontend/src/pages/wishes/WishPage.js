@@ -1,22 +1,21 @@
 import React, { useEffect, useState } from "react";
-import { Container, Button, Form } from "react-bootstrap";
+import { Container, Button } from "react-bootstrap";
 import { axiosReq } from "../../api/axiosDefaults";
 import { useHistory } from "react-router-dom";
 
 import WishItem from "./WishItem";
 import wishStyles from "../../styles/WishPage.module.css";
 
-function WishPage() {
+const WishPage = () => {
   const [wishes, setWishes] = useState([]);
   const [showFulfilledWishes, setShowFulfilledWishes] = useState(false);
   const [editingWish, setEditingWish] = useState(null);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [currentUser, setCurrentUser] = useState(null);
+  const history = useHistory();
 
   useEffect(() => {
     const fetchWishes = async () => {
       try {
-        const response = await axiosReq.get(`/wishes/?search=${searchQuery}`);
+        const response = await axiosReq.get("/wishes/");
         const wishesData = response.data.results;
         setWishes(wishesData);
       } catch (err) {
@@ -25,20 +24,12 @@ function WishPage() {
     };
 
     fetchWishes();
-  }, [searchQuery]);
-
-  const handleSearch = (event) => {
-    setSearchQuery(event.target.value);
-  };
+  }, []);
 
   const handleFulfillWish = async (wishId) => {
     try {
       await axiosReq.put(`/wishes/${wishId}/`, { is_fulfilled: true });
-      setWishes((prevWishes) =>
-        prevWishes.map((wish) =>
-          wish.id === wishId ? { ...wish, is_fulfilled: true } : wish
-        )
-      );
+      updateWishStatus(wishId, true);
     } catch (err) {
       console.log(err);
     }
@@ -47,11 +38,7 @@ function WishPage() {
   const handleUnfulfillWish = async (wishId) => {
     try {
       await axiosReq.put(`/wishes/${wishId}/`, { is_fulfilled: false });
-      setWishes((prevWishes) =>
-        prevWishes.map((wish) =>
-          wish.id === wishId ? { ...wish, is_fulfilled: false } : wish
-        )
-      );
+      updateWishStatus(wishId, false);
     } catch (err) {
       console.log(err);
     }
@@ -72,10 +59,16 @@ function WishPage() {
     setEditingWish(wish);
   };
 
-  const history = useHistory();
-
   const handleCreateWish = () => {
     history.push("/wishes/create");
+  };
+
+  const updateWishStatus = (wishId, isFulfilled) => {
+    setWishes((prevWishes) =>
+      prevWishes.map((wish) =>
+        wish.id === wishId ? { ...wish, is_fulfilled: isFulfilled } : wish
+      )
+    );
   };
 
   return (
@@ -89,45 +82,37 @@ function WishPage() {
         >
           Create Wish
         </Button>
-        <Form>
-          <Form.Group controlId="searchQuery">
-            <Form.Control
-              type="text"
-              placeholder="Search wishes..."
-              value={searchQuery}
-              onChange={handleSearch}
-            />
-          </Form.Group>
-        </Form>
       </div>
       <div className={`${wishStyles.WishListContainer}`}>
         {wishes.length === 0 ? (
           <p>No wishes at the moment</p>
         ) : (
-        wishes
-          .filter(
-            (wish) =>
-              !showFulfilledWishes || (wish.is_fulfilled && showFulfilledWishes)
-          )
-          .sort((a, b) => {
-            const dateA = new Date(b.last_modified || b.created_at);
-            const dateB = new Date(a.last_modified || a.created_at);
-            return dateA - dateB;
-          })
-          .map((wish) => (
-            <WishItem
-              key={wish.id}
-              wish={wish}
-              onFulfillWish={handleFulfillWish}
-              onUnfulfillWish={handleUnfulfillWish}
-              onDeleteWish={handleDeleteWish}
-              onEditWish={handleEditWish}
-            />
-          ))        
+          wishes
+            .filter(
+              (wish) =>
+                !showFulfilledWishes ||
+                (wish.is_fulfilled && showFulfilledWishes)
+            )
+            .sort((a, b) => {
+              const dateA = new Date(b.last_modified || b.created_at);
+              const dateB = new Date(a.last_modified || a.created_at);
+              return dateA - dateB;
+            })
+            .map((wish) => (
+              <WishItem
+                key={wish.id}
+                wish={wish}
+                onFulfillWish={handleFulfillWish}
+                onUnfulfillWish={handleUnfulfillWish}
+                onDeleteWish={handleDeleteWish}
+                onEditWish={handleEditWish}
+                onUpdateWishStatus={updateWishStatus}
+              />
+            ))
         )}
       </div>
     </Container>
   );
-}
+};
 
 export default WishPage;

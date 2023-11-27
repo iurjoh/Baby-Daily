@@ -24,6 +24,10 @@
     display: inline-flex;
 }
 
+.fulfilled-wish {
+    background-color: #d4edda;
+}
+
 @media screen and (max-width: 1200px) {
     .Header {
         font-size: 36px;
