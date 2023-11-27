@@ -1,11 +1,13 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
 import { axiosRes } from "../../api/axiosDefaults";
 import { useHistory } from "react-router-dom";
 
 function WishEditForm({ wish, onEditFormClose, onUpdateWish }) {
   const [editedWish, setEditedWish] = useState(wish);
+  const [validationErrors, setValidationErrors] = useState({});
   const history = useHistory();
 
   const handleChange = (event) => {
@@ -17,9 +19,33 @@ function WishEditForm({ wish, onEditFormClose, onUpdateWish }) {
     }));
   };
 
+  const validateForm = () => {
+    const errors = {};
+    if (!editedWish.title.trim()) {
+      errors.title = "Title cannot be empty";
+    }
+    if (!editedWish.description.trim()) {
+      errors.description = "Description cannot be empty";
+    }
+    if (isNaN(editedWish.price) || editedWish.price <= 0) {
+      errors.price = "Price must be a positive number";
+    } else if (!/^\d+(\.\d{1,2})?$/.test(editedWish.price.toString())) {
+      errors.price = "Price can have up to 2 decimal places";
+    }
+    if (!editedWish.purchase_link.trim()) {
+      errors.purchase_link = "Purchase Link cannot be empty";
+    }
+
+    setValidationErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log(Form.value)
+
+    if (!validateForm()) {
+      return;
+    }
 
     try {
       const updatedWish = await axiosRes.put(`/wishes/${editedWish.id}/`, editedWish);
@@ -34,6 +60,11 @@ function WishEditForm({ wish, onEditFormClose, onUpdateWish }) {
 
   return (
     <Form onSubmit={handleSubmit} encType="multipart/form-data">
+      {Object.keys(validationErrors).length > 0 && (
+        <Alert variant="danger">
+          Please fill in all required fields before submitting the form.
+        </Alert>
+      )}
       <Form.Group controlId="title">
         <Form.Label>Title</Form.Label>
         <Form.Control
@@ -41,7 +72,11 @@ function WishEditForm({ wish, onEditFormClose, onUpdateWish }) {
           name="title"
           value={editedWish.title}
           onChange={handleChange}
+          isInvalid={!!validationErrors.title}
         />
+        <Form.Control.Feedback type="invalid">
+          {validationErrors.title}
+        </Form.Control.Feedback>
       </Form.Group>
       <Form.Group controlId="description">
         <Form.Label>Description</Form.Label>
@@ -50,7 +85,11 @@ function WishEditForm({ wish, onEditFormClose, onUpdateWish }) {
           name="description"
           value={editedWish.description}
           onChange={handleChange}
+          isInvalid={!!validationErrors.description}
         />
+        <Form.Control.Feedback type="invalid">
+          {validationErrors.description}
+        </Form.Control.Feedback>
       </Form.Group>
       <Form.Group controlId="price">
         <Form.Label>Price</Form.Label>
@@ -59,7 +98,11 @@ function WishEditForm({ wish, onEditFormClose, onUpdateWish }) {
           name="price"
           value={editedWish.price}
           onChange={handleChange}
+          isInvalid={!!validationErrors.price}
         />
+        <Form.Control.Feedback type="invalid">
+          {validationErrors.price}
+        </Form.Control.Feedback>
       </Form.Group>
       <Form.Group controlId="purchase_link">
         <Form.Label>Purchase Link</Form.Label>
