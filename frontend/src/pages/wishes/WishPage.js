@@ -5,6 +5,7 @@ import { useHistory } from "react-router-dom";
 
 import WishItem from "./WishItem";
 import wishStyles from "../../styles/WishPage.module.css";
+import btnStyles from "../../styles/Button.module.css";
 
 const WishPage = () => {
   const [wishes, setWishes] = useState([]);
@@ -75,10 +76,11 @@ const WishPage = () => {
     <Container>
       <div className={`${wishStyles.Header} text-center mt-5`}>
         <Button
-          className="mb-3"
+          className={`${btnStyles.Button} ${btnStyles.Blue}`}
           onClick={handleCreateWish}
           variant="primary"
           size="lg"
+          style={{ marginBottom: '20px' }}
         >
           Create Wish
         </Button>

@@ -4,6 +4,8 @@ import Button from "react-bootstrap/Button";
 import Alert from "react-bootstrap/Alert";
 import { axiosRes } from "../../api/axiosDefaults";
 import { useHistory } from "react-router-dom";
+import wishStyles from "../../styles/WishPage.module.css";
+import btnStyles from "../../styles/Button.module.css";
 
 function WishEditForm({ wish, onEditFormClose, onUpdateWish }) {
   const [editedWish, setEditedWish] = useState(wish);
@@ -122,15 +124,22 @@ function WishEditForm({ wish, onEditFormClose, onUpdateWish }) {
           label="Fulfilled"
         />
       </Form.Group>
-      <div className="text-center" style={{ marginBottom: '20px' }}>
+      <div className={`${wishStyles.Header} text-center mt-5`} style={{ marginBottom: '20px' }}>
         <Button
-          variant="secondary"
+          className={`${btnStyles.Button} ${btnStyles.Blue}`}
+          variant="primary"
+          size="lg"
           onClick={onEditFormClose}
           style={{ marginRight: "10px" }}
         >
           Cancel
         </Button>
-        <Button variant="primary" type="submit">
+        <Button
+          className={`${btnStyles.Button} ${btnStyles.Blue}`}
+          variant="primary"
+          size="lg"
+          type="submit"
+        >
           Save
         </Button>
       </div>

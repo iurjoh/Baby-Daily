@@ -10,7 +10,7 @@ const WishItem = ({
   onUnfulfillWish,
   onDeleteWish,
   onEditWish,
-  onUpdateWishStatus, // New prop to update wish status
+  onUpdateWishStatus,
 }) => {
   const [showFullWish, setShowFullWish] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
@@ -38,9 +38,9 @@ const WishItem = ({
 
   const handleUpdateWish = (updatedWish) => {
     setEditedWish(updatedWish.data);
-    setIsFulfilled(updatedWish.data.is_fulfilled); // Update isFulfilled state
+    setIsFulfilled(updatedWish.data.is_fulfilled);
     setShowEditForm(false);
-    onUpdateWishStatus(updatedWish.data.id, updatedWish.data.is_fulfilled); // Notify parent component
+    onUpdateWishStatus(updatedWish.data.id, updatedWish.data.is_fulfilled);
   };
 
   const handleToggleFulfill = () => {
@@ -54,9 +54,7 @@ const WishItem = ({
   };
 
   const updateBadge = (isFulfilled) => {
-    // Update the badge variant
-    const newBadgeVariant = isFulfilled ? "success" : "primary";
-    onUpdateWishStatus(wish.id, isFulfilled); // Notify parent component
+    onUpdateWishStatus(wish.id, isFulfilled);
   };
 
   return (
