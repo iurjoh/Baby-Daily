@@ -122,8 +122,12 @@ function WishEditForm({ wish, onEditFormClose, onUpdateWish }) {
           label="Fulfilled"
         />
       </Form.Group>
-      <div className="text-center">
-        <Button variant="secondary" onClick={onEditFormClose}>
+      <div className="text-center" style={{ marginBottom: '20px' }}>
+        <Button
+          variant="secondary"
+          onClick={onEditFormClose}
+          style={{ marginRight: "10px" }}
+        >
           Cancel
         </Button>
         <Button variant="primary" type="submit">
