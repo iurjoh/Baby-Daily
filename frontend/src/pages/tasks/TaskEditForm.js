@@ -120,7 +120,7 @@ function TaskEditForm({ task, onEditFormClose, onUpdateTask }) {
           label="Is Done"
         />
       </Form.Group>
-      <div className="text-center">
+      <div className="text-center" style={{ marginBottom: '20px' }}>
         <Button
           variant="secondary"
           onClick={onEditFormClose}
