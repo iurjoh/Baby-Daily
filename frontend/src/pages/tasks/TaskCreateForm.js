@@ -1,9 +1,12 @@
 import React, { useState } from "react";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
 import btnStyles from "../../styles/Button.module.css";
 import { axiosReq } from "../../api/axiosDefaults";
 import { useHistory } from "react-router-dom";
+import taskStyles from "../../styles/TaskPage.module.css";
+
 
 function TaskCreateForm({ onTaskCreated }) {
   const [taskData, setTaskData] = useState({
@@ -14,6 +17,7 @@ function TaskCreateForm({ onTaskCreated }) {
     is_done: false,
   });
 
+  const [validationErrors, setValidationErrors] = useState({});
   const { title, description, date, priority, is_done } = taskData;
   const history = useHistory();
 
@@ -24,8 +28,29 @@ function TaskCreateForm({ onTaskCreated }) {
     });
   };
 
+  const validateForm = () => {
+    const errors = {};
+    if (!title.trim()) {
+      errors.title = "Title cannot be empty";
+    }
+    if (!description.trim()) {
+      errors.description = "Description cannot be empty";
+    }
+    if (!date) {
+      errors.date = "Date cannot be empty";
+    }
+
+    setValidationErrors(errors);
+    return Object.keys(errors).length === 0;
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+
+    if (!validateForm()) {
+      return;
+    }
+
     const formData = new FormData();
 
     formData.append("title", title);
@@ -33,6 +58,7 @@ function TaskCreateForm({ onTaskCreated }) {
     formData.append("date", date);
     formData.append("priority", priority);
     formData.append("is_done", is_done);
+    
     try {
       const { data } = await axiosReq.post("/tasks/", formData);
       history.push("/tasks");
@@ -43,6 +69,11 @@ function TaskCreateForm({ onTaskCreated }) {
 
   return (
     <Form onSubmit={handleSubmit}>
+      {Object.keys(validationErrors).length > 0 && (
+        <Alert variant="danger">
+          Please fill in all required fields before submitting the form.
+        </Alert>
+      )}
       <Form.Group controlId="title">
         <Form.Label>Title</Form.Label>
         <Form.Control
@@ -50,7 +81,11 @@ function TaskCreateForm({ onTaskCreated }) {
           name="title"
           value={title}
           onChange={handleChange}
+          isInvalid={!!validationErrors.title}
         />
+        <Form.Control.Feedback type="invalid">
+          {validationErrors.title}
+        </Form.Control.Feedback>
       </Form.Group>
 
       <Form.Group controlId="description">
@@ -61,7 +96,11 @@ function TaskCreateForm({ onTaskCreated }) {
           name="description"
           value={description}
           onChange={handleChange}
+          isInvalid={!!validationErrors.description}
         />
+        <Form.Control.Feedback type="invalid">
+          {validationErrors.description}
+        </Form.Control.Feedback>
       </Form.Group>
 
       <Form.Group controlId="date">
@@ -71,7 +110,11 @@ function TaskCreateForm({ onTaskCreated }) {
           name="date"
           value={date}
           onChange={handleChange}
+          isInvalid={!!validationErrors.date}
         />
+        <Form.Control.Feedback type="invalid">
+          {validationErrors.date}
+        </Form.Control.Feedback>
       </Form.Group>
 
       <Form.Group controlId="priority">
@@ -98,16 +141,25 @@ function TaskCreateForm({ onTaskCreated }) {
           }
         />
       </Form.Group>
-
-      <Button
+      <div className={`${taskStyles.Header} text-center mt-5`} style={{ marginBottom: '20px' }}>
+        <Button
         className={`${btnStyles.Button} ${btnStyles.Blue}`}
+        variant="primary"
+        size="lg"
+        style={{ marginRight: "10px" }}
         onClick={() => history.goBack()}
       >
         Cancel
       </Button>
-      <Button className={`${btnStyles.Button} ${btnStyles.Blue}`} type="submit">
+      <Button
+        className={`${btnStyles.Button} ${btnStyles.Blue}`}
+        variant="primary"
+        size="lg"
+        type="submit"
+      >
         Create
       </Button>
+      </div>
     </Form>
   );
 }
