@@ -37,20 +37,17 @@ const TaskItem = ({ task, onMarkAsDone, onMarkAsNotDone, onDeleteTask, onEditTas
     <div>
       <Card className="mb-4" style={{ height: "auto" }}>
         <Card.Body onClick={handleTitleClick}>
-          <Card.Title>{editedTask.title}</Card.Title>
-          {!showFullTask ? null : (
-            <Card.Body onClick={handleTitleClick}>
+          {!showFullTask ? (
+            <Card.Title>{editedTask.title}</Card.Title>
+          ) : (
+            <>
               <Card.Title>{editedTask.title}</Card.Title>
-              {!showFullTask ? null : (
-                <>
-                  <Card.Text>Title: {editedTask.title}</Card.Text>
-                  <Card.Text>Description: {editedTask.description}</Card.Text>
-                  <Card.Text>Date: {editedTask.date}</Card.Text>
-                  <Card.Text>Priority: {editedTask.priority}</Card.Text>
-                  <Card.Text>Is Done: {editedTask.is_done ? "Yes" : "No"}</Card.Text>
-                </>
-              )}
-            </Card.Body>
+              <Card.Text>Title: {editedTask.title}</Card.Text>
+              <Card.Text>Description: {editedTask.description}</Card.Text>
+              <Card.Text>Date: {editedTask.date}</Card.Text>
+              <Card.Text>Priority: {editedTask.priority}</Card.Text>
+              <Card.Text>Is Done: {editedTask.is_done ? "Yes" : "No"}</Card.Text>
+            </>
           )}
         </Card.Body>
         <MoreDropdown

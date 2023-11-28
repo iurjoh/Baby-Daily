@@ -71,33 +71,28 @@ const WishItem = ({
             </Badge>
           </Card.Title>
           {!showFullWish ? null : (
-            <Card.Body onClick={handleTitleClick}>
-              <Card.Title>{editedWish.title}</Card.Title>
-              {!showFullWish ? null : (
-                <>
-                  <Card.Text>Title: {editedWish.title}</Card.Text>
-                  <Card.Text>Price: {editedWish.price}</Card.Text>
-                  <Card.Text>Description: {editedWish.description}</Card.Text>
-                  <Card.Text>
-                    <a
-                      href={editedWish.purchase_link}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Buy Here
-                    </a>
-                  </Card.Text>
-                  <Card.Text>
-                    <Button
-                      variant={isFulfilled ? "success" : "primary"}
-                      onClick={handleToggleFulfill}
-                    >
-                      {isFulfilled ? "Wish Granted" : "Grant this Wish!"}
-                    </Button>
-                  </Card.Text>
-                </>
-              )}
-            </Card.Body>
+            <>
+              <Card.Text>Title: {editedWish.title}</Card.Text>
+              <Card.Text>Price: {editedWish.price}</Card.Text>
+              <Card.Text>Description: {editedWish.description}</Card.Text>
+              <Card.Text>
+                <a
+                  href={editedWish.purchase_link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Buy Here
+                </a>
+              </Card.Text>
+              <Card.Text>
+                <Button
+                  variant={isFulfilled ? "success" : "primary"}
+                  onClick={handleToggleFulfill}
+                >
+                  {isFulfilled ? "Wish Granted" : "Grant this Wish!"}
+                </Button>
+              </Card.Text>
+            </>
           )}
         </Card.Body>
         <MoreDropdown
