@@ -6,10 +6,17 @@ import { axiosRes } from "../../api/axiosDefaults";
 import { useHistory } from "react-router-dom";
 import taskStyles from "../../styles/TaskPage.module.css";
 import btnStyles from "../../styles/Button.module.css";
+import {
+  useCurrentUser,
+  useSetCurrentUser,
+} from "../../contexts/CurrentUserContext";
 
 function TaskEditForm({ task, onEditFormClose, onUpdateTask }) {
   const [editedTask, setEditedTask] = useState(task);
   const [validationErrors, setValidationErrors] = useState({});
+  const [showAlert, setShowAlert] = useState(false);
+  const currentUser = useCurrentUser();
+  const setCurrentUser = useSetCurrentUser();
   const history = useHistory();
 
   const handleChange = (event) => {
@@ -44,18 +51,31 @@ function TaskEditForm({ task, onEditFormClose, onUpdateTask }) {
       return;
     }
 
+    const isAdmin = currentUser?.isAdmin;
+    const isOwner = editedTask.owner === currentUser?.username;
+
+    if (!isAdmin && !isOwner) {
+      setShowAlert(true);
+      return;
+    }
+
     try {
       const updatedTask = await axiosRes.put(`/tasks/${editedTask.id}/`, editedTask);
       onUpdateTask(updatedTask);
       onEditFormClose();
       history.push('/tasks/');
     } catch (err) {
-      console.log("wrong redirect");
+      console.log("Error updating task:", err);
     }
   };
 
   return (
     <Form onSubmit={handleSubmit}>
+      {showAlert && (
+        <Alert variant="danger">
+          You do not have permission to edit or delete this task.
+        </Alert>
+      )}
       {Object.keys(validationErrors).length > 0 && (
         <Alert variant="danger">
           Please fill in all required fields before submitting the form.
@@ -129,7 +149,7 @@ function TaskEditForm({ task, onEditFormClose, onUpdateTask }) {
           size="lg"
           onClick={onEditFormClose}
           style={{ marginRight: "10px" }}
-          >
+        >
           Cancel
         </Button>
         <Button
