@@ -65,7 +65,7 @@ function WishCreateForm({ onWishCreated }) {
     formData.append("is_fulfilled", isFulfilled);
 
     try {
-      const { data } = await axiosReq.post("/wishes/", formData);
+      await axiosReq.post("/wishes/", formData);
       history.push("/wishes/");
     } catch (err) {
       console.log(err);
