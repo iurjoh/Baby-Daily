@@ -5,7 +5,7 @@ import TaskEditForm from "./TaskEditForm";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
-const TaskItem = ({ task, onMarkAsDone, onMarkAsNotDone, onDeleteTask, onEditTask }) => {
+const TaskItem = ({ task, onDeleteTask, onEditTask }) => {
   const [showFullTask, setShowFullTask] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
