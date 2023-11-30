@@ -1,6 +1,6 @@
 # Baby Daily - Smiles, steps and stories. Daily!
 
-Baby Daily is a website designed to be responsive that allows users to create their posts just like on a social network, but privately, with access restricted to registered family and friends. This way, parents can feel safer posting photos, wish lists, marking tasks, leaving comments, liking posts, among other functions, and sharing all of this within their private circle.
+Baby Daily is a responsive website that provides a secure platform for parents to share their baby's milestones, updates, and moments with family and close friends. The platform prioritizes privacy, ensuring that shared content is accessible only to registered users within a trusted circle. Parents can post photos, create wish lists, manage tasks, leave comments, and engage in a private and secure community.
 
 ![Baby Daily](./frontend/src/assets/site.JPG)
 
@@ -18,7 +18,10 @@ Visit the site [here](https://iurjoh-baby-daily-backend-api-1674476236b8.herokua
   * [Features](#Features)
   * [Accessibility](#Accessibility)
 
+* [Database Schema](#Database-Schema)
+
 * [Technologies Used](#Technologies-Used)
+  * [](#)
   * [Languages Used](#Languages-Used)
   * [Frameworks, Libraries & Programs Used](#Frameworks,-Libraries-&-Programs-Used)
 
@@ -61,7 +64,7 @@ Baby Daily is a secure online platform designed exclusively for parents to share
 * Like each of the cutest photos and keep your likes list updated.
 * A task list for users to track their baby's milestones and activities.
 * Parents' wish list with useful products for the baby.
-* User area with your photo, brief profile description, your posts, followers and followings
+* User area with your photo, brief profile description, your posts, followers and followings.
 
 ### User Stories
 
@@ -71,7 +74,7 @@ All User Stories were efficiently organized within the Kanban board available wi
 * In Progress: This item is actively being worked on in the Backend and/or Frontend.
 * Done: All tasks have been completed.
 
-Here is a list of all my User Sotories create for this project:
+Here is a list of all my User Stories create for this project:
 
 * View post list: As a **Site User** I can **view a list of posts** so that **I can select one to view and interact**
 * Open a post: As a **Site User** I can **click on a post** so that **I can open it and interact**
@@ -162,35 +165,61 @@ Code Institute have an amazing channel for all things accessibility (a11y-access
 
 - - -
 
-## Technologies Used
+## Database Schema
 
-👩🏻‍💻 View an example of a completed Technologies Used section [here](https://github.com/kera-cudmore/Bully-Book-Club#Technologies-Used)
+This document provides an overview of the structure and relationships to this database. It is designed designed to support parents in sharing private information about their babies with family and close friends, ensuring a space of security and privacy and store and manage data from the precious moments and details of each baby's journey. Parents can use the app to share information such as milestones, health updates, daily tasks, wish list, and memorable events with their trusted circle. It is organized into several tables, each representing a specific entity or relationship within the system.
 
-### Languages Used
-
-Make a note here of all the languages used in creating your project. For the first project this will most likely just be HTML & CSS.
-
-### Frameworks, Libraries & Programs Used
-
-Add any frameworks, libraries or programs used while creating your project.
-
-Make sure to include things like git, GitHub, the program used to make your wireframes, any programs used to compress your images, did you use a CSS framework like Bootstrap? If so add it here (add the version used).
-
-A great tip for this section is to include them as you use them, that way you won't forget what you ended up using when you get to the end of your project.
+![Database](./frontend/src/assets/database.JPG)
 
 - - -
 
-## Deployment & Local Development
+## Technologies Used
 
-👩🏻‍💻 View an example of a completed Deployment & Local Development section [here](https://github.com/kera-cudmore/TheQuizArms#Deployment)
+### Backend
+
+* Django (v. 3.2.20): Web framework used for building the backend of the application.
+* Django Rest Framework (DRF) (v. 3.14.0) : Powerful and flexible toolkit for building Web APIs in Django.
+* Cloudinary  (v. 1.34.0) : Cloud-based media management platform for handling and storing media files.
+* dj_database_url (v. 0.5.0): A Django utility to utilize the 12factor inspired DATABASE_URL environment variable to configure your Django application.
+
+### Authentication and Authorization
+
+* dj_rest_auth (v. 2.1.9): Django Rest Framework extension for handling authentication, including JWT-based authentication.
+* Allauth (v. 3.2.2): Authentication app for handling user accounts.
+* Corsheaders (v. 4.2.0): Django app for handling Cross-Origin Resource Sharing (CORS).
+
+
+### Frontend
+
+* React: A JavaScript library for building user interfaces.
+* React Bootstrap: React components based on Bootstrap for building responsive and mobile-first websites.
+* Axios: Promise-based HTTP client for making requests to the backend API.
+
+### Database
+
+* SQLite - Development (v. 0.4.4): Lightweight, file-based database used during development.
+* PostgreSQL - Production (v. 2.9.7): Open-source relational database used in production, configured using the dj_database_url package.
 
 ### Deployment
 
-Include instructions here on how to deploy your project. For your first project you will most likely be using GitHub Pages.
+* Gitpod: Online integrated development environment (IDE) used for development.
+* Heroku: Cloud platform for deploying and hosting the production application.
 
-### Local Development
+### Other Tools and Utilities
 
-The local development section gives instructions on how someone else could make a copy of your project to play with on their local machine. This section will get more complex in the later projects, and can be a great reference to yourself if you forget how to do this.
+* Whitenoise (v. 6.4.0): Simplifies serving of static files during production.
+
+### Languages Used
+
+* JavaScript: ES6
+ 
+* CSS: CSS3
+ 
+* Python: Python 3
+ 
+* HTML: HTML5
+
+- - -
 
 #### How to Fork
 
