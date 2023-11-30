@@ -6,17 +6,14 @@ import { axiosRes } from "../../api/axiosDefaults";
 import { useHistory } from "react-router-dom";
 import taskStyles from "../../styles/TaskPage.module.css";
 import btnStyles from "../../styles/Button.module.css";
-import {
-  useCurrentUser,
-  useSetCurrentUser,
-} from "../../contexts/CurrentUserContext";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
+
 
 function TaskEditForm({ task, onEditFormClose, onUpdateTask }) {
   const [editedTask, setEditedTask] = useState(task);
   const [validationErrors, setValidationErrors] = useState({});
   const [showAlert, setShowAlert] = useState(false);
   const currentUser = useCurrentUser();
-  const setCurrentUser = useSetCurrentUser();
   const history = useHistory();
 
   const handleChange = (event) => {

@@ -1,17 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { Container, Button, Form } from "react-bootstrap";
+import { Container, Button } from "react-bootstrap";
 import { axiosReq } from "../../api/axiosDefaults";
 import { useHistory } from "react-router-dom";
-
 import TaskItem from "./TaskItem";
 import taskStyles from "../../styles/TaskPage.module.css";
 import btnStyles from "../../styles/Button.module.css";
 
 function TaskPage() {
   const [tasks, setTasks] = useState([]);
-  const [showCompletedTasks, setShowCompletedTasks] = useState(false);
   const [editingTask, setEditingTask] = useState(null);
-  const [currentUser, setCurrentUser] = useState(null);
 
   useEffect(() => {
     const fetchTasks = async () => {

@@ -60,7 +60,7 @@ function TaskCreateForm({ onTaskCreated }) {
     formData.append("is_done", is_done);
     
     try {
-      const { data } = await axiosReq.post("/tasks/", formData);
+      await axiosReq.post("/tasks/", formData);
       history.push("/tasks");
     } catch (err) {
       console.log(err);
