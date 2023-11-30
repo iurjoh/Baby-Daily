@@ -9,7 +9,6 @@ import btnStyles from "../../styles/Button.module.css";
 
 const WishPage = () => {
   const [wishes, setWishes] = useState([]);
-  const [showFulfilledWishes, setShowFulfilledWishes] = useState(false);
   const [editingWish, setEditingWish] = useState(null);
   const history = useHistory();
 
@@ -90,11 +89,6 @@ const WishPage = () => {
           <p>No wishes at the moment</p>
         ) : (
           wishes
-            .filter(
-              (wish) =>
-                !showFulfilledWishes ||
-                (wish.is_fulfilled && showFulfilledWishes)
-            )
             .sort((a, b) => {
               const dateA = new Date(b.last_modified || b.created_at);
               const dateB = new Date(a.last_modified || a.created_at);
