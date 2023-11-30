@@ -1,14 +1,20 @@
 import React, { useState } from "react";
-import { Card } from "react-bootstrap";
+import { Card, Alert } from "react-bootstrap";
 import { MoreDropdown } from "../../components/MoreDropdown";
 import TaskEditForm from "./TaskEditForm";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
 const TaskItem = ({ task, onMarkAsDone, onMarkAsNotDone, onDeleteTask, onEditTask }) => {
   const [showFullTask, setShowFullTask] = useState(false);
   const [showEditForm, setShowEditForm] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [editedTask, setEditedTask] = useState({ ...task });
+  const [showDeleteAlert, setShowDeleteAlert] = useState(false);
+
+  const currentUser = useCurrentUser();
+  const isOwner = currentUser?.username === editedTask.owner;
+  const isAdmin = currentUser?.isAdmin;
 
   const handleTitleClick = () => {
     setShowFullTask(!showFullTask);
@@ -20,7 +26,11 @@ const TaskItem = ({ task, onMarkAsDone, onMarkAsNotDone, onDeleteTask, onEditTas
   };
 
   const handleDelete = () => {
-    setShowDeleteModal(true);
+    if (isOwner || isAdmin) {
+      setShowDeleteModal(true);
+    } else {
+      setShowDeleteAlert(true);
+    }
   };
 
   const confirmDelete = () => {
@@ -50,12 +60,14 @@ const TaskItem = ({ task, onMarkAsDone, onMarkAsNotDone, onDeleteTask, onEditTas
             </>
           )}
         </Card.Body>
-        <MoreDropdown
-          handleEdit={handleEdit}
-          handleDelete={handleDelete}
-          showEdit={!showEditForm && showFullTask}
-          showDelete={!showEditForm && showFullTask}
-        />
+        {isOwner || isAdmin ? (
+          <MoreDropdown
+            handleEdit={handleEdit}
+            handleDelete={handleDelete}
+            showEdit={!showEditForm && showFullTask}
+            showDelete={!showEditForm && showFullTask}
+          />
+        ) : null}
       </Card>
       {showEditForm && (
         <TaskEditForm
@@ -69,6 +81,11 @@ const TaskItem = ({ task, onMarkAsDone, onMarkAsNotDone, onDeleteTask, onEditTas
         onClose={() => setShowDeleteModal(false)}
         onDelete={confirmDelete}
       />
+      {showDeleteAlert && (
+        <Alert variant="danger" onClose={() => setShowDeleteAlert(false)} dismissible>
+          You do not have permission to delete this task.
+        </Alert>
+      )}
     </div>
   );
 };
