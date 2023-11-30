@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { Card, Button, Badge } from "react-bootstrap";
+import { Card, Button, Badge, Alert } from "react-bootstrap";
 import { MoreDropdown } from "../../components/MoreDropdown";
 import WishEditForm from "./WishEditForm";
 import DeleteConfirmationModal from "./DeleteConfirmationModal";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
 
 const WishItem = ({
   wish,
@@ -17,6 +18,10 @@ const WishItem = ({
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [editedWish, setEditedWish] = useState({ ...wish });
   const [isFulfilled, setIsFulfilled] = useState(wish.is_fulfilled);
+  const [showDeleteAlert, setShowDeleteAlert] = useState(false);
+
+  const currentUser = useCurrentUser();
+  const isOwner = currentUser?.username === editedWish.owner;
 
   const handleTitleClick = () => {
     setShowFullWish(!showFullWish);
@@ -28,7 +33,11 @@ const WishItem = ({
   };
 
   const handleDelete = () => {
-    setShowDeleteModal(true);
+    if (isOwner) {
+      setShowDeleteModal(true);
+    } else {
+      setShowDeleteAlert(true);
+    }
   };
 
   const confirmDelete = () => {
@@ -95,12 +104,14 @@ const WishItem = ({
             </>
           )}
         </Card.Body>
-        <MoreDropdown
-          handleEdit={handleEdit}
-          handleDelete={handleDelete}
-          showEdit={!showEditForm && showFullWish}
-          showDelete={!showEditForm && showFullWish}
-        />
+        {isOwner ? (
+          <MoreDropdown
+            handleEdit={handleEdit}
+            handleDelete={handleDelete}
+            showEdit={!showEditForm && showFullWish}
+            showDelete={!showEditForm && showFullWish}
+          />
+        ) : null}
       </Card>
       {showEditForm && (
         <WishEditForm
@@ -114,6 +125,11 @@ const WishItem = ({
         onClose={() => setShowDeleteModal(false)}
         onDelete={confirmDelete}
       />
+      {showDeleteAlert && (
+        <Alert variant="danger" onClose={() => setShowDeleteAlert(false)} dismissible>
+          You do not have permission to delete this wish.
+        </Alert>
+      )}
     </div>
   );
 };
