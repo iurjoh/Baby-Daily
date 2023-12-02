@@ -394,27 +394,29 @@ To clone the iurjoh/bd_backend repository:
 
 ## Testing
 
-### W3C Validator
+### Automated Testing
+
+#### W3C Validator
 
 [W3C](https://validator.w3.org/) was used to validate the HTML on all pages of the website. It was also used to validate the CSS. After checking the entire Baby Daily code there were no errors or warnings to show, therefore the code is validated.
 
 ![testHTML](./frontend/src/assets/testHTML.JPG)
 
-### JavaScript Validator
+#### JavaScript Validator
 
-[jshint](https://jshint.com/) was used to validate the JavaScript.
+[jshint](https://jshint.com/) was used to validate the JavaScript adn all code create during development and deployment.
 
-### Lighthouse
+#### Lighthouse
 
 We used Lighthouse within the Chrome Developer Tools to test the performance, accessibility, best practices and SEO of the website.
 
-#### Desktop Results
+-  Desktop Results
 
 Overall, the lighthouse scores are very good. A future implementation would be consider opportunities described in the performance analysis with a view to improving the score, which, despite being good, could be even better. All other areas evaluated were very successful.
 
 ![testLighthouse](./frontend/src/assets/testLighthouse.JPG)
 
-### Mobile Results
+-  Mobile Results
 
 With a considerable margin of improvement, it would be possible to develop a project with a slightly higher performance rating if this project:
 * Serves images in next-gen formats
@@ -424,28 +426,176 @@ With a considerable margin of improvement, it would be possible to develop a pro
 
 ![testLighthousemobile](./frontend/src/assets/testLighthousemobile.JPG)
 
+### Manual Testing
+
+* User Registration:
+  * Ensure the sign-up form is user-friendly and includes necessary fields.
+  * Verify that users can successfully register an account on the platform.
+  * Check for proper error messages when there are validation issues during registration.
+
+![sign up](./frontend/src/assets/sign%20up.JPG)
+
+![sign up error](./frontend/src/assets/sign%20up%20error.JPG)
+
+* User Authentication:
+  * Confirm that the sign-in form provides a secure login interface.
+  * Validate that registered users can log in successfully.
+  * Verify that incorrect login credentials result in appropriate error messages.
+
+![sign in](./frontend/src/assets/sign%20in.JPG)
+
+![sign in error](./frontend/src/assets/sign%20in%20error.JPG)
+
+* Post Interaction:
+  * View post list and confirm the display of a curated list of posts.
+  * Open a post and ensure it opens correctly, displaying associated content.
+  * Verify that users can interact with posts, such as liking or leaving comments.
+
+  ![likes-comments](./frontend/src/assets/likes-comments.jpg)
+
+* Comments Management:
+  * Access the comments page to see a centralized space displaying comments.
+  * Utilize the comments create/edit form to create and modify comments on posts.
+  * Confirm that comments are correctly displayed on individual post pages.
+
+  ![comments](./frontend/src/assets/comments.JPG)
+
+* Profile Functions:
+  * Navigate to the profiles page to view an overview of user profiles.
+  * Check the popular profiles list for highlighting active or influential users.
+  * Use the profile edit form to customize and update user profile information.
+  * Verify the proper functioning of the user name form for setting or modifying displayed usernames.
+  * Confirm that the profile page aggregates individual user posts and activities accurately.
+
+  ![profile](./frontend/src/assets/testprofile.JPG)
+
+  ![profileedit](./frontend/src/assets/testprofileedit.JPG)
+
+* Task List Management:
+  * Visit the tasks list page to view a comprehensive list of tasks.
+  * Use the task create/edit form to create and modify tasks efficiently.
+  * Ensure tasks are correctly displayed, providing an overview of ongoing and completed activities.
+
+![tasklist](./frontend/src/assets/testtasklist.JPG)
+
+![taskitem](./frontend/src/assets/testtaskitem.JPG)
+
+![taskedit](./frontend/src/assets/testtaskedit.JPG)
+
+* Wish List Management:
+  * Access the wish list page to view a curated collection of user-generated wish lists.
+  * Use the wish list create/edit form to create and modify personalized wish lists.
+  * Verify that wish lists offer insights into parents' preferences for baby-related items.
+
+![wishlist](./frontend/src/assets/testwishlist.JPG)
+
+![wishitem](./frontend/src/assets/testwishitem.JPG)
+
+![wishedit](./frontend/src/assets/testwishedit.JPG)
+
+* Navigation and UI Elements:
+  * Confirm the presence and functionality of the NavBar for seamless navigation.
+  * Test the MoreDropDown menu for providing additional options or features.
+  * Verify that the page not found is displayed appropriately for non-existent or unavailable pages.
+  * Test the search bar for responsiveness and if allows users to input search queries.
+  * Test most folloed profiles adding and removing a user from the list using follow/unfollow button.
+
+![testnavbar](./frontend/src/assets/testnavbar.JPG)
+
+![testmdd1](./frontend/src/assets/testmddeditdelete.JPG)
+
+![testmdd2](./frontend/src/assets/testmddprofile.JPG)
+
+![testnotfound](./frontend/src/assets/testnotfound.JPG)
+
+![testsearchbar](./frontend/src/assets/testsearchbar.jpg)
+
+![testfollow](./frontend/src/assets/testfollowrs.JPG)
+
+* Asset Management:
+  * Test the tool used for adding multimedia elements, images, and text to new posts.
+  * Confirm that assets enhance the visual and interactive aspects of a new post.
+
+![testasset](./frontend/src/assets/testasset.JPG)
+
+* Infinite Scrolling:
+  * Scroll through the posts page to ensure infinite scrolling works smoothly.
+  * Confirm that additional posts load seamlessly as the user scrolls down the page.
+
+### Bugs
+
+All bugs found during development were resolved through decoding, code cleaning, refactoring and restructuring, also was used comparison and typing error tools, forums and help from slack and the Code Institute tutor website.
+
+- - -
+
+## Requirements
+
+* asgiref==3.7.2
+* cloudinary==1.34.0
+* dj-database-url==0.5.0
+* dj-rest-auth==2.1.9
+* Django==3.2.20
+* django-allauth==0.44.0
+* django-cloudinary-storage==0.3.0
+* django-cors-headers==4.2.0
+* django-filter==23.2
+* djangorestframework==3.14.0
+* djangorestframework-simplejwt==5.3.0
+* gunicorn==21.2.0
+* oauthlib==3.2.2
+* Pillow==8.2.0
+* psycopg2==2.9.7
+* PyJWT==2.8.0
+* python3-openid==3.2.0
+* pytz==2023.3
+* requests-oauthlib==1.3.1
+* sqlparse==0.4.4
+* urllib3==1.26.16
+* whitenoise==6.4.0
+
 - - -
 
 ## Credits
 
-👩🏻‍💻 View an example of a completed Credits section [here](https://github.com/kera-cudmore/BookWorm#Credits)
+### Resources Used
 
-The Credits section is where you can credit all the people and sources you used throughout your project.
+- React Bootstrap documentation
+- W3C Schools 
+- Stack Overflow for enquiries relating to React.js.
+- Code Institute Slack channel
+- Code Institute Tutors channel
 
 ### Code Used
 
-If you have used some code in your project that you didn't write, this is the place to make note of it. Credit the author of the code and if possible a link to where you found the code. You could also add in a brief description of what the code does, or what you are using it for here.
+- Code Institutes 'Django Rest Framework Walkthrough Videos'
+- Code Institutes 'Moments Walkthrough Videos'
 
 ### Content
 
-Who wrote the content for the website? Was it yourself - or have you made the site for someone and they specified what the site was to say? This is the best place to put this information.
+Sites such as:
+- [Stack Overflow](https://stackoverflow.co/) were used at various times to clear up recurring doubts;
+- [Code Institute](https://learn.codeinstitute.net/) to review material of study explanatory videos and guides on how to set up a complete website;
+- [GitHub](https://github.com/) to better understand other projects;
+- [Google](https://www.google.com) for more information on subjects related to the that I had to study during the creation of the site;
+- [Youtube](https://www.youtube.com/) tutorials to learn using in a practical way some of the methods necessary to implement the desired functions for the blog;
+- [Pycodestyle](https://pypi.org/project/pycodestyle/) used to validade my python code;
+- [Flake8](https://flake8.pycqa.org/en/latest/) used to test my pyhton code at local terminal;
+- [CI Python Linter](https://pep8ci.herokuapp.com/#) used to test if my pyhton code it complies with PEP8;
+- [Extends Class](https://extendsclass.com/python-tester.html) used to test my python code syntax;
+- [JSFiddle](https://jsfiddle.net/) used to test my few lines of JavaScript in this project;
+- [Slack](https://slack.com/) communities to ask questions and access answers to questions that I found in the development of the site;
+- [Django Documentation](https://docs.djangoproject.com/en/4.1/) to access all the documentation implemented in this project including models, views, etc;
+- [Django Social Share](https://pypi.org/project/django-social-share/) to access all the documentation to implement share buttons function;
+- [Django Allauth](https://django-allauth.readthedocs.io/en/latest/) to access all the documentation to implement authentication and authorization functions;
+- [Django Bootstrap Icons](https://pypi.org/project/django-bootstrap-icons/) to access all the documentation to implement the use of the icons that are inside the share buttons;
+- [Font Awesome](https://fontawesome.com/icons) to get icons for this project;
+- [Coolors](https://coolors.co/) for inspiration about color palettes;
+- [Bootstrap Icons](https://icons.getbootstrap.com/) to get icons for this project;
+- [Bootstrap Documentation](https://getbootstrap.com/docs/4.0/getting-started/introduction/) to access all the documentation to use many of Bootstrap shortcuts.
 
-###  Media
+## Media
 
-If you have used any media on your site (images, audio, video etc) you can credit them here. I like to link back to the source where I found the media, and include where on the site the image is used.
-  
-###  Acknowledgments
+- [Am I Responsive](https://ui.dev/amiresponsive) Multi Device Website Mockup Generator was used to generate the image used in this README.md in the opening section.
 
-If someone helped you out during your project, you can acknowledge them here! For example someone may have taken the time to help you on slack with a problem. Pop a little thank you here with a note of what they helped you with (I like to try and link back to their GitHub or Linked In account too). This is also a great place to thank your mentor and tutor support if you used them.
-
-Image of the finished site: [amiresponsive](https://ui.dev/amiresponsive)
+## Acknowledgements
+- My mentor for continuous helpful feedback.
