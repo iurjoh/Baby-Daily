@@ -39,16 +39,22 @@ Visit the site [here](https://iurjoh-baby-daily-backend-api-1674476236b8.herokua
     * [How to Clone](#How-to-Clone)
 
 * [Testing](#Testing)
-  * [W3C Validator](#W3C-Validator)
-  * [Solved Bugs](#Solved-Bugs)
-  * [Known Bugs](#Known-Bugs)
-  * [Testing User Stories](#Testing-User-Stories)
-  * [Lighthouse](#Lighthouse)
-    * [Index Page](#Index-Page)
-    * [Books Page](#Books-Page)
-    * [Contact Us Page](#Contact-Us-Page)
-    * [Thank You Page](#Thank-You-Page)
-  * [Full Testing](#Full-Testing)
+  * [Automated Testing](#Automated-Testing)
+    * [W3C Validator](#W3C-Validator)
+    * [JavaScript Validator](#JavaScript-Validator)
+    * [Lighthouse](#Lighthouse)
+  * [Manual Testing](#Manual-Testing)
+    * [User Registration](#User-Registration)
+    * [User Authentication](#User-Authentication)
+    * [Post Interaction](#Post-Interaction)
+    * [Comments Management](#Comments-Management)
+    * [Profile Functions](#Profile-Functions)
+    * [Task List Management](#Task-List-Management)
+    * [Wish List Management](#Wish-List-Management)
+    * [Navigation and UI Elements](#Navigation-and-UI-Elements)
+    * [Asset Management](#Asset-Management)
+    * [Infinite Scrolling](#Infinite-Scrolling)
+  * [Bugs](#Bugs)    
   
 * [Credits](#Credits)
   * [Code Used](#Code-Used)
@@ -428,7 +434,7 @@ With a considerable margin of improvement, it would be possible to develop a pro
 
 ### Manual Testing
 
-* User Registration:
+#### User Registration:
   * Ensure the sign-up form is user-friendly and includes necessary fields.
   * Verify that users can successfully register an account on the platform.
   * Check for proper error messages when there are validation issues during registration.
@@ -437,7 +443,7 @@ With a considerable margin of improvement, it would be possible to develop a pro
 
 ![sign up error](./frontend/src/assets/sign%20up%20error.JPG)
 
-* User Authentication:
+#### User Authentication:
   * Confirm that the sign-in form provides a secure login interface.
   * Validate that registered users can log in successfully.
   * Verify that incorrect login credentials result in appropriate error messages.
@@ -446,21 +452,21 @@ With a considerable margin of improvement, it would be possible to develop a pro
 
 ![sign in error](./frontend/src/assets/sign%20in%20error.JPG)
 
-* Post Interaction:
+#### Post Interaction:
   * View post list and confirm the display of a curated list of posts.
   * Open a post and ensure it opens correctly, displaying associated content.
   * Verify that users can interact with posts, such as liking or leaving comments.
 
   ![likes-comments](./frontend/src/assets/likes-comments.jpg)
 
-* Comments Management:
+#### Comments Management:
   * Access the comments page to see a centralized space displaying comments.
   * Utilize the comments create/edit form to create and modify comments on posts.
   * Confirm that comments are correctly displayed on individual post pages.
 
   ![comments](./frontend/src/assets/comments.JPG)
 
-* Profile Functions:
+#### Profile Functions:
   * Navigate to the profiles page to view an overview of user profiles.
   * Check the popular profiles list for highlighting active or influential users.
   * Use the profile edit form to customize and update user profile information.
@@ -471,7 +477,7 @@ With a considerable margin of improvement, it would be possible to develop a pro
 
   ![profileedit](./frontend/src/assets/testprofileedit.JPG)
 
-* Task List Management:
+#### Task List Management:
   * Visit the tasks list page to view a comprehensive list of tasks.
   * Use the task create/edit form to create and modify tasks efficiently.
   * Ensure tasks are correctly displayed, providing an overview of ongoing and completed activities.
@@ -482,7 +488,7 @@ With a considerable margin of improvement, it would be possible to develop a pro
 
 ![taskedit](./frontend/src/assets/testtaskedit.JPG)
 
-* Wish List Management:
+#### Wish List Management:
   * Access the wish list page to view a curated collection of user-generated wish lists.
   * Use the wish list create/edit form to create and modify personalized wish lists.
   * Verify that wish lists offer insights into parents' preferences for baby-related items.
@@ -493,7 +499,7 @@ With a considerable margin of improvement, it would be possible to develop a pro
 
 ![wishedit](./frontend/src/assets/testwishedit.JPG)
 
-* Navigation and UI Elements:
+#### Navigation and UI Elements:
   * Confirm the presence and functionality of the NavBar for seamless navigation.
   * Test the MoreDropDown menu for providing additional options or features.
   * Verify that the page not found is displayed appropriately for non-existent or unavailable pages.
@@ -512,13 +518,13 @@ With a considerable margin of improvement, it would be possible to develop a pro
 
 ![testfollow](./frontend/src/assets/testfollowrs.JPG)
 
-* Asset Management:
+#### Asset Management:
   * Test the tool used for adding multimedia elements, images, and text to new posts.
   * Confirm that assets enhance the visual and interactive aspects of a new post.
 
 ![testasset](./frontend/src/assets/testasset.JPG)
 
-* Infinite Scrolling:
+#### Infinite Scrolling:
   * Scroll through the posts page to ensure infinite scrolling works smoothly.
   * Confirm that additional posts load seamlessly as the user scrolls down the page.
 
