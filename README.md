@@ -10,20 +10,27 @@ Visit the site [here](https://iurjoh-baby-daily-backend-api-1674476236b8.herokua
 
 * [User Experience (UX)](#User-Experience-(UX))
   * [Initial Discussion](#Initial-Discussion)
+    * [Key Information for the Site](#Key-Information-for-the-Site)
   * [User Stories](#User-Stories)
+
 
 * [Design](#Design)
   * [Colour Scheme](#Colour-Scheme)
   * [Typography](#Typography)
   * [Features](#Features)
-  * [Accessibility](#Accessibility)
+  * [Future Implementations](#Future-Implementations)
 
 * [Database Schema](#Database-Schema)
 
 * [Technologies Used](#Technologies-Used)
-  * [](#)
   * [Languages Used](#Languages-Used)
-  * [Frameworks, Libraries & Programs Used](#Frameworks,-Libraries-&-Programs-Used)
+  * [Backend](#Backend)
+  * [Authentication and Authorization](#Authentication-and-Authorization)
+  * [Frontend](#Frontend)
+  * [Database](#Database)
+  * [Deployment](#Deployment)
+    * [GitHub](#GitHub)
+  * [Other Tools and Utilities](#Other-Tools-and-Utilities)
 
 * [Deployment & Local Development](#Deployment-&-Local-Development)
   * [Deployment](#Deployment)
@@ -118,7 +125,9 @@ I also like to include an image of the fonts chosen as a reference.
 
 ![Font](./frontend/src/assets/font.JPG)
 
-## Features
+- - -
+
+### Features
 
 * Sign Up form: User-friendly form for new users to register and create an account on the platform.
 * Sign In form: Secure login interface allowing registered users to access their accounts.
@@ -141,27 +150,21 @@ I also like to include an image of the fonts chosen as a reference.
 * NavBar: Navigational bar at the top of the page, serving as a visual guide for users to access different sections or features of the platform seamlessly.
 * Page not found: Customized page displayed when a user attempts to access a non-existent or unavailable page, providing a clear and user-friendly message indicating the unavailability of the requested content.
 
-### General features on each page
-
-If there is a feature that appears on all pages of your site, include it here. Examples of what to include would the the navigation, a footer and a favicon.
-
-I then like to add a screenshot of each page of the site here, i use [amiresponsive](https://ui.dev/amiresponsive) which allows me to grab an image of the site as it would be displayed on mobile, tablet and desktop, this helps to show the responsiveness of the site.
-
 ### Future Implementations
 
-What features would you like to implement in the future on your site? Would you like to add more pages, or create login functionality? Add these plans here.
+* Baby Growth Timeline: Develop an interactive growth timeline that visually showcases the baby's developmental milestones.
+Include a feature for users to compare their baby's growth with standard developmental milestones.
 
-### Accessibility
+* Voice and Video Posts: Integrate voice and video post capabilities, allowing users to share audio snippets or video clips of their baby's precious moments.
 
-Be an amazing developer and get used to thinking about accessibility in all of your projects!
+* Integration with IoT Devices: Explore the possibility of integrating with IoT (Internet of Things) devices, such as baby monitors or smart health devices, to enhance data collection.
 
-This is the place to make a note of anything you have done with accessibility in mind. Some examples include:
+* Gamification: Introduce gamification elements to encourage user engagement, such as badges or rewards for completing tasks or reaching milestones.
 
-Have you used icons and added aria-labels to enable screen readers to understand these?
-Have you ensured your site meets the minimum contrast requirements?
-Have you chosen fonts that are dyslexia/accessible friendly?
+* Notifications System: Implement a notification system to keep users informed about new comments, likes, or followers. Allow users to customize notification preferences based on their interests.
 
-Code Institute have an amazing channel for all things accessibility (a11y-accessibility) I would highly recommend joining this channel as it contains a wealth of information about accessibility and what we can do as developers to be more inclusive.
+* Messaging Feature: Integrate a private messaging system for users to communicate directly within the app.
+Provide multimedia messaging support, allowing users to share photos and videos privately.
 
 - - -
 
@@ -175,6 +178,16 @@ This document provides an overview of the structure and relationships to this da
 
 ## Technologies Used
 
+### Languages Used
+
+* JavaScript ES6
+ 
+* CSS3
+ 
+* Python 3
+ 
+* HTML5
+
 ### Backend
 
 * Django (v. 3.2.20): Web framework used for building the backend of the application.
@@ -187,7 +200,6 @@ This document provides an overview of the structure and relationships to this da
 * dj_rest_auth (v. 2.1.9): Django Rest Framework extension for handling authentication, including JWT-based authentication.
 * Allauth (v. 3.2.2): Authentication app for handling user accounts.
 * Corsheaders (v. 4.2.0): Django app for handling Cross-Origin Resource Sharing (CORS).
-
 
 ### Frontend
 
@@ -208,26 +220,175 @@ This document provides an overview of the structure and relationships to this da
 ### Other Tools and Utilities
 
 * Whitenoise (v. 6.4.0): Simplifies serving of static files during production.
-
-### Languages Used
-
-* JavaScript: ES6
- 
-* CSS: CSS3
- 
-* Python: Python 3
- 
-* HTML: HTML5
+* Google Chrome, Microsoft Edge, Mozilla Firefox, Safari: Used for site testing.
+* Chrome Dev Tools: Used to test and troubleshoot the webpage as well as fix problems with responsive design and styling.
 
 - - -
 
+## Deployment & Local Development
+
+### Deployment
+
+  __Create Database__
+
+  1. In ElepahantSQL, click "Create New instance" button.
+  2. Set up the Tiny Turtle plan, and then select the nearest datacenter to you and click the "Review" button.
+  3. Copy the new DATABASE_URL.
+
+  __Connect Cloudinary__
+
+  1. In the terminal: install dj-cloudinary-storage.
+  2. And then add CLOUDINARY_URL to the env.py file.
+  3. In the settings.py, update the apps to include cloudinary-storage.
+  4. Below the import statements in settings, add the following variables for Cloudinary:
+```
+CLOUDINARY_STORAGE = {
+    'CLOUDINARY_URL': os.environ.ger('CLOUDINARY_URL')
+}
+MEDIA_URL = '/media/'
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinartStorage'
+```
+  5. Below INSTALLED_APPS in settings, set site ID:
+```
+SITE_ID = 1
+```
+
+  __Create the Heroku App__
+
+  1. On the Heroku dashboard, click the "Create a new app" button.
+  2. Go to the config vars in settings and copy paste in the new DATABASE_URL and CLOUDINARY_URL.
+
+  __Connect Project to ElepahantSQL__
+
+  1. In the terminal: install dj_database_url and psycopg2.
+  2. In settings.py: import dj-database_url and import os.
+  3. Now updated the DATABASES variable to:
+```
+DATABASES = {
+    'default': ({
+       'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    } if 'DEV' in os.environ else dj_database_url.parse(
+        os.environ.get('DATABASE_URL')
+    )
+    )
+}
+```
+  4. Add in the env.py:  
+  5. os.environ.setdefault("DATABASE_URL", "<your PostgreSQL URL here>")
+  6. Temporarily comment out the environment variable to connect gitpod to your external database.
+  7. In ElepahantSQL browser, check if the database is now connected.
+  8. If connected, migrate the database and then create a superuser.
+
+  __Deploy on Heroku__
+
+  *In gitpod workspace*
+
+  1. In the terminal, install gunicorn.
+  2. Remeber to update the requirements.txt file.
+  3. Now create the Procfile.
+  4. In settings.py 
+
+   - Add the Heroku app to the ALLOWED_HOSTS variable:
+    ```
+    os.environ.get('ALLOWED_HOST'),
+    'localhost',
+    ``` 
+    - Add corsheaders to INSTALLED_APPS
+    - Add corsheaders middleware to the top of MIDDLEWARE:
+  ```
+  'corsheaders.middleware.CorsMiddleware',
+  ```
+- Set ALLOWED_ORIGIN to make network requests
+- Below BASE_DIR, create the REST_FRAMEWORK, and include page pagination to improve app loading times, pagination count, and date/time format:
+  ```
+  REST_FRAMEWORK = {
+      'DEFAULT_AUTHENTICATION_CLASSES': [(
+          'rest_framework.authentication.SessionAuthentication'
+          if 'DEV' in os.environ
+          else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
+      )],
+      'DEFAULT_PAGINATION_CLASS':
+          'rest_framework.pagination.PageNumberPagination',
+      'PAGE_SIZE': 10,
+      'DATETIME_FORMAT': '%d %b %Y',
+  }
+  ```
+    - Set the default renderer to JSON:
+  ```
+  if 'DEV' not in os.environ:
+      REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
+          'rest_framework.renderers.JSONRenderer',
+      ]
+  ```
+    - Add the following, setting the JWT_AUTH_SAMESITE to 'None'
+  ```
+  REST_USE_JWT = True
+  JWT_AUTH_SECURE = True
+  JWT_AUTH_COOKIE = 'my-app-auth'
+  JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
+  JWT_AUTH_SAMESITE = 'None'
+  ```
+    - Remove the value for SECRET_KEY and replace with: SECRET_KEY = os.getenv('SECRET_KEY')
+    - Below ALLOWED_HOST, added the CORS_ALLOWED variable.
+  ```
+  if 'CLIENT_ORIGIN' in os.environ:
+    CORS_ALLOWED_ORIGINS = [
+        os.environ.get('CLIENT_ORIGIN')
+    ]
+
+  if 'CLIENT_ORIGIN_DEV' in os.environ:
+      extracted_url = re.match(r'^.+-', os.environ.get('CLIENT_ORIGIN_DEV', ''), re.IGNORECASE).group(0)
+      CORS_ALLOWED_ORIGIN_REGEXES = [
+          rf"{extracted_url}(eu|us)\d+\w\.gitpod\.io$",
+      ]
+  ```
+    - Set the debug value to True if the DEV environment variable exists:
+  ```
+  DEBUG = 'DEV' in os.environ
+  ```
+
+  5. In env.py
+  - Add SECRET_KEY
+  - Comment DEV back in 
+  6. Update the requirements.txt file
+  7. Migrate the database
+  8. Add, commit and push the code to github 
+
+  *In Heroku*
+  1. Add SECRET_KEY, ALLOWED_HOST, CLIENT_ORIGIN and CLIENT_ORIGIN_DEV to the config vars
+  2. Then manually re-deploy the app to github.
+
+#### GitHub
+
+Github Pages was used to deploy the live website. The instructions to achieve this are below:
+
+1. Log in (or sign up) to Github.
+2. Find this project at github.com/iurjoh/bd_backend.
+3. Click on the Settings link.
+4. Click on the Pages link in the left hand side navigation bar.
+5. In the Source section, choose main from the drop down select branch menu. Select Root from the drop down select folder menu.
+6. Click Save. Your live Github Pages site is now deployed at the URL shown.
+
+### Local Development
+
 #### How to Fork
 
-Place instructions on how to fork your project here.
+To fork the Bully-Book-Club repository:
+
+1. Log in (or sign up) to Github.
+2. Go to the repository for this project, iurjoh/bd_backend.
+3. Click the Fork button in the top right corner.
 
 #### How to Clone
 
-Place instructions on how to clone your project here.
+To clone the iurjoh/bd_backend repository:
+
+1. Log in (or sign up) to GitHub.
+2. Go to the repository for this project, iurjoh/bd_backend.
+3. Click on the code button, select whether you would like to clone with HTTPS, SSH or GitHub CLI and copy the link shown.
+4. Open the terminal in your code editor and change the current working directory to the location you want to use for the cloned directory.
+5. Type 'git clone' into the terminal and then paste the link you copied in step 3. Press enter.
 
 - - -
 
