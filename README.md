@@ -557,14 +557,6 @@ All bugs found during development were resolved through decoding, code cleaning,
 
 ## Credits
 
-### Resources Used
-
-- React Bootstrap documentation
-- W3C Schools 
-- Stack Overflow for enquiries relating to React.js.
-- Code Institute Slack channel
-- Code Institute Tutors channel
-
 ### Code Used
 
 - Code Institutes 'Django Rest Framework Walkthrough Videos'
@@ -572,7 +564,6 @@ All bugs found during development were resolved through decoding, code cleaning,
 
 ### Content
 
-Sites such as:
 - [Stack Overflow](https://stackoverflow.co/) were used at various times to clear up recurring doubts;
 - [Code Institute](https://learn.codeinstitute.net/) to review material of study explanatory videos and guides on how to set up a complete website;
 - [GitHub](https://github.com/) to better understand other projects;
@@ -591,7 +582,8 @@ Sites such as:
 - [Font Awesome](https://fontawesome.com/icons) to get icons for this project;
 - [Coolors](https://coolors.co/) for inspiration about color palettes;
 - [Bootstrap Icons](https://icons.getbootstrap.com/) to get icons for this project;
-- [Bootstrap Documentation](https://getbootstrap.com/docs/4.0/getting-started/introduction/) to access all the documentation to use many of Bootstrap shortcuts.
+- [Bootstrap Documentation](https://getbootstrap.com/docs/4.0/getting-started/introduction/) to access all the documentation to use many of Bootstrap shortcuts;
+- [Kera Cudmore](https://github.com/kera-cudmore/readme-examples/blob/main/milestone1-readme.md) as an exampel of a good README file structure.
 
 ## Media
 
