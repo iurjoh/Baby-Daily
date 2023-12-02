@@ -394,11 +394,35 @@ To clone the iurjoh/bd_backend repository:
 
 ## Testing
 
-Start as you mean to go on - and get used to writing a TESTING.md file from the very first project!
+### W3C Validator
 
-Testing requirements aren't massive for your first project, however if you start using a TESTING.md file from your first project you will thank yourself later when completing your later projects, which will contain much more information.
-  
-Use this part of the README to link to your TESTING.md file - you can view the example TESTING.md file [here](milestone1-testing.md)
+[W3C](https://validator.w3.org/) was used to validate the HTML on all pages of the website. It was also used to validate the CSS. After checking the entire Baby Daily code there were no errors or warnings to show, therefore the code is validated.
+
+![testHTML](./frontend/src/assets/testHTML.JPG)
+
+### JavaScript Validator
+
+[jshint](https://jshint.com/) was used to validate the JavaScript.
+
+### Lighthouse
+
+We used Lighthouse within the Chrome Developer Tools to test the performance, accessibility, best practices and SEO of the website.
+
+#### Desktop Results
+
+Overall, the lighthouse scores are very good. A future implementation would be consider opportunities described in the performance analysis with a view to improving the score, which, despite being good, could be even better. All other areas evaluated were very successful.
+
+![testLighthouse](./frontend/src/assets/testLighthouse.JPG)
+
+### Mobile Results
+
+With a considerable margin of improvement, it would be possible to develop a project with a slightly higher performance rating if this project:
+* Serves images in next-gen formats
+* Properly sized images
+* Efficiently encode images
+* Enable text compression
+
+![testLighthousemobile](./frontend/src/assets/testLighthousemobile.JPG)
 
 - - -
 
