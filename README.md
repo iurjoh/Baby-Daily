@@ -32,12 +32,6 @@ Visit the site [here](https://iurjoh-baby-daily-backend-api-1674476236b8.herokua
     * [GitHub](#GitHub)
   * [Other Tools and Utilities](#Other-Tools-and-Utilities)
 
-* [Deployment & Local Development](#Deployment-&-Local-Development)
-  * [Deployment](#Deployment)
-  * [Local Development](#Local-Development)
-    * [How to Fork](#How-to-Fork)
-    * [How to Clone](#How-to-Clone)
-
 * [Testing](#Testing)
   * [Automated Testing](#Automated-Testing)
     * [W3C Validator](#W3C-Validator)
@@ -54,7 +48,13 @@ Visit the site [here](https://iurjoh-baby-daily-backend-api-1674476236b8.herokua
     * [Navigation and UI Elements](#Navigation-and-UI-Elements)
     * [Asset Management](#Asset-Management)
     * [Infinite Scrolling](#Infinite-Scrolling)
-  * [Bugs](#Bugs)    
+  * [Bugs](#Bugs)
+
+* [Deployment & Local Development](#Deployment-&-Local-Development)
+  * [Deployment](#Deployment)
+  * [Local Development](#Local-Development)
+    * [How to Fork](#How-to-Fork)
+    * [How to Clone](#How-to-Clone)
   
 * [Credits](#Credits)
   * [Code Used](#Code-Used)
@@ -231,6 +231,142 @@ This document provides an overview of the structure and relationships to this da
 
 - - -
 
+## Testing
+
+### Automated Testing
+
+#### W3C Validator
+
+[W3C](https://validator.w3.org/) was used to validate the HTML on all pages of the website. It was also used to validate the CSS. After checking the entire Baby Daily code there were no errors or warnings to show, therefore the code is validated.
+
+![testHTML](./frontend/src/assets/testHTML.JPG)
+
+#### JavaScript Validator
+
+[jshint](https://jshint.com/) was used to validate the JavaScript adn all code create during development and deployment.
+
+#### Lighthouse
+
+We used Lighthouse within the Chrome Developer Tools to test the performance, accessibility, best practices and SEO of the website.
+
+-  Desktop Results
+
+Overall, the lighthouse scores are very good. A future implementation would be consider opportunities described in the performance analysis with a view to improving the score, which, despite being good, could be even better. All other areas evaluated were very successful.
+
+![testLighthouse](./frontend/src/assets/testLighthouse.JPG)
+
+-  Mobile Results
+
+With a considerable margin of improvement, it would be possible to develop a project with a slightly higher performance rating if this project:
+* Serves images in next-gen formats
+* Properly sized images
+* Efficiently encode images
+* Enable text compression
+
+![testLighthousemobile](./frontend/src/assets/testLighthousemobile.JPG)
+
+### Manual Testing
+
+#### User Registration:
+  * Ensure the sign-up form is user-friendly and includes necessary fields.
+  * Verify that users can successfully register an account on the platform.
+  * Check for proper error messages when there are validation issues during registration.
+
+![sign up](./frontend/src/assets/sign%20up.JPG)
+
+![sign up error](./frontend/src/assets/sign%20up%20error.JPG)
+
+#### User Authentication:
+  * Confirm that the sign-in form provides a secure login interface.
+  * Validate that registered users can log in successfully.
+  * Verify that incorrect login credentials result in appropriate error messages.
+
+![sign in](./frontend/src/assets/sign%20in.JPG)
+
+![sign in error](./frontend/src/assets/sign%20in%20error.JPG)
+
+#### Post Interaction:
+  * View post list and confirm the display of a curated list of posts.
+  * Open a post and ensure it opens correctly, displaying associated content.
+  * Verify that users can interact with posts, such as liking or leaving comments.
+
+  ![likes-comments](./frontend/src/assets/likes-comments.jpg)
+
+#### Comments Management:
+  * Access the comments page to see a centralized space displaying comments.
+  * Utilize the comments create/edit form to create and modify comments on posts.
+  * Confirm that comments are correctly displayed on individual post pages.
+
+  ![comments](./frontend/src/assets/comments.JPG)
+
+#### Profile Functions:
+  * Navigate to the profiles page to view an overview of user profiles.
+  * Check the popular profiles list for highlighting active or influential users.
+  * Use the profile edit form to customize and update user profile information.
+  * Verify the proper functioning of the user name form for setting or modifying displayed usernames.
+  * Confirm that the profile page aggregates individual user posts and activities accurately.
+
+  ![profile](./frontend/src/assets/testprofile.JPG)
+
+  ![profileedit](./frontend/src/assets/testprofileedit.JPG)
+
+#### Task List Management:
+  * Visit the tasks list page to view a comprehensive list of tasks.
+  * Use the task create/edit form to create and modify tasks efficiently.
+  * Ensure tasks are correctly displayed, providing an overview of ongoing and completed activities.
+
+![tasklist](./frontend/src/assets/testtasklist.JPG)
+
+![taskitem](./frontend/src/assets/testtaskitem.JPG)
+
+![taskedit](./frontend/src/assets/testtaskedit.JPG)
+
+#### Wish List Management:
+  * Access the wish list page to view a curated collection of user-generated wish lists.
+  * Use the wish list create/edit form to create and modify personalized wish lists.
+  * Verify that wish lists offer insights into parents' preferences for baby-related items.
+
+![wishlist](./frontend/src/assets/testwishlist.JPG)
+
+![wishitem](./frontend/src/assets/testwishitem.JPG)
+
+![wishedit](./frontend/src/assets/testwishedit.JPG)
+
+#### Navigation and UI Elements:
+  * Confirm the presence and functionality of the NavBar for seamless navigation.
+  * Test the MoreDropDown menu for providing additional options or features.
+  * Verify that the page not found is displayed appropriately for non-existent or unavailable pages.
+  * Test the search bar for responsiveness and if allows users to input search queries.
+  * Test most folloed profiles adding and removing a user from the list using follow/unfollow button.
+
+![testnavbar](./frontend/src/assets/testnavbar.JPG)
+
+![testmdd1](./frontend/src/assets/testmddeditdelete.JPG)
+
+![testmdd2](./frontend/src/assets/testmddprofile.JPG)
+
+![testnotfound](./frontend/src/assets/testnotfound.JPG)
+
+![testsearchbar](./frontend/src/assets/testsearchbar.jpg)
+
+![testfollow](./frontend/src/assets/testfollowrs.JPG)
+
+#### Asset Management:
+  * Test the tool used for adding multimedia elements, images, and text to new posts.
+  * Confirm that assets enhance the visual and interactive aspects of a new post.
+
+![testasset](./frontend/src/assets/testasset.JPG)
+
+#### Infinite Scrolling:
+  * Scroll through the posts page to ensure infinite scrolling works smoothly.
+  * Confirm that additional posts load seamlessly as the user scrolls down the page.
+
+### Bugs
+
+All bugs found during development were resolved through decoding, code cleaning, refactoring and restructuring, also was used comparison and typing error tools, forums and help from slack and the Code Institute tutor website.
+
+- - -
+
 ## Deployment & Local Development
 
 ### Deployment
@@ -396,141 +532,15 @@ To clone the iurjoh/bd_backend repository:
 4. Open the terminal in your code editor and change the current working directory to the location you want to use for the cloned directory.
 5. Type 'git clone' into the terminal and then paste the link you copied in step 3. Press enter.
 
-- - -
+#### Hotw to Run
 
-## Testing
+To run the Baby Daily:
 
-### Automated Testing
-
-#### W3C Validator
-
-[W3C](https://validator.w3.org/) was used to validate the HTML on all pages of the website. It was also used to validate the CSS. After checking the entire Baby Daily code there were no errors or warnings to show, therefore the code is validated.
-
-![testHTML](./frontend/src/assets/testHTML.JPG)
-
-#### JavaScript Validator
-
-[jshint](https://jshint.com/) was used to validate the JavaScript adn all code create during development and deployment.
-
-#### Lighthouse
-
-We used Lighthouse within the Chrome Developer Tools to test the performance, accessibility, best practices and SEO of the website.
-
--  Desktop Results
-
-Overall, the lighthouse scores are very good. A future implementation would be consider opportunities described in the performance analysis with a view to improving the score, which, despite being good, could be even better. All other areas evaluated were very successful.
-
-![testLighthouse](./frontend/src/assets/testLighthouse.JPG)
-
--  Mobile Results
-
-With a considerable margin of improvement, it would be possible to develop a project with a slightly higher performance rating if this project:
-* Serves images in next-gen formats
-* Properly sized images
-* Efficiently encode images
-* Enable text compression
-
-![testLighthousemobile](./frontend/src/assets/testLighthousemobile.JPG)
-
-### Manual Testing
-
-#### User Registration:
-  * Ensure the sign-up form is user-friendly and includes necessary fields.
-  * Verify that users can successfully register an account on the platform.
-  * Check for proper error messages when there are validation issues during registration.
-
-![sign up](./frontend/src/assets/sign%20up.JPG)
-
-![sign up error](./frontend/src/assets/sign%20up%20error.JPG)
-
-#### User Authentication:
-  * Confirm that the sign-in form provides a secure login interface.
-  * Validate that registered users can log in successfully.
-  * Verify that incorrect login credentials result in appropriate error messages.
-
-![sign in](./frontend/src/assets/sign%20in.JPG)
-
-![sign in error](./frontend/src/assets/sign%20in%20error.JPG)
-
-#### Post Interaction:
-  * View post list and confirm the display of a curated list of posts.
-  * Open a post and ensure it opens correctly, displaying associated content.
-  * Verify that users can interact with posts, such as liking or leaving comments.
-
-  ![likes-comments](./frontend/src/assets/likes-comments.jpg)
-
-#### Comments Management:
-  * Access the comments page to see a centralized space displaying comments.
-  * Utilize the comments create/edit form to create and modify comments on posts.
-  * Confirm that comments are correctly displayed on individual post pages.
-
-  ![comments](./frontend/src/assets/comments.JPG)
-
-#### Profile Functions:
-  * Navigate to the profiles page to view an overview of user profiles.
-  * Check the popular profiles list for highlighting active or influential users.
-  * Use the profile edit form to customize and update user profile information.
-  * Verify the proper functioning of the user name form for setting or modifying displayed usernames.
-  * Confirm that the profile page aggregates individual user posts and activities accurately.
-
-  ![profile](./frontend/src/assets/testprofile.JPG)
-
-  ![profileedit](./frontend/src/assets/testprofileedit.JPG)
-
-#### Task List Management:
-  * Visit the tasks list page to view a comprehensive list of tasks.
-  * Use the task create/edit form to create and modify tasks efficiently.
-  * Ensure tasks are correctly displayed, providing an overview of ongoing and completed activities.
-
-![tasklist](./frontend/src/assets/testtasklist.JPG)
-
-![taskitem](./frontend/src/assets/testtaskitem.JPG)
-
-![taskedit](./frontend/src/assets/testtaskedit.JPG)
-
-#### Wish List Management:
-  * Access the wish list page to view a curated collection of user-generated wish lists.
-  * Use the wish list create/edit form to create and modify personalized wish lists.
-  * Verify that wish lists offer insights into parents' preferences for baby-related items.
-
-![wishlist](./frontend/src/assets/testwishlist.JPG)
-
-![wishitem](./frontend/src/assets/testwishitem.JPG)
-
-![wishedit](./frontend/src/assets/testwishedit.JPG)
-
-#### Navigation and UI Elements:
-  * Confirm the presence and functionality of the NavBar for seamless navigation.
-  * Test the MoreDropDown menu for providing additional options or features.
-  * Verify that the page not found is displayed appropriately for non-existent or unavailable pages.
-  * Test the search bar for responsiveness and if allows users to input search queries.
-  * Test most folloed profiles adding and removing a user from the list using follow/unfollow button.
-
-![testnavbar](./frontend/src/assets/testnavbar.JPG)
-
-![testmdd1](./frontend/src/assets/testmddeditdelete.JPG)
-
-![testmdd2](./frontend/src/assets/testmddprofile.JPG)
-
-![testnotfound](./frontend/src/assets/testnotfound.JPG)
-
-![testsearchbar](./frontend/src/assets/testsearchbar.jpg)
-
-![testfollow](./frontend/src/assets/testfollowrs.JPG)
-
-#### Asset Management:
-  * Test the tool used for adding multimedia elements, images, and text to new posts.
-  * Confirm that assets enhance the visual and interactive aspects of a new post.
-
-![testasset](./frontend/src/assets/testasset.JPG)
-
-#### Infinite Scrolling:
-  * Scroll through the posts page to ensure infinite scrolling works smoothly.
-  * Confirm that additional posts load seamlessly as the user scrolls down the page.
-
-### Bugs
-
-All bugs found during development were resolved through decoding, code cleaning, refactoring and restructuring, also was used comparison and typing error tools, forums and help from slack and the Code Institute tutor website.
+1. Log in (or sign up) to Github.
+2. Go to the repository for this project, iurjoh/bd_backend.
+3. Click on the green Open button to create a workspace at GitPod.
+4. After workspace is done, split the terminal and type "python3 manage.py runserver". This will run the backend.
+5. In the other terminal, type "cd frontend" and then "npm start" to run REACT frontend.
 
 - - -
 
