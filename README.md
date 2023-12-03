@@ -55,6 +55,7 @@ Visit the site [here](https://iurjoh-baby-daily-backend-api-1674476236b8.herokua
   * [Local Development](#Local-Development)
     * [How to Fork](#How-to-Fork)
     * [How to Clone](#How-to-Clone)
+    * [How to Run](#How-to-Run)
   
 * [Credits](#Credits)
   * [Code Used](#Code-Used)
@@ -532,7 +533,7 @@ To clone the iurjoh/bd_backend repository:
 4. Open the terminal in your code editor and change the current working directory to the location you want to use for the cloned directory.
 5. Type 'git clone' into the terminal and then paste the link you copied in step 3. Press enter.
 
-#### Hotw to Run
+#### How to Run
 
 To run the Baby Daily:
 
@@ -601,9 +602,13 @@ To run the Baby Daily:
 - [Bootstrap Documentation](https://getbootstrap.com/docs/4.0/getting-started/introduction/) to access all the documentation to use many of Bootstrap shortcuts;
 - [Kera Cudmore](https://github.com/kera-cudmore/readme-examples/blob/main/milestone1-readme.md) as an exampel of a good README file structure.
 
+- - -
+
 ## Media
 
 - [Am I Responsive](https://ui.dev/amiresponsive) Multi Device Website Mockup Generator was used to generate the image used in this README.md in the opening section.
+
+- - -
 
 ## Acknowledgements
 - My mentor for continuous helpful feedback.
