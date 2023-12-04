@@ -602,13 +602,9 @@ To run the Baby Daily:
 - [Bootstrap Documentation](https://getbootstrap.com/docs/4.0/getting-started/introduction/) to access all the documentation to use many of Bootstrap shortcuts;
 - [Kera Cudmore](https://github.com/kera-cudmore/readme-examples/blob/main/milestone1-readme.md) as an exampel of a good README file structure.
 
-- - -
-
-## Media
+### Media
 
 - [Am I Responsive](https://ui.dev/amiresponsive) Multi Device Website Mockup Generator was used to generate the image used in this README.md in the opening section.
 
-- - -
-
-## Acknowledgements
+### Acknowledgements
 - My mentor for continuous helpful feedback.
