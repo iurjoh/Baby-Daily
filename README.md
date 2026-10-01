@@ -1,10 +1,16 @@
 # Baby Daily - Smiles, steps and stories. Daily!
 
-Baby Daily is a responsive website that provides a secure platform for parents to share their baby's milestones, updates, and moments with family and close friends. The platform prioritizes privacy, ensuring that shared content is accessible only to registered users within a trusted circle. Parents can post photos, create wish lists, manage tasks, leave comments, and engage in a private and secure community.
+[Português (Brasil)](README.pt-BR.md) | **English**
+
+**Documentation review: 2026-10-01.** Original planning, screenshots and test notes below are historical. Tests were not rerun in this update.
+
+> **Privacy intent is not an access guarantee.** `posts/views.py` uses `IsAuthenticatedOrReadOnly` for the list, and `IsOwnerOrReadOnly` allows safe read methods without a trusted-circle check. The current code permits anonymous reads of posts. Review permissions and direct media access before using real children's data. This documentation update does not change the app.
+
+Baby Daily is a responsive learning project designed for parents to share their baby's milestones, updates, and moments with family and close friends. A private trusted circle was the original design goal; the current post-read permissions do not enforce that goal. Parents can post photos, create wish lists, manage tasks, leave comments, and engage in a private and secure community.
 
 ![Baby Daily](./frontend/src/assets/site.JPG)
 
-Visit the site [here](https://iurjoh-baby-daily-backend-api-1674476236b8.herokuapp.com/)
+**Historical deployment URL:** https://iurjoh-baby-daily-backend-api-1674476236b8.herokuapp.com/ . On 2026-10-01, this URL and `/api/posts/` returned HTTP 404 with Heroku's "No such app" page, not post data. No active deployment at this address was confirmed; another undocumented host is not ruled out.
 
 ## CONTENTS
 
@@ -70,7 +76,7 @@ Visit the site [here](https://iurjoh-baby-daily-backend-api-1674476236b8.herokua
 
 ### Initial Discussion
 
-Baby Daily is a secure online platform designed exclusively for parents to share precious moments, updates, and create a private community with family and friends. Users can post photos, create wish lists, mark tasks, leave comments, like posts, and more, all within their trusted and private circle.
+Baby Daily was designed as an online platform for parents to share precious moments, updates, and create a private community with family and friends. Users can post photos, create wish lists, mark tasks, leave comments, like posts, and more, all within their trusted and private circle.
 
 #### Key Information for the Site:
 
@@ -182,7 +188,7 @@ Provide multimedia messaging support, allowing users to share photos and videos 
 
 ## Database Schema
 
-This document provides an overview of the structure and relationships to this database. It is designed designed to support parents in sharing private information about their babies with family and close friends, ensuring a space of security and privacy and store and manage data from the precious moments and details of each baby's journey. Parents can use the app to share information such as milestones, health updates, daily tasks, wish list, and memorable events with their trusted circle. It is organized into several tables, each representing a specific entity or relationship within the system.
+This document provides an overview of the structure and relationships to this database. It is designed designed to support parents in sharing private information about their babies with family and close friends, intended to support privacy and to store and manage data from the precious moments and details of each baby's journey. Parents can use the app to share information such as milestones, health updates, daily tasks, wish list, and memorable events with their trusted circle. It is organized into several tables, each representing a specific entity or relationship within the system.
 
 ![Database](./frontend/src/assets/database.JPG)
 
@@ -509,7 +515,7 @@ DATABASES = {
 
 #### GitHub
 
-Github Pages was used to deploy the live website. The instructions to achieve this are below:
+The original README included the following GitHub Pages steps for `bd_backend`. They are preserved as historical notes, not working deployment instructions for this Django backend: GitHub Pages does not execute Django.
 
 1. Log in (or sign up) to Github.
 2. Find this project at github.com/iurjoh/bd_backend.
@@ -613,3 +619,9 @@ To run the Baby Daily:
 
 ### Acknowledgements
 - My mentor for continuous helpful feedback.
+
+## License and documentation follow-up
+
+No root LICENSE file was found in this review. Credits and third-party terms must be preserved; this update does not apply MIT to the Code Institute template or walkthrough code.
+
+The full Brazilian Portuguese version preserves the original planning, features, manual-test cases, screenshots, deployment history and credits, with corrections to version labels and copied project names. `requirements.txt` records django-allauth 0.44.0; psycopg2 2.9.7 is a Python driver version, not a PostgreSQL server version. The current settings use page size 15 and date format `%d %b %Y %H`, unlike the older examples above. Treat the deployment examples as historical, including obsolete or unverified services and plans. New snapshots belong in `docs/assets/` with dates and fictional data only.
