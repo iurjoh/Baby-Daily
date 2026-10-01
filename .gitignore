@@ -10,5 +10,5 @@ cloudinary_python.txt
 db.sqlite3
 *.sqlite
 *.sqlite3
-.sqlite-
-.sqlite3-
+*.sqlite-
+*.sqlite3-
