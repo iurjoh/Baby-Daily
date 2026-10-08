@@ -4,7 +4,7 @@
 
 A Django REST + React learning project for family milestones, posts, comments, tasks and wish lists. Private-circle intent is not enforced by current read permissions.
 
-Documentation draft, 2026-10-08. Public source; no publication or code change made by this review.
+Documentation draft, 2026-10-08. Private backup; no application or code change made by this review.
 
 **Private backup / Backup privado:** https://github.com/iurjoh/Baby-Daily
 
