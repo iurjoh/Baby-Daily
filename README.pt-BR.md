@@ -4,7 +4,7 @@
 
 Projeto de aprendizado Django REST+React para marcos familiares, posts/comentários/tarefas/desejos. Intenção de círculo privado não é imposta pelas permissões de leitura atuais.
 
-Draft documental, 08/10/2026. Código público; nenhuma publicação/alteração feita nesta revisão.
+Draft documental, 08/10/2026. Backup privado; nenhuma publicação da aplicação/alteração de código nesta revisão.
 
 **Private backup / Backup privado:** https://github.com/iurjoh/Baby-Daily
 
