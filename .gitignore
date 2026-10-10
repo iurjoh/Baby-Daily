@@ -5,10 +5,16 @@ env.py
 __pycache__/
 *.py[cod]
 node_modules/
-.github/
 cloudinary_python.txt
 db.sqlite3
 *.sqlite
 *.sqlite3
 *.sqlite-
 *.sqlite3-
+
+.env
+.env.*
+!.env.example
+media/
+staticfiles/
+frontend/build/
