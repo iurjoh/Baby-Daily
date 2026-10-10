@@ -1,22 +1,9 @@
-import { rest } from "msw";
-
-const baseURL = "/api/";
-
+import { http, HttpResponse } from "msw";
 export const handlers = [
-  rest.get(`${baseURL}dj-rest-auth/user/`, (req, res, ctx) => {
-    return res(
-      ctx.json({
-        "pk": 2,
-        "username": "test_pilot",
-        "email": "",
-        "first_name": "",
-        "last_name": "",
-        "profile_id": 2,
-        "profile_image": "https://res.cloudinary.com/iurjoh/image/upload/v1/media/images/github_rktrrt"
-        })
-    );
-  }),
-  rest.post(`${baseURL}dj-rest-auth/logout/`, (req, res, ctx) => {
-    return res(ctx.status(200));
-  }),
+  http.get("*/api/", () => HttpResponse.json({message: "Demo"})),
+  http.get("*/api/dj-rest-auth/user/", () => HttpResponse.json({
+    pk: 2, username: "test_pilot", email: "", first_name: "", last_name: "",
+    profile_id: 2, profile_image: "/demo-avatar.png"
+  })),
+  http.post("*/api/dj-rest-auth/logout/", () => HttpResponse.json({})),
 ];
