@@ -1,6 +1,6 @@
 # Full-stack revival (October 2026)
 
-This project preserves Iuri Johansson's original 2023 coursework and commit history. The revival keeps the original React screens and Django domain models while replacing retired hosting and dependencies. Deployment is not confirmed yet.
+This project preserves Iuri Johansson's original 2023 coursework and commit history. The revival keeps the original React screens and Django domain models while replacing retired hosting and dependencies. The Django API is deployed on Render Free with Neon Free PostgreSQL. The Cloudflare Pages same-origin gateway and live authentication/CRUD tests passed. Cloudinary media setup and final screenshots remain pending.
 
 ## Architecture
 
@@ -21,9 +21,9 @@ This is a public portfolio demo, not a private service for real children's data.
 ## Current local verification
 
 - Django system checks and migrations pass.
-- Ten Django tests cover legacy post CRUD/ownership, JWT login, registration and health.
+- Eleven Django tests cover legacy post CRUD/ownership, JWT login, registration and health.
 - Three frontend navigation/authentication tests have been migrated to Vitest and MSW 2.
 - Vite production build passes.
 - npm audit currently reports zero known vulnerabilities (October 10, 2026).
 
-Live end-to-end verification, screenshots and final deployment details remain pending. Historical 2023 screenshots are not evidence of the current deployment.
+Live API checks passed on October 10, 2026: registration without email, login, Secure/HttpOnly cookies, current user, post/task/wish create-edit-delete, token refresh and logout. Test objects were removed. A fictional verification account remains for browser checks. Both API and frontend use the revival branch pending final review and merge. Cloudinary media and final screenshots remain pending. Historical 2023 screenshots are not evidence of the current deployment.
