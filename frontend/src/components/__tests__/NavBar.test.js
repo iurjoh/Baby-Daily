@@ -24,7 +24,7 @@ test("renders link to the user profile for a logged in user", async () => {
     </Router>
   );
 
-  const profileAvatar = await screen.findByText("Profile");
+  const profileAvatar = await screen.findByRole("link", { name: /avatar/i });
   expect(profileAvatar).toBeInTheDocument();
 });
 
