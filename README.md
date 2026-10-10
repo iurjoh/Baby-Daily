@@ -6,7 +6,7 @@
 
 Baby Daily preserves the 2023 coursework and commit history. The revival keeps its React screens and Django models, updates the runtime and authentication, and replaces retired hosting. This is a portfolio demo with fictional data, not a private family service.
 
-API and frontend deployed, live authentication/CRUD verified on October 10, 2026. Media configuration and final screenshots are still pending. The repository remains private pending review.
+API and frontend deployed, live authentication/CRUD verified on October 10, 2026. Media is configured and verified live. Mobile/accessibility review and final screenshots are still pending. The repository remains private pending review.
 
 ### Current stack
 
@@ -14,7 +14,7 @@ API and frontend deployed, live authentication/CRUD verified on October 10, 2026
 - React 17, React Router 5 and Vite, built on Node 22.
 - Render Free API and Cloudflare Pages frontend with a same-origin `/api/` gateway.
 - HttpOnly JWT cookies, CSRF protection and explicit production hosts/origins.
-- Cloudinary media storage planned through private hosting environment variables; setup is pending.
+- Cloudinary media storage configured through private hosting environment variables.
 
 The Render free instance sleeps when idle. The first request can take 50 seconds or more. The free hosting is intended for a demo, not production family use.
 
