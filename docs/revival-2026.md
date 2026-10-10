@@ -21,9 +21,18 @@ This is a public portfolio demo, not a private service for real children's data.
 ## Current local verification
 
 - Django system checks and migrations pass.
-- Eleven Django tests cover legacy post CRUD/ownership, JWT login, registration and health.
-- Three frontend navigation/authentication tests have been migrated to Vitest and MSW 2.
+- Thirteen Django tests cover legacy post CRUD/ownership, JWT login, registration and health.
+- Nine frontend navigation/authentication/accessibility tests have been migrated to Vitest and MSW 2.
 - Vite production build passes.
 - npm audit currently reports zero known vulnerabilities (October 10, 2026).
 
 Live API checks passed on October 10, 2026: registration without email, login, Secure/HttpOnly cookies, current user, post/task/wish create-edit-delete, token refresh and logout. Test objects were removed. A fictional verification account remains for browser checks. Both API and frontend use the revival branch pending final review and merge. Cloudinary media is verified live; mobile/accessibility review and final screenshots remain pending. Historical 2023 screenshots are not evidence of the current deployment.
+
+
+## Deployment checks
+
+Run `bash scripts/check-deploy.sh` from the repo root, with `DEV` unset and the production `SECRET_KEY`, `DATABASE_URL`, `ALLOWED_HOSTS` and `CLIENT_ORIGIN` supplied privately by the hosting environment. Do not paste credentials into terminal command history or logs. The script prints only Django check results, not settings. It does not migrate, seed or connect to the database. The Render build runs it before those actions. CI runs the same configuration path with random, throwaway credentials, not live ones.
+
+On October 10, 2026 the production-mode check first reported W004 and W008. HTTPS redirect is now on outside development, with a public `/health/` exception for internal probes. The existing proxy header accepts Render's forwarded HTTPS scheme; regression tests cover redirect, forwarded HTTPS and the health probe. The live edge also redirected HTTP to HTTPS when checked.
+
+Known warning: `security.W004` (HSTS). `SECURE_HSTS_SECONDS=0` is deliberate. HSTS changes persist in browsers, and a domain/HTTPS rollout should be reviewed before enabling it. No checks are silenced. Errors stop the build; this documented warning does not. DEBUG is off in production, host/origin lists are explicit, and session/CSRF cookies are Secure. This is configuration validation, not independent QA approval or a full security audit.

@@ -43,3 +43,16 @@ class PostTimestampTests(APITestCase):
         Post.objects.filter(pk=post.pk).update(updated_at=datetime(2026,10,10,19,42,tzinfo=datetime_timezone.utc))
         result = self.client.get("/api/posts/")
         self.assertEqual(result.data["results"][0]["updated_at"], "10 Oct 2026, 19:42 UTC")
+
+
+class ProductionHttpsTests(APITestCase):
+    def test_http_redirect_and_proxy_https(self):
+        from django.http import HttpResponse
+        from django.middleware.security import SecurityMiddleware
+        from django.test import RequestFactory, override_settings
+        with override_settings(SECURE_SSL_REDIRECT=True):
+            middleware = SecurityMiddleware(lambda request: HttpResponse("ok"))
+            factory = RequestFactory()
+            self.assertEqual(middleware(factory.get("/api/", HTTP_HOST="testserver")).status_code, 301)
+            self.assertEqual(middleware(factory.get("/api/", HTTP_X_FORWARDED_PROTO="https")).status_code, 200)
+            self.assertEqual(middleware(factory.get("/health/")).status_code, 200)
