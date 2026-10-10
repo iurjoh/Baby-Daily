@@ -50,7 +50,7 @@ input[type="file"] {
 }
 
 i {
-  color: #cfced3;
+  color: #62616a;
   font-size: 1.6rem;
   padding: 7px;
   vertical-align: middle;
@@ -79,4 +79,9 @@ figure {
 }
 *::-webkit-scrollbar-thumb:hover {
   background: #555;
+}
+
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 3px solid #2142b2;
+  outline-offset: 3px;
 }

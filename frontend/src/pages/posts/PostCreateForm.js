@@ -70,12 +70,13 @@ function PostCreateForm() {
     }
   };
 
-  const textFields = (
+  const textFields = (suffix) => (
     <div className="text-center">
       <Form.Group>
-        <Form.Label>Title</Form.Label>
+        <Form.Label htmlFor={`post-title-${suffix}`}>Title</Form.Label>
         <Form.Control
           type="text"
+          id={`post-title-${suffix}`}
           name="title"
           value={title}
           onChange={handleChange}
@@ -88,10 +89,11 @@ function PostCreateForm() {
       ))}
 
       <Form.Group>
-        <Form.Label>Content</Form.Label>
+        <Form.Label htmlFor={`post-content-${suffix}`}>Content</Form.Label>
         <Form.Control
           as="textarea"
           rows={6}
+          id={`post-content-${suffix}`}
           name="content"
           value={content}
           onChange={handleChange}
@@ -162,11 +164,11 @@ function PostCreateForm() {
               </Alert>
             ))}
 
-            <div className="d-md-none">{textFields}</div>
+            <div className="d-md-none">{textFields("mobile")}</div>
           </Container>
         </Col>
         <Col md={5} lg={4} className="d-none d-md-block p-0 p-md-2">
-          <Container className={appStyles.Content}>{textFields}</Container>
+          <Container className={appStyles.Content}>{textFields("desktop")}</Container>
         </Col>
       </Row>
     </Form>

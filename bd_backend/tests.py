@@ -32,3 +32,14 @@ class CsrfProtectionTests(APITestCase):
         self.assertEqual(client.post("/api/dj-rest-auth/login/", payload, HTTP_X_CSRFTOKEN=token).status_code, 200)
         self.assertEqual(client.post("/api/posts/", {"title":"CSRF-protected demo"}).status_code, 403)
         self.assertEqual(client.post("/api/posts/", {"title":"CSRF-protected demo"}, HTTP_X_CSRFTOKEN=token).status_code, 201)
+
+class PostTimestampTests(APITestCase):
+    def test_post_timestamp_includes_minutes_and_timezone(self):
+        from posts.models import Post
+        from django.utils import timezone
+        from datetime import datetime, timezone as datetime_timezone
+        user = User.objects.create_user(username="timestamp_test")
+        post = Post.objects.create(owner=user, title="Fictional timestamp check")
+        Post.objects.filter(pk=post.pk).update(updated_at=datetime(2026,10,10,19,42,tzinfo=datetime_timezone.utc))
+        result = self.client.get("/api/posts/")
+        self.assertEqual(result.data["results"][0]["updated_at"], "10 Oct 2026, 19:42 UTC")
