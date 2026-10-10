@@ -6,7 +6,7 @@
 
 Baby Daily preserva o projeto de curso e o histórico de commits de 2023. O revival mantém as telas React e os modelos Django, atualiza o runtime e a autenticação e substitui a hospedagem antiga. É uma demonstração de portfólio com dados fictícios, não um serviço privado para famílias.
 
-API e frontend publicados, autenticação e CRUD live verificados em 10/10/2026. Configuração de mídia e screenshots finais ainda pendentes. O repositório continua privado até a revisão.
+API e frontend publicados, autenticação e CRUD live verificados em 10/10/2026. Mídia configurada e verificada live. Revisão mobile/acessibilidade e screenshots finais ainda pendentes. O repositório continua privado até a revisão.
 
 ### Stack atual
 
@@ -14,7 +14,7 @@ API e frontend publicados, autenticação e CRUD live verificados em 10/10/2026.
 - React 17, React Router 5 e Vite, com Node 22.
 - API no Render Free e frontend no Cloudflare Pages, com gateway `/api/` na mesma origem.
 - Cookies JWT HttpOnly, proteção CSRF e hosts/origens de produção explícitos.
-- Mídia no Cloudinary planejada por variáveis privadas da hospedagem; configuração pendente.
+- Mídia no Cloudinary configurada por variáveis privadas da hospedagem.
 
 A instância gratuita do Render dorme quando fica inativa. A primeira requisição pode levar 50 segundos ou mais. A hospedagem gratuita é destinada à demonstração, não ao uso real por famílias.
 
