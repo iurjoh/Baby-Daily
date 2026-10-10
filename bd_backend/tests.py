@@ -17,3 +17,18 @@ class AuthenticationSmokeTests(APITestCase):
 
     def test_health(self):
         self.assertEqual(self.client.get("/health/").status_code, 200)
+
+
+class CsrfProtectionTests(APITestCase):
+    def test_login_requires_csrf_cookie_and_header(self):
+        from rest_framework.test import APIClient
+        client = APIClient(enforce_csrf_checks=True)
+        User.objects.create_user(username="csrf_test", password="Test-only-password-1234")
+        payload = {"username":"csrf_test", "password":"Test-only-password-1234"}
+        self.assertEqual(client.post("/api/dj-rest-auth/login/", payload).status_code, 403)
+        client.get("/api/")
+        self.assertIn("csrftoken", client.cookies)
+        token = client.cookies["csrftoken"].value
+        self.assertEqual(client.post("/api/dj-rest-auth/login/", payload, HTTP_X_CSRFTOKEN=token).status_code, 200)
+        self.assertEqual(client.post("/api/posts/", {"title":"CSRF-protected demo"}).status_code, 403)
+        self.assertEqual(client.post("/api/posts/", {"title":"CSRF-protected demo"}, HTTP_X_CSRFTOKEN=token).status_code, 201)
