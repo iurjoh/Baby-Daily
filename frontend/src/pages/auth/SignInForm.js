@@ -59,7 +59,7 @@ function SignInForm() {
           <h1 className={styles.Header}>sign in</h1>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="username">
-              <Form.Label className="d-none">Username</Form.Label>
+              <Form.Label className="sr-only">Username</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Username"
@@ -76,7 +76,7 @@ function SignInForm() {
             ))}
 
             <Form.Group controlId="password">
-              <Form.Label className="d-none">Password</Form.Label>
+              <Form.Label className="sr-only">Password</Form.Label>
               <Form.Control
                 type="password"
                 placeholder="Password"
