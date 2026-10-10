@@ -28,6 +28,8 @@ Use Python 3.12 and Node 22. Create a virtual environment, install `requirements
 
 Backend: `python manage.py test`. Frontend: `cd frontend && npm test`. Build: `npm run build` inside `frontend/`. Secrets belong in your local environment or hosting dashboard, never in source control.
 
+Pre-deploy: with production environment variables loaded privately and `DEV` unset, run `bash scripts/check-deploy.sh`. The Render build runs this before migrations or seeding. CI checks the same production settings with throwaway credentials and no database connection. Expected warning: `security.W004` only (HSTS is deliberately off until a separate HTTPS/domain rollout review). Errors stop the build. See [deployment checks](docs/revival-2026.md#deployment-checks).
+
 ### Deployment
 
 Render uses `bash scripts/render-build.sh` and `gunicorn bd_backend.wsgi:application`. Cloudflare Pages uses the `frontend` root, `npm run build`, output directory `build`, `NODE_VERSION=22`, and `API_ORIGIN` pointing to the Render API. Set `CLIENT_ORIGIN` in Render to the exact Pages origin and set database, media and Django secrets privately. See [revival notes](docs/revival-2026.md) for verification status.
