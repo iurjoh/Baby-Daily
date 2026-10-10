@@ -1,6 +1,6 @@
 import { rest } from "msw";
 
-const baseURL = "https://iurjoh-baby-daily-backend-api-1674476236b8.herokuapp.com/";
+const baseURL = "/api/";
 
 export const handlers = [
   rest.get(`${baseURL}dj-rest-auth/user/`, (req, res, ctx) => {
