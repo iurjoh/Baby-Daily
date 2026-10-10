@@ -1,8 +1,8 @@
 // Same-origin gateway keeps HttpOnly authentication cookies on the demo host.
-export async function onRequest({request, env, params}) {
+export async function onRequest({request, env}) {
   if (!env.API_ORIGIN) return new Response("Demo API is not configured", {status: 503});
   const source = new URL(request.url);
-  const target = new URL(`/api/${params.path.join("/")}${source.search}`, env.API_ORIGIN);
+  const target = new URL(source.pathname + source.search, env.API_ORIGIN);
   const headers = new Headers(request.headers);
   headers.delete("host");
   headers.set("X-Forwarded-Proto", "https");
