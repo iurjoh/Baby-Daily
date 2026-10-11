@@ -10,6 +10,7 @@ import Row from "react-bootstrap/Row";
 import { useHistory, useParams } from "react-router-dom";
 import { axiosRes } from "../../api/axiosDefaults";
 import {
+  useAuthReady,
   useCurrentUser,
   useSetCurrentUser,
 } from "../../contexts/CurrentUserContext";
@@ -25,15 +26,17 @@ const UsernameForm = () => {
   const { id } = useParams();
 
   const currentUser = useCurrentUser();
+  const authReady = useAuthReady();
   const setCurrentUser = useSetCurrentUser();
 
   useEffect(() => {
+    if (!authReady) return;
     if (currentUser?.profile_id?.toString() === id) {
       setUsername(currentUser.username);
     } else {
       history.push("/");
     }
-  }, [currentUser, history, id]);
+  }, [authReady, currentUser, history, id]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();

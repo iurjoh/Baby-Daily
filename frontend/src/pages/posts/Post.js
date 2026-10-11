@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../../styles/Post.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { Card, Media, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { Card, Media } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
 import Avatar from "../../components/Avatar";
 import { axiosRes } from "../../api/axiosDefaults";
@@ -93,40 +93,28 @@ const Post = (props) => {
         </Media>
       </Card.Body>
       <Link to={`/posts/${id}`}>
-        <Card.Img src={image} alt={title} />
+        <Card.Img src={image} alt={title || "Fictional story image"} />
       </Link>
       <Card.Body>
         {title && <Card.Title className="text-center">{title}</Card.Title>}
         {content && <Card.Text>{content}</Card.Text>}
         <div className={styles.PostBar}>
-          {is_owner ? (
-            <OverlayTrigger
-              placement="top"
-              overlay={<Tooltip>You can't like your own post!</Tooltip>}
-            >
-              <i className="far fa-heart" />
-            </OverlayTrigger>
-          ) : like_id ? (
-            <span onClick={handleUnlike}>
-              <i className={`fas fa-heart ${styles.Heart}`} />
-            </span>
-          ) : currentUser ? (
-            <span onClick={handleLike}>
-              <i className={`far fa-heart ${styles.HeartOutline}`} />
-            </span>
-          ) : (
-            <OverlayTrigger
-              placement="top"
-              overlay={<Tooltip>Log in to like posts!</Tooltip>}
-            >
-              <i className="far fa-heart" />
-            </OverlayTrigger>
-          )}
-          {likes_count}
-          <Link to={`/posts/${id}`}>
-            <i className="far fa-comments" />
+          <button
+            type="button"
+            className={styles.Action}
+            aria-label={like_id ? `${likes_count} likes: Unlike ${title}` : `${likes_count} likes: Like ${title}`}
+            aria-pressed={Boolean(like_id)}
+            disabled={is_owner || !currentUser}
+            title={is_owner ? "You can't like your own post" : !currentUser ? "Sign in to like posts" : undefined}
+            onClick={like_id ? handleUnlike : handleLike}
+          >
+            <i aria-hidden="true" className={like_id ? `fas fa-heart ${styles.Heart}` : "far fa-heart"} />
+            <span>{likes_count}</span>
+          </button>
+          <Link className={styles.Action} to={`/posts/${id}`} aria-label={`${comments_count} comments on ${title}`}>
+            <i className="far fa-comments" aria-hidden="true" />
+            <span>{comments_count}</span>
           </Link>
-          {comments_count}
         </div>
       </Card.Body>
     </Card>

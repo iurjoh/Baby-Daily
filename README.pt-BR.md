@@ -2,15 +2,45 @@
 
 **Português (Brasil)** | [English](README.md)
 
-Baby Daily é um projeto full stack responsivo para pais compartilharem marcos, novidades e momentos do bebê com familiares e amigos. Inclui fotos, listas de desejos, tarefas, comentários, curtidas e perfis.
+## Revival de outubro de 2026
 
-**Revisão de documentação:** 01/10/2026. Este documento traduz o registro original do projeto e distingue esse histórico do que foi conferido agora. Os testes históricos não foram executados novamente nesta revisão.
+Baby Daily preserva o projeto de curso e o histórico de commits de 2023. O revival mantém as telas React e os modelos Django, atualiza o runtime e a autenticação e substitui a hospedagem antiga. É uma demonstração de portfólio com dados fictícios, não um serviço privado para famílias.
 
-> **Privacidade: intenção não é garantia.** O projeto foi pensado para um círculo de confiança, mas o código atual de `posts/views.py` permite leitura anônima com `IsAuthenticatedOrReadOnly`; a permissão `IsOwnerOrReadOnly` também permite métodos de leitura sem verificar participação em um círculo. Não use dados reais de crianças antes de revisar as permissões, o acesso à mídia e a política de privacidade. Esta atualização não altera o aplicativo nem confirma a segurança de um deploy.
+API e frontend publicados, autenticação e CRUD live verificados em 10/10/2026. Mídia configurada e verificada live. Revisão mobile/acessibilidade e screenshots finais ainda pendentes. O repositório continua privado até a revisão.
 
-![Baby Daily: apresentação histórica em vários dispositivos](./frontend/src/assets/site.JPG)
+### Stack atual
 
-O README original indica https://iurjoh-baby-daily-backend-api-1674476236b8.herokuapp.com/ como endereço do site. Esse endereço e seu endpoint `/api/posts/` responderam HTTP 404 com a página Heroku "No such app" em 01/10/2026; nenhum dado de publicações foi retornado nessa checagem anônima. Isso não descarta outra hospedagem que não esteja documentada aqui.
+- Django 5.2 LTS, Django REST Framework e PostgreSQL 18 no Neon Free.
+- React 17, React Router 5 e Vite, com Node 22.
+- API no Render Free e frontend no Cloudflare Pages, com gateway `/api/` na mesma origem.
+- Cookies JWT HttpOnly, proteção CSRF e hosts/origens de produção explícitos.
+- Mídia no Cloudinary configurada por variáveis privadas da hospedagem.
+
+A instância gratuita do Render dorme quando fica inativa. A primeira requisição pode levar 50 segundos ou mais. A hospedagem gratuita é destinada à demonstração, não ao uso real por famílias.
+
+### Dados de demonstração e privacidade
+
+O comando idempotente `python manage.py seed_demo` cria três perfis fictícios, cinco histórias, uma tarefa e um desejo. Os perfis do seed não têm senhas utilizáveis. O modelo de permissões original permite leitura anônima. Não envie fotos reais de crianças nem informações pessoais. O cadastro não exige e-mail.
+
+### Desenvolvimento
+
+Use Python 3.12 e Node 22. Crie um ambiente virtual, instale `requirements.txt` e defina um `SECRET_KEY` gerado junto com `DEV=1`. O desenvolvimento local usa SQLite, a menos que `DATABASE_URL` esteja configurado. Execute as migrações e `python manage.py seed_demo`, depois inicie Django na porta 8000. Em `frontend/`, execute `npm ci` e `npm start`; Vite encaminha `/api/` ao Django.
+
+Backend: `python manage.py test`. Frontend: `cd frontend && npm test`. Build: `npm run build` dentro de `frontend/`. Segredos ficam no ambiente local ou no painel da hospedagem, nunca no código versionado.
+
+Pré-deploy: com as variáveis de produção carregadas de forma privada e `DEV` ausente, execute `bash scripts/check-deploy.sh`. O build Render faz isso antes de migrações ou seed. O CI confere as mesmas configurações com credenciais descartáveis, sem conexão ao banco. Warning esperado: apenas `security.W004` (HSTS fica desligado até uma revisão separada de HTTPS/domínios). Erros interrompem o build. Veja [checagens de deploy](docs/revival-2026.md#deployment-checks).
+
+### Deploy
+
+Render usa `bash scripts/render-build.sh` e `gunicorn bd_backend.wsgi:application`. Cloudflare Pages usa raiz `frontend`, comando `npm run build`, diretório de saída `build`, `NODE_VERSION=22` e `API_ORIGIN` apontando para a API Render. No Render, defina `CLIENT_ORIGIN` com a origem exata do Pages e configure os segredos de banco, mídia e Django de forma privada. Veja as [notas do revival](docs/revival-2026.md) para o estado da verificação.
+
+### Licença e créditos
+
+Este projeto deriva dos walkthroughs Django REST Framework e Moments do Code Institute. Os créditos e termos de terceiros são preservados abaixo. O revival não relicencia material de terceiros. Uma proposta de licença MIT para as contribuições originais de Iuri Johansson permanece sujeita à revisão de direitos.
+
+## Registro histórico do projeto (2023)
+
+O planejamento, as funcionalidades, os casos de teste manual, as dependências e as instruções de deploy abaixo descrevem o build original. Foram preservados como histórico, não como instruções atuais. Screenshots antigos não são prova da demonstração atual; os originais permanecem no histórico de commits de 2023.
 
 ## Sumário
 
@@ -69,7 +99,7 @@ O registro original descreve a organização das histórias em um quadro Kanban 
 
 Os papéis acima reproduzem o planejamento original; não representam uma auditoria das permissões de cada endpoint.
 
-![Histórias de usuário do projeto original](./frontend/src/assets/user%20stories.JPG)
+[Screenshot histórico retirado da documentação atual; o original permanece no histórico de commits de 2023.]
 
 ## Design
 
@@ -77,13 +107,13 @@ Os papéis acima reproduzem o planejamento original; não representam uma audito
 
 O autor escolheu tons de azul associados a um recém-nascido, com cores claras e calmas para transmitir tranquilidade e segurança visual.
 
-![Paleta de cores](./frontend/src/assets/coolors.jpg)
+[Screenshot histórico retirado da documentação atual; o original permanece no histórico de commits de 2023.]
 
 ### Tipografia
 
 DM Sans, do Google Fonts, foi escolhida como fonte sem serifa de leitura clara e aparência moderna. O registro original inclui a imagem da fonte como referência de design.
 
-![Referência de tipografia](./frontend/src/assets/font.JPG)
+[Screenshot histórico retirado da documentação atual; o original permanece no histórico de commits de 2023.]
 
 ### Funcionalidades registradas
 
@@ -127,7 +157,7 @@ Qualquer futura coleta de informações de saúde, áudio, vídeo ou dispositivo
 
 O projeto organiza publicações, perfis, comentários, curtidas, seguidores, tarefas e desejos em aplicações Django separadas. O diagrama original abaixo registra entidades e relações planejadas para os momentos e atividades do bebê.
 
-![Diagrama original do banco de dados](./frontend/src/assets/database.JPG)
+[Screenshot histórico retirado da documentação atual; o original permanece no histórico de commits de 2023.]
 
 O propósito declarado de compartilhar informações num círculo de confiança não substitui regras de acesso no backend.
 
@@ -185,7 +215,7 @@ As versões registradas são antigas. A lista é documentação do projeto, não
 
 O registro original relata validação de HTML e CSS com [W3C](https://validator.w3.org/), sem erros ou avisos ao final. O screenshot abaixo é evidência histórica, não resultado novo.
 
-![Validação HTML histórica](./frontend/src/assets/testHTML.JPG)
+[Screenshot histórico retirado da documentação atual; o original permanece no histórico de commits de 2023.]
 
 #### JavaScript
 
@@ -197,11 +227,11 @@ O registro original descreve avaliação de desempenho, acessibilidade, boas pr�
 
 **Desktop:** o autor considerou os resultados bons e identificou oportunidades de melhorar desempenho.
 
-![Lighthouse desktop histórico](./frontend/src/assets/testLighthouse.JPG)
+[Screenshot histórico retirado da documentação atual; o original permanece no histórico de commits de 2023.]
 
 **Mobile:** foram registradas oportunidades de usar formatos modernos de imagem, ajustar dimensões, melhorar compressão de imagens e ativar compressão de texto.
 
-![Lighthouse mobile histórico](./frontend/src/assets/testLighthousemobile.JPG)
+[Screenshot histórico retirado da documentação atual; o original permanece no histórico de commits de 2023.]
 
 ### Testes manuais registrados
 
@@ -213,8 +243,8 @@ Os itens abaixo traduzem os casos de teste originais. Não são uma declaração
 - Verificar criação de conta.
 - Conferir mensagens de erro de validação.
 
-![Cadastro](./frontend/src/assets/sign%20up.JPG)
-![Erro no cadastro](./frontend/src/assets/sign%20up%20error.JPG)
+[Screenshot histórico retirado da documentação atual; o original permanece no histórico de commits de 2023.]
+[Screenshot histórico retirado da documentação atual; o original permanece no histórico de commits de 2023.]
 
 #### Autenticação
 
@@ -222,8 +252,8 @@ Os itens abaixo traduzem os casos de teste originais. Não são uma declaração
 - Verificar entrada com credenciais válidas.
 - Conferir erros com credenciais incorretas.
 
-![Login](./frontend/src/assets/sign%20in.JPG)
-![Erro no login](./frontend/src/assets/sign%20in%20error.JPG)
+[Screenshot histórico retirado da documentação atual; o original permanece no histórico de commits de 2023.]
+[Screenshot histórico retirado da documentação atual; o original permanece no histórico de commits de 2023.]
 
 #### Interação com publicações
 
@@ -231,7 +261,7 @@ Os itens abaixo traduzem os casos de teste originais. Não são uma declaração
 - Abrir uma publicação e conferir seu conteúdo.
 - Curtir e comentar.
 
-![Curtidas e comentários](./frontend/src/assets/likes-comments.jpg)
+[Screenshot histórico retirado da documentação atual; o original permanece no histórico de commits de 2023.]
 
 #### Comentários
 
@@ -239,7 +269,7 @@ Os itens abaixo traduzem os casos de teste originais. Não são uma declaração
 - Criar e editar comentários pelo formulário.
 - Conferir a exibição na publicação correspondente.
 
-![Comentários](./frontend/src/assets/comments.JPG)
+[Screenshot histórico retirado da documentação atual; o original permanece no histórico de commits de 2023.]
 
 #### Perfis
 
@@ -248,8 +278,8 @@ Os itens abaixo traduzem os casos de teste originais. Não são uma declaração
 - Conferir alteração de nome de usuário.
 - Conferir publicações e atividades no perfil individual.
 
-![Perfil](./frontend/src/assets/testprofile.JPG)
-![Edição de perfil](./frontend/src/assets/testprofileedit.JPG)
+[Screenshot histórico retirado da documentação atual; o original permanece no histórico de commits de 2023.]
+[Screenshot histórico retirado da documentação atual; o original permanece no histórico de commits de 2023.]
 
 #### Tarefas
 
@@ -257,9 +287,9 @@ Os itens abaixo traduzem os casos de teste originais. Não são uma declaração
 - Criar e editar tarefas pelo formulário.
 - Conferir a exibição dos itens.
 
-![Lista de tarefas](./frontend/src/assets/testtasklist.JPG)
-![Tarefa](./frontend/src/assets/testtaskitem.JPG)
-![Edição de tarefa](./frontend/src/assets/testtaskedit.JPG)
+[Screenshot histórico retirado da documentação atual; o original permanece no histórico de commits de 2023.]
+[Screenshot histórico retirado da documentação atual; o original permanece no histórico de commits de 2023.]
+[Screenshot histórico retirado da documentação atual; o original permanece no histórico de commits de 2023.]
 
 #### Desejos
 
@@ -267,9 +297,9 @@ Os itens abaixo traduzem os casos de teste originais. Não são uma declaração
 - Criar e editar desejos pelo formulário.
 - Conferir os itens exibidos.
 
-![Lista de desejos](./frontend/src/assets/testwishlist.JPG)
-![Desejo](./frontend/src/assets/testwishitem.JPG)
-![Edição de desejo](./frontend/src/assets/testwishedit.JPG)
+[Screenshot histórico retirado da documentação atual; o original permanece no histórico de commits de 2023.]
+[Screenshot histórico retirado da documentação atual; o original permanece no histórico de commits de 2023.]
+[Screenshot histórico retirado da documentação atual; o original permanece no histórico de commits de 2023.]
 
 #### Navegação e interface
 
@@ -278,19 +308,19 @@ Os itens abaixo traduzem os casos de teste originais. Não são uma declaração
 - Testar busca e responsividade do campo.
 - Seguir e deixar de seguir perfis e conferir a lista de perfis mais seguidos.
 
-![Navegação](./frontend/src/assets/testnavbar.JPG)
-![Menu de edição e exclusão](./frontend/src/assets/testmddeditdelete.JPG)
-![Menu de perfil](./frontend/src/assets/testmddprofile.JPG)
-![Página inexistente](./frontend/src/assets/testnotfound.JPG)
-![Busca](./frontend/src/assets/testsearchbar.jpg)
-![Seguidores](./frontend/src/assets/testfollowrs.JPG)
+[Screenshot histórico retirado da documentação atual; o original permanece no histórico de commits de 2023.]
+[Screenshot histórico retirado da documentação atual; o original permanece no histórico de commits de 2023.]
+[Screenshot histórico retirado da documentação atual; o original permanece no histórico de commits de 2023.]
+[Screenshot histórico retirado da documentação atual; o original permanece no histórico de commits de 2023.]
+[Screenshot histórico retirado da documentação atual; o original permanece no histórico de commits de 2023.]
+[Screenshot histórico retirado da documentação atual; o original permanece no histórico de commits de 2023.]
 
 #### Mídia
 
 - Testar inclusão de imagens, texto e elementos de mídia nas publicações.
 - Conferir a exibição do conteúdo adicionado.
 
-![Mídia](./frontend/src/assets/testasset.JPG)
+[Screenshot histórico retirado da documentação atual; o original permanece no histórico de commits de 2023.]
 
 #### Rolagem infinita
 
@@ -449,12 +479,3 @@ Esses links preservam os créditos históricos; não indicam uma verificação a
 
 Ao mentor, pelo feedback contínuo durante o projeto.
 
-## Licença e próximos passos
-
-Nenhum `LICENSE` foi encontrado na raiz durante a revisão. Os créditos e termos do código de terceiros devem ser preservados; esta atualização não aplica MIT ao template nem aos walkthroughs.
-
-- [ ] Rever permissões e acesso à mídia antes de usar dados reais.
-- [ ] Revisar dependências e instruções de execução em ambiente isolado.
-- [ ] Executar novamente os testes e registrar resultados com data.
-- [ ] Adicionar snapshots novos, sem dados pessoais, em `docs/assets/`.
-- [ ] Confirmar uma estratégia de hospedagem atual, incluindo custos.

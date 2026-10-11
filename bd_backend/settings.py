@@ -32,7 +32,7 @@ REST_FRAMEWORK = {
     'DEFAULT_PAGINATION_CLASS':
         'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 15,
-    'DATETIME_FORMAT': '%d %b %Y %H',
+    'DATETIME_FORMAT': '%d %b %Y, %H:%M UTC',
 }
 if 'DEV' not in os.environ:
     REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
@@ -78,6 +78,11 @@ CSRF_TRUSTED_ORIGINS = [o.strip() for o in os.getenv('CLIENT_ORIGIN', '').split(
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 SESSION_COOKIE_SECURE = not DEBUG
 CSRF_COOKIE_SECURE = not DEBUG
+SECURE_SSL_REDIRECT = not DEBUG
+# Render probes may use HTTP internally; this endpoint returns no private data.
+SECURE_REDIRECT_EXEMPT = [r'^health/$']
+# Enable HSTS only after a separate domain/HTTPS rollout review.
+SECURE_HSTS_SECONDS = 0
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = 'DENY'
 
@@ -127,9 +132,7 @@ MIDDLEWARE = [
 ]
 
 if 'CLIENT_ORIGIN' in os.environ:
-    CORS_ALLOWED_ORIGINS = [
-        os.environ.get('CLIENT_ORIGIN')
-    ]
+    CORS_ALLOWED_ORIGINS = list(CSRF_TRUSTED_ORIGINS)
 else:
     CORS_ALLOWED_ORIGIN_REGEXES = [
         r'^http://localhost:3000$',

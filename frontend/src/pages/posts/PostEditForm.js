@@ -83,12 +83,13 @@ function PostEditForm() {
     }
   };
 
-  const textFields = (
+  const textFields = (suffix) => (
     <div className="text-center">
       <Form.Group>
-        <Form.Label>Title</Form.Label>
+        <Form.Label htmlFor={`post-edit-title-${suffix}`}>Title</Form.Label>
         <Form.Control
           type="text"
+          id={`post-edit-title-${suffix}`}
           name="title"
           value={title}
           onChange={handleChange}
@@ -101,10 +102,11 @@ function PostEditForm() {
       ))}
 
       <Form.Group>
-        <Form.Label>Content</Form.Label>
+        <Form.Label htmlFor={`post-edit-content-${suffix}`}>Content</Form.Label>
         <Form.Control
           as="textarea"
           rows={6}
+          id={`post-edit-content-${suffix}`}
           name="content"
           value={content}
           onChange={handleChange}
@@ -130,6 +132,7 @@ function PostEditForm() {
 
   return (
     <Form onSubmit={handleSubmit}>
+      <Alert variant="info">Public demo: use fictional text and images only. Do not upload real family photos or personal information.</Alert>
       <Row>
         <Col className="py-2 p-0 p-md-2" md={7} lg={8}>
           <Container
@@ -137,7 +140,7 @@ function PostEditForm() {
           >
             <Form.Group className="text-center">
               <figure>
-                <Image className={appStyles.Image} src={image} rounded />
+                <Image className={appStyles.Image} src={image} alt={title || "Post image preview"} rounded />
               </figure>
               <div>
                 <Form.Label
@@ -161,11 +164,11 @@ function PostEditForm() {
               </Alert>
             ))}
 
-            <div className="d-md-none">{textFields}</div>
+            <div className="d-md-none">{textFields("mobile")}</div>
           </Container>
         </Col>
         <Col md={5} lg={4} className="d-none d-md-block p-0 p-md-2">
-          <Container className={appStyles.Content}>{textFields}</Container>
+          <Container className={appStyles.Content}>{textFields("desktop")}</Container>
         </Col>
       </Row>
     </Form>
