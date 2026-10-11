@@ -6,12 +6,15 @@ import { removeTokenTimestamp, shouldRefreshToken } from "../utils/utils";
 
 export const CurrentUserContext = createContext();
 export const SetCurrentUserContext = createContext();
+export const AuthReadyContext = createContext(false);
+export const useAuthReady = () => useContext(AuthReadyContext);
 
 export const useCurrentUser = () => useContext(CurrentUserContext);
 export const useSetCurrentUser = () => useContext(SetCurrentUserContext);
 
 export const CurrentUserProvider = ({ children }) => {
   const [currentUser, setCurrentUser] = useState(null);
+  const [authReady, setAuthReady] = useState(false);
   const history = useHistory();
 
   const handleMount = async () => {
@@ -21,6 +24,8 @@ export const CurrentUserProvider = ({ children }) => {
       setCurrentUser(data);
     } catch (err) {
       console.log(err);
+    } finally {
+      setAuthReady(true);
     }
   };
 
@@ -77,10 +82,12 @@ export const CurrentUserProvider = ({ children }) => {
   }, [history]);
 
   return (
+    <AuthReadyContext.Provider value={authReady}>
     <CurrentUserContext.Provider value={currentUser}>
       <SetCurrentUserContext.Provider value={setCurrentUser}>
         {children}
       </SetCurrentUserContext.Provider>
     </CurrentUserContext.Provider>
+    </AuthReadyContext.Provider>
   );
 };

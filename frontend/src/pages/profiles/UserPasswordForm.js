@@ -9,7 +9,7 @@ import Form from "react-bootstrap/Form";
 
 import { useHistory, useParams } from "react-router-dom";
 import { axiosRes } from "../../api/axiosDefaults";
-import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import { useCurrentUser, useAuthReady } from "../../contexts/CurrentUserContext";
 
 import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
@@ -18,6 +18,7 @@ const UserPasswordForm = () => {
   const history = useHistory();
   const { id } = useParams();
   const currentUser = useCurrentUser();
+  const authReady = useAuthReady();
 
   const [userData, setUserData] = useState({
     new_password1: "",
@@ -35,11 +36,12 @@ const UserPasswordForm = () => {
   };
 
   useEffect(() => {
+    if (!authReady) return;
     if (currentUser?.profile_id?.toString() !== id) {
       // redirect user if they are not the owner of this profile
       history.push("/");
     }
-  }, [currentUser, history, id]);
+  }, [authReady, currentUser, history, id]);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
