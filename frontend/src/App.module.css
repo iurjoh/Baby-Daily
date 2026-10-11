@@ -120,3 +120,5 @@ input:not([type="file"]), textarea, select {
   min-height: 44px;
   margin-bottom: 0;
 }
+
+:global(.invalid-feedback) { color: #a51c30; }
