@@ -22,7 +22,7 @@ This is a public portfolio demo, not a private service for real children's data.
 
 - Django system checks and migrations pass.
 - Sixteen Django tests cover legacy post CRUD/ownership, JWT login, registration and health.
-- Eleven frontend navigation/authentication/accessibility tests have been migrated to Vitest and MSW 2.
+- Twelve frontend navigation/authentication/accessibility tests have been migrated to Vitest and MSW 2.
 - Vite production build passes.
 - npm audit reports zero known vulnerabilities (October 11, 2026).
 - pip-audit reports zero known vulnerabilities after upgrading DRF to 3.17.2 (October 11, 2026). JSON/form body-size limits and malformed JSON rejection have local regression tests.

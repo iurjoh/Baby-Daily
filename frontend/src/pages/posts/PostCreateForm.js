@@ -119,6 +119,7 @@ function PostCreateForm() {
 
   return (
     <Form onSubmit={handleSubmit}>
+      <Alert variant="info">Public demo: use fictional text and images only. Do not upload real family photos or personal information.</Alert>
       <Row>
         <Col className="py-2 p-0 p-md-2" md={7} lg={8}>
           <Container
@@ -128,7 +129,7 @@ function PostCreateForm() {
               {image ? (
                 <>
                   <figure>
-                    <Image className={appStyles.Image} src={image} rounded />
+                    <Image className={appStyles.Image} src={image} alt={title || "Post image preview"} rounded />
                   </figure>
                   <div>
                     <Form.Label

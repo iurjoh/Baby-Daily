@@ -89,3 +89,12 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
 input:not([type="file"]), textarea, select {
   min-height: 44px;
 }
+
+/* All interactive controls keep a 44px target across every route. */
+:global(button), :global(.btn), :global(input:not([type="file"])), :global(textarea), :global(select), :global([role="button"]) {
+  min-width: 44px;
+  min-height: 44px;
+}
+:global(.badge-primary), :global(.btn-primary) { background-color: #2142b2; color: #ffffff; }
+:global(.badge-success), :global(.btn-success) { background-color: #176b34; color: #ffffff; }
+:global(.text-muted) { color: #62616a !important; }

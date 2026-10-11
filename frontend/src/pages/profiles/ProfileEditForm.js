@@ -83,14 +83,15 @@ const ProfileEditForm = () => {
     }
   };
 
-  const textFields = (
+  const textFields = (suffix) => (
     <>
       <Form.Group>
-        <Form.Label>Bio</Form.Label>
+        <Form.Label htmlFor={`profile-bio-${suffix}`}>Bio</Form.Label>
         <Form.Control
           as="textarea"
           value={content}
           onChange={handleChange}
+          id={`profile-bio-${suffix}`}
           name="content"
           rows={7}
         />
@@ -115,13 +116,14 @@ const ProfileEditForm = () => {
 
   return (
     <Form onSubmit={handleSubmit}>
+      <Alert variant="info">Public demo: use fictional text and images only. Do not upload real family photos or personal information.</Alert>
       <Row>
         <Col className="py-2 p-0 p-md-2 text-center" md={7} lg={6}>
           <Container className={appStyles.Content}>
             <Form.Group>
               {image && (
                 <figure>
-                  <Image src={image} fluid />
+                  <Image src={image} alt="Profile image preview" fluid />
                 </figure>
               )}
               {errors?.image?.map((message, idx) => (
@@ -151,11 +153,11 @@ const ProfileEditForm = () => {
                 }}
               />
             </Form.Group>
-            <div className="d-md-none">{textFields}</div>
+            <div className="d-md-none">{textFields("mobile")}</div>
           </Container>
         </Col>
         <Col md={5} lg={6} className="d-none d-md-block p-0 p-md-2 text-center">
-          <Container className={appStyles.Content}>{textFields}</Container>
+          <Container className={appStyles.Content}>{textFields("desktop")}</Container>
         </Col>
       </Row>
     </Form>
