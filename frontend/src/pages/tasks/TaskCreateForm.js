@@ -82,8 +82,10 @@ function TaskCreateForm({ onTaskCreated }) {
           value={title}
           onChange={handleChange}
           isInvalid={!!validationErrors.title}
+          aria-invalid={Boolean(validationErrors.title)}
+          aria-describedby={validationErrors.title ? "task-title-error" : undefined}
         />
-        <Form.Control.Feedback type="invalid">
+        <Form.Control.Feedback type="invalid" id="task-title-error">
           {validationErrors.title}
         </Form.Control.Feedback>
       </Form.Group>
@@ -97,8 +99,10 @@ function TaskCreateForm({ onTaskCreated }) {
           value={description}
           onChange={handleChange}
           isInvalid={!!validationErrors.description}
+          aria-invalid={Boolean(validationErrors.description)}
+          aria-describedby={validationErrors.description ? "task-description-error" : undefined}
         />
-        <Form.Control.Feedback type="invalid">
+        <Form.Control.Feedback type="invalid" id="task-description-error">
           {validationErrors.description}
         </Form.Control.Feedback>
       </Form.Group>
@@ -111,8 +115,10 @@ function TaskCreateForm({ onTaskCreated }) {
           value={date}
           onChange={handleChange}
           isInvalid={!!validationErrors.date}
+          aria-invalid={Boolean(validationErrors.date)}
+          aria-describedby={validationErrors.date ? "task-date-error" : undefined}
         />
-        <Form.Control.Feedback type="invalid">
+        <Form.Control.Feedback type="invalid" id="task-date-error">
           {validationErrors.date}
         </Form.Control.Feedback>
       </Form.Group>
