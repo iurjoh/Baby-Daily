@@ -56,3 +56,18 @@ class ProductionHttpsTests(APITestCase):
             self.assertEqual(middleware(factory.get("/api/", HTTP_HOST="testserver")).status_code, 301)
             self.assertEqual(middleware(factory.get("/api/", HTTP_X_FORWARDED_PROTO="https")).status_code, 200)
             self.assertEqual(middleware(factory.get("/health/")).status_code, 200)
+
+
+class ProductionOriginSettingsTests(APITestCase):
+    def test_explicit_origin_list_is_shared_by_csrf_and_cors(self):
+        import os
+        import subprocess
+        import sys
+        environment = dict(os.environ)
+        environment.pop("DEV", None)
+        environment.update(SECRET_KEY="throwaway-configuration-test-key-only-not-a-secret-1234567890",
+            DATABASE_URL="postgresql://check:check@localhost/check",
+            CLIENT_ORIGIN="https://demo.example, https://preview.example")
+        script = "from bd_backend import settings as s; assert s.CORS_ALLOWED_ORIGINS == s.CSRF_TRUSTED_ORIGINS == ['https://demo.example', 'https://preview.example']"
+        result = subprocess.run([sys.executable, "-c", script], env=environment, capture_output=True, text=True)
+        self.assertEqual(result.returncode, 0, result.stderr)
