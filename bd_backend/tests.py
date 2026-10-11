@@ -71,3 +71,22 @@ class ProductionOriginSettingsTests(APITestCase):
         script = "from bd_backend import settings as s; assert s.CORS_ALLOWED_ORIGINS == s.CSRF_TRUSTED_ORIGINS == ['https://demo.example', 'https://preview.example']"
         result = subprocess.run([sys.executable, "-c", script], env=environment, capture_output=True, text=True)
         self.assertEqual(result.returncode, 0, result.stderr)
+
+
+class RequestBodyLimitTests(APITestCase):
+    def test_json_and_form_request_size_limits(self):
+        from django.test import override_settings
+        from urllib.parse import urlencode
+        payload = {"username": "x" * 256, "password": "test-only"}
+        with override_settings(DATA_UPLOAD_MAX_MEMORY_SIZE=128):
+            for content_type, data in [
+                ("application/json", __import__("json").dumps(payload)),
+                ("application/x-www-form-urlencoded", urlencode(payload)),
+            ]:
+                with self.subTest(content_type=content_type):
+                    response = self.client.post("/api/dj-rest-auth/login/", data=data, content_type=content_type)
+                    self.assertEqual(response.status_code, 400)
+
+    def test_malformed_json_is_rejected(self):
+        response = self.client.post("/api/dj-rest-auth/login/", data="{invalid", content_type="application/json")
+        self.assertEqual(response.status_code, 400)

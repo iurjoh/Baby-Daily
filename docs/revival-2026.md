@@ -21,10 +21,11 @@ This is a public portfolio demo, not a private service for real children's data.
 ## Current local verification
 
 - Django system checks and migrations pass.
-- Thirteen Django tests cover legacy post CRUD/ownership, JWT login, registration and health.
-- Nine frontend navigation/authentication/accessibility tests have been migrated to Vitest and MSW 2.
+- Sixteen Django tests cover legacy post CRUD/ownership, JWT login, registration and health.
+- Eleven frontend navigation/authentication/accessibility tests have been migrated to Vitest and MSW 2.
 - Vite production build passes.
-- npm audit currently reports zero known vulnerabilities (October 10, 2026).
+- npm audit reports zero known vulnerabilities (October 11, 2026).
+- pip-audit reports zero known vulnerabilities after upgrading DRF to 3.17.2 (October 11, 2026). JSON/form body-size limits and malformed JSON rejection have local regression tests.
 
 Live API checks passed on October 10, 2026: registration without email, login, Secure/HttpOnly cookies, current user, post/task/wish create-edit-delete, token refresh and logout. Test objects were removed. A fictional verification account remains for browser checks. Both API and frontend use the revival branch pending final review and merge. Cloudinary media is verified live; mobile/accessibility review and final screenshots remain pending. Historical 2023 screenshots are not evidence of the current deployment.
 
@@ -36,3 +37,12 @@ Run `bash scripts/check-deploy.sh` from the repo root, with `DEV` unset and the 
 On October 10, 2026 the production-mode check first reported W004 and W008. HTTPS redirect is now on outside development, with a public `/health/` exception for internal probes. The existing proxy header accepts Render's forwarded HTTPS scheme; regression tests cover redirect, forwarded HTTPS and the health probe. The live edge also redirected HTTP to HTTPS when checked.
 
 Known warning: `security.W004` (HSTS). `SECURE_HSTS_SECONDS=0` is deliberate. HSTS changes persist in browsers, and a domain/HTTPS rollout should be reviewed before enabling it. No checks are silenced. Errors stop the build; this documented warning does not. DEBUG is off in production, host/origin lists are explicit, and session/CSRF cookies are Secure. This is configuration validation, not independent QA approval or a full security audit.
+
+
+## Dependency security follow-up (October 11, 2026)
+
+The requirements scan found PYSEC-2026-3827 and PYSEC-2026-3828 in DRF 3.16.1. Both are fixed in 3.17.2. The request-body limit issue applies to JSON/form parsing. The AdminRenderer issue does not match production, which permits JSONRenderer only, but the package is upgraded for both fixes. No live load or denial-of-service test was run. Local tests use a small temporary body limit.
+
+Sources: [DRF 3.17.2 release](https://github.com/encode/django-rest-framework/releases/tag/3.17.2), [body-size advisory](https://github.com/encode/django-rest-framework/security/advisories/GHSA-2m8g-3cmr-wg3w), [AdminRenderer advisory](https://github.com/encode/django-rest-framework/security/advisories/GHSA-g47c-3xmw-q6m2).
+
+This scan and regression suite are not a full security audit or independent approval. Repository publication remains gated on final production/seed/security review, including historical refs.
