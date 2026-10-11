@@ -132,9 +132,7 @@ MIDDLEWARE = [
 ]
 
 if 'CLIENT_ORIGIN' in os.environ:
-    CORS_ALLOWED_ORIGINS = [
-        os.environ.get('CLIENT_ORIGIN')
-    ]
+    CORS_ALLOWED_ORIGINS = list(CSRF_TRUSTED_ORIGINS)
 else:
     CORS_ALLOWED_ORIGIN_REGEXES = [
         r'^http://localhost:3000$',
