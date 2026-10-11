@@ -11,6 +11,7 @@ import Alert from "react-bootstrap/Alert";
 
 import { axiosReq } from "../../api/axiosDefaults";
 import {
+  useAuthReady,
   useCurrentUser,
   useSetCurrentUser,
 } from "../../contexts/CurrentUserContext";
@@ -20,6 +21,7 @@ import appStyles from "../../App.module.css";
 
 const ProfileEditForm = () => {
   const currentUser = useCurrentUser();
+  const authReady = useAuthReady();
   const setCurrentUser = useSetCurrentUser();
   const { id } = useParams();
   const history = useHistory();
@@ -36,6 +38,7 @@ const ProfileEditForm = () => {
 
   useEffect(() => {
     const handleMount = async () => {
+      if (!authReady) return;
       if (currentUser?.profile_id?.toString() === id) {
         try {
           const { data } = await axiosReq.get(`/profiles/${id}/`);
@@ -51,7 +54,7 @@ const ProfileEditForm = () => {
     };
 
     handleMount();
-  }, [currentUser, history, id]);
+  }, [authReady, currentUser, history, id]);
 
   const handleChange = (event) => {
     setProfileData({
