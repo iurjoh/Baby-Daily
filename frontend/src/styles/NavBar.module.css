@@ -5,6 +5,8 @@
 
 .NavLink {
   padding: 5px;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .Active i {

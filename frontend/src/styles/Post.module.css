@@ -12,7 +12,7 @@ h5 {
 }
 
 .Heart {
-  color: #f85032;
+  color: #b93621;
 }
 
 .Heart:hover {
@@ -20,5 +20,27 @@ h5 {
 }
 
 .HeartOutline:hover {
-  color: #f85032;
+  color: #b93621;
+}
+
+.PostBar { display: flex; align-items: center; justify-content: center; gap: 12px; }
+.Action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 4px 8px;
+  border: 0;
+  background: transparent;
+  color: #555;
+  border-radius: 4px;
+}
+.Action i { color: #62616a; }
+.Action .Heart { color: #b93621; }
+.Action:disabled { opacity: 1; cursor: not-allowed; }
+
+@media (max-width: 575px) {
+  .Post :global(.media) { flex-wrap: wrap; gap: 8px; }
+  .Post :global(.media) > div { margin-left: auto; }
 }
