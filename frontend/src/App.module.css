@@ -98,3 +98,25 @@ input:not([type="file"]), textarea, select {
 :global(.badge-primary), :global(.btn-primary) { background-color: #2142b2; color: #ffffff; }
 :global(.badge-success), :global(.btn-success) { background-color: #176b34; color: #ffffff; }
 :global(.text-muted) { color: #62616a !important; }
+
+/* Bootstrap's absolute checkbox offset does not reserve a 44px target. */
+:global(.form-check) {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-left: 0;
+  min-height: 44px;
+}
+:global(.form-check-input) {
+  position: static;
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  margin: 0;
+}
+:global(.form-check-label) {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  margin-bottom: 0;
+}
