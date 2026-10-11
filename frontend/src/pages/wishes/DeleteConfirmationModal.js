@@ -8,7 +8,7 @@ const DeleteConfirmationModal = ({ show, onClose, onDelete }) => {
         <Modal.Title>Confirm Deletion</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        Are you sure you want to delete this task?
+        Are you sure you want to delete this wish?
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={onClose}>
