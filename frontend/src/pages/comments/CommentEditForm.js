@@ -44,6 +44,7 @@ function CommentEditForm(props) {
         <Form.Control
           className={styles.Form}
           as="textarea"
+            aria-label="Edit comment"
           value={formContent}
           onChange={handleChange}
           rows={2}
