@@ -85,3 +85,7 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
   outline: 3px solid #2142b2;
   outline-offset: 3px;
 }
+
+input:not([type="file"]), textarea, select {
+  min-height: 44px;
+}

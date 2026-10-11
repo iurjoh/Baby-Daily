@@ -102,7 +102,7 @@ const Post = (props) => {
           <button
             type="button"
             className={styles.Action}
-            aria-label={like_id ? `Unlike ${title}` : `Like ${title}`}
+            aria-label={like_id ? `${likes_count} likes: Unlike ${title}` : `${likes_count} likes: Like ${title}`}
             aria-pressed={Boolean(like_id)}
             disabled={is_owner || !currentUser}
             title={is_owner ? "You can't like your own post" : !currentUser ? "Sign in to like posts" : undefined}
