@@ -70,7 +70,7 @@ class Command(BaseCommand):
         ]
         for post_index, who, text in comments:
             Comment.objects.get_or_create(
-                owner=users[who], post=posts[post_index], content=text
+                owner=users[who % len(users)], post=posts[post_index], content=text
             )
 
         for post in posts:
