@@ -8,18 +8,20 @@
 
 ## Demo
 
-Open it in the browser. No install, no terminal: **https://baby-daily-8c4.pages.dev/**
+Use the badge above to open it in the browser. No install, no terminal.
 
 The demo runs on free hosting and uses fictional data only. Photos and avatars are AI-generated images of imaginary families. The free API instance sleeps when idle, so the first request can take 50 seconds or more. Please do not upload real photos of children or personal information.
 
-![Baby Daily on desktop](docs/assets/live-desktop-2026-10-10.png)
-![Baby Daily on mobile](docs/assets/live-mobile-2026-10-10.png)
+Historical captures from 10 Oct 2026, taken before the demo seed was replaced with the current AI-generated family photos (fictional data only). The live demo shows the current content.
+
+![Baby Daily on desktop, 10 Oct 2026 capture](docs/assets/live-desktop-2026-10-10.png)
+![Baby Daily on mobile, 10 Oct 2026 capture](docs/assets/live-mobile-2026-10-10.png)
 
 ## The story
 
 1. **Idea (2023).** A trusted-circle feed for new parents: posts with photos, comments, likes, followers, a task list for milestones and a wish list. Planned with 21 user stories on a GitHub board.
 2. **First build (Aug-Dec 2023).** Django REST Framework API with a React front end, hosted on Heroku. The full commit history is kept in this repository.
-3. **Hosting ends.** Heroku dropped its free plan and the database host closed, so the app went offline.
+3. **Hosting gone.** By 2026 the original 2023 hosting (Heroku app and its database) was no longer running, so the app was offline. This README does not claim a specific cause.
 4. **Revival (Oct 2026).** Django 5.2 LTS, a Vite build, a same-origin `/api/` gateway on Cloudflare Pages, Render Free for the API, Neon Free for PostgreSQL, Cloudinary for media. Historical secrets and personal data were removed before publication. Demo data is fictional.
 5. **Quality pass.** Accessibility fixes (labels, touch targets, contrast, validation feedback), complete timestamps, deployment checks in CI and a final review before going public.
 
@@ -29,7 +31,7 @@ The demo runs on free hosting and uses fictional data only. Photos and avatars a
 - React 17, React Router 5, Vite on Node 22.
 - Cloudflare Pages front end with a same-origin `/api/` gateway to the Render API.
 - HttpOnly JWT cookies, CSRF checks, explicit hosts and origins, `DEBUG` off in production.
-- Secrets live only in the hosting dashboards, never in source control.
+- Secrets are kept in the hosting dashboards and are not committed to the repository. `.env.example` lists variable names only.
 
 ## Security and privacy
 
@@ -38,12 +40,12 @@ The demo runs on free hosting and uses fictional data only. Photos and avatars a
 - Dependencies are scanned (`npm audit`, `pip-audit`): zero known vulnerabilities on 11 Oct 2026.
 - The original permission model allows anonymous reads of posts. That is fine for a fictional demo and would need a trusted-circle check before real family use (see issue #2).
 - The 2023 screenshots that used third-party artwork were removed from the current version. The 2023 commit history is preserved as it was, including those files: when this course project was built, image copyright was not a focus. If you hold rights to any material and want it removed, open an issue.
-- This repository was audited for personal data, keys and tokens across its full git history and all branches before it went public.
+- Before going public, the patches of all four branches and 26 issues and pull requests were scanned on 12 Oct 2026 for personal data, keys and tokens. The scan found none. It is a pattern-based review, not a guarantee. Dead Gitpod and Heroku hostnames remain in the old history.
 
 ## Tests
 
 - Backend: `python manage.py test` (16 tests: post CRUD and ownership, JWT login, registration, health).
-- Frontend: `cd frontend && npm test` (12 Vitest + MSW tests for navigation, authentication and accessibility).
+- Frontend: `cd frontend && npm test` (13 Vitest + MSW tests for navigation, authentication and accessibility).
 - Build: `cd frontend && npm run build`.
 - Live checks on 10 Oct 2026: registration, login, Secure/HttpOnly cookies, create/edit/delete of posts, tasks and wishes, token refresh, logout.
 
@@ -616,4 +618,64 @@ To run the Baby Daily:
 
 ## Requirements
 
-[main frame content truncated to preserve nested frames. Use find or scroll for more.]
+* asgiref==3.7.2
+* cloudinary==1.34.0
+* dj-database-url==0.5.0
+* dj-rest-auth==2.1.9
+* Django==3.2.20
+* django-allauth==0.44.0
+* django-cloudinary-storage==0.3.0
+* django-cors-headers==4.2.0
+* django-filter==23.2
+* djangorestframework==3.14.0
+* djangorestframework-simplejwt==5.3.0
+* gunicorn==21.2.0
+* oauthlib==3.2.2
+* Pillow==8.2.0
+* psycopg2==2.9.7
+* PyJWT==2.8.0
+* python3-openid==3.2.0
+* pytz==2023.3
+* requests-oauthlib==1.3.1
+* sqlparse==0.4.4
+* urllib3==1.26.16
+* whitenoise==6.4.0
+
+- - -
+
+## Credits
+
+### Code Used
+
+- Code Institutes 'Django Rest Framework Walkthrough Videos'
+- Code Institutes 'Moments Walkthrough Videos'
+
+### Content
+
+- [Stack Overflow](https://stackoverflow.co/) were used at various times to clear up recurring doubts;
+- [Code Institute](https://learn.codeinstitute.net/) to review material of study explanatory videos and guides on how to set up a complete website;
+- [GitHub](https://github.com/) to better understand other projects;
+- [Google](https://www.google.com) for more information on subjects related to the that I had to study during the creation of the site;
+- [Youtube](https://www.youtube.com/) tutorials to learn using in a practical way some of the methods necessary to implement the desired functions for the blog;
+- [Pycodestyle](https://pypi.org/project/pycodestyle/) used to validade my python code;
+- [Flake8](https://flake8.pycqa.org/en/latest/) used to test my pyhton code at local terminal;
+- [CI Python Linter](https://pep8ci.herokuapp.com/#) used to test if my pyhton code it complies with PEP8;
+- [Extends Class](https://extendsclass.com/python-tester.html) used to test my python code syntax;
+- [JSFiddle](https://jsfiddle.net/) used to test my few lines of JavaScript in this project;
+- [Slack](https://slack.com/) communities to ask questions and access answers to questions that I found in the development of the site;
+- [Django Documentation](https://docs.djangoproject.com/en/4.1/) to access all the documentation implemented in this project including models, views, etc;
+- [Django Social Share](https://pypi.org/project/django-social-share/) to access all the documentation to implement share buttons function;
+- [Django Allauth](https://django-allauth.readthedocs.io/en/latest/) to access all the documentation to implement authentication and authorization functions;
+- [Django Bootstrap Icons](https://pypi.org/project/django-bootstrap-icons/) to access all the documentation to implement the use of the icons that are inside the share buttons;
+- [Font Awesome](https://fontawesome.com/icons) to get icons for this project;
+- [Coolors](https://coolors.co/) for inspiration about color palettes;
+- [Bootstrap Icons](https://icons.getbootstrap.com/) to get icons for this project;
+- [Bootstrap Documentation](https://getbootstrap.com/docs/4.0/getting-started/introduction/) to access all the documentation to use many of Bootstrap shortcuts;
+- [Kera Cudmore](https://github.com/kera-cudmore/readme-examples/blob/main/milestone1-readme.md) as an exampel of a good README file structure.
+
+### Media
+
+- [Am I Responsive](https://ui.dev/amiresponsive) Multi Device Website Mockup Generator was used to generate the image used in this README.md in the opening section.
+
+### Acknowledgements
+- My mentor for continuous helpful feedback.
