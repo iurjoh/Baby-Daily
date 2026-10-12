@@ -50,7 +50,7 @@ input[type="file"] {
 }
 
 i {
-  color: #cfced3;
+  color: #62616a;
   font-size: 1.6rem;
   padding: 7px;
   vertical-align: middle;
@@ -80,3 +80,45 @@ figure {
 *::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible {
+  outline: 3px solid #2142b2;
+  outline-offset: 3px;
+}
+
+input:not([type="file"]), textarea, select {
+  min-height: 44px;
+}
+
+/* All interactive controls keep a 44px target across every route. */
+:global(button), :global(.btn), :global(input:not([type="file"])), :global(textarea), :global(select), :global([role="button"]) {
+  min-width: 44px;
+  min-height: 44px;
+}
+:global(.badge-primary), :global(.btn-primary) { background-color: #2142b2; color: #ffffff; }
+:global(.badge-success), :global(.btn-success) { background-color: #176b34; color: #ffffff; }
+:global(.text-muted) { color: #62616a !important; }
+
+/* Bootstrap's absolute checkbox offset does not reserve a 44px target. */
+:global(.form-check) {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-left: 0;
+  min-height: 44px;
+}
+:global(.form-check-input) {
+  position: static;
+  flex: 0 0 44px;
+  width: 44px;
+  height: 44px;
+  margin: 0;
+}
+:global(.form-check-label) {
+  display: flex;
+  align-items: center;
+  min-height: 44px;
+  margin-bottom: 0;
+}
+
+:global(.invalid-feedback) { color: #a51c30; }

@@ -1,16 +1,74 @@
-# Baby Daily - Smiles, steps and stories. Daily!
+# Baby Daily
 
-[Português (Brasil)](README.pt-BR.md) | **English**
+[![Open the live demo](https://img.shields.io/badge/Live_demo-open_in_browser-2ea44f)](https://baby-daily-8c4.pages.dev/)
 
-**Documentation review: 2026-10-01.** Original planning, screenshots and test notes below are historical. Tests were not rerun in this update.
+[Português (Brasil)](README.pt-BR.md) | **English** | [MIT license](LICENSE)
 
-> **Privacy intent is not an access guarantee.** `posts/views.py` uses `IsAuthenticatedOrReadOnly` for the list, and `IsOwnerOrReadOnly` allows safe read methods without a trusted-circle check. The current code permits anonymous reads of posts. Review permissions and direct media access before using real children's data. This documentation update does not change the app.
+> Smiles, steps and stories. Daily! A small social app where parents share a baby's milestones with family and friends. Built in 2023 as a Code Institute final project, brought back to life in October 2026.
 
-Baby Daily is a responsive learning project designed for parents to share their baby's milestones, updates, and moments with family and close friends. A private trusted circle was the original design goal; the current post-read permissions do not enforce that goal. Parents can post photos, create wish lists, manage tasks, leave comments, and engage in a private and secure community.
+## Demo
 
-![Baby Daily](./frontend/src/assets/site.JPG)
+Open it in the browser. No install, no terminal: **https://baby-daily-8c4.pages.dev/**
 
-**Historical deployment URL:** https://iurjoh-baby-daily-backend-api-1674476236b8.herokuapp.com/ . On 2026-10-01, this URL and `/api/posts/` returned HTTP 404 with Heroku's "No such app" page, not post data. No active deployment at this address was confirmed; another undocumented host is not ruled out.
+The demo runs on free hosting and uses fictional data only. Photos and avatars are AI-generated images of imaginary families. The free API instance sleeps when idle, so the first request can take 50 seconds or more. Please do not upload real photos of children or personal information.
+
+![Baby Daily on desktop](docs/assets/live-desktop-2026-10-10.png)
+![Baby Daily on mobile](docs/assets/live-mobile-2026-10-10.png)
+
+## The story
+
+1. **Idea (2023).** A trusted-circle feed for new parents: posts with photos, comments, likes, followers, a task list for milestones and a wish list. Planned with 21 user stories on a GitHub board.
+2. **First build (Aug-Dec 2023).** Django REST Framework API with a React front end, hosted on Heroku. The full commit history is kept in this repository.
+3. **Hosting ends.** Heroku dropped its free plan and the database host closed, so the app went offline.
+4. **Revival (Oct 2026).** Django 5.2 LTS, a Vite build, a same-origin `/api/` gateway on Cloudflare Pages, Render Free for the API, Neon Free for PostgreSQL, Cloudinary for media. Historical secrets and personal data were removed before publication. Demo data is fictional.
+5. **Quality pass.** Accessibility fixes (labels, touch targets, contrast, validation feedback), complete timestamps, deployment checks in CI and a final review before going public.
+
+## Architecture
+
+- Django 5.2 LTS and Django REST Framework, PostgreSQL in production (SQLite locally).
+- React 17, React Router 5, Vite on Node 22.
+- Cloudflare Pages front end with a same-origin `/api/` gateway to the Render API.
+- HttpOnly JWT cookies, CSRF checks, explicit hosts and origins, `DEBUG` off in production.
+- Secrets live only in the hosting dashboards, never in source control.
+
+## Security and privacy
+
+- Demo accounts and content come from `python manage.py seed_demo`: three fictional profiles, five stories with comments and likes, one task, one wish. Seeded accounts have unusable passwords. Sign-up needs no email address.
+- `bash scripts/check-deploy.sh` runs Django's production checks before every deploy. CI runs the same path with throwaway credentials. The only expected warning is `security.W004` (HSTS), left off on purpose until a domain rollout is reviewed.
+- Dependencies are scanned (`npm audit`, `pip-audit`): zero known vulnerabilities on 11 Oct 2026.
+- The original permission model allows anonymous reads of posts. That is fine for a fictional demo and would need a trusted-circle check before real family use (see issue #2).
+- The 2023 screenshots that used third-party artwork were removed from the current version. The 2023 commit history is preserved as it was, including those files: when this course project was built, image copyright was not a focus. If you hold rights to any material and want it removed, open an issue.
+- This repository was audited for personal data, keys and tokens across its full git history and all branches before it went public.
+
+## Tests
+
+- Backend: `python manage.py test` (16 tests: post CRUD and ownership, JWT login, registration, health).
+- Frontend: `cd frontend && npm test` (12 Vitest + MSW tests for navigation, authentication and accessibility).
+- Build: `cd frontend && npm run build`.
+- Live checks on 10 Oct 2026: registration, login, Secure/HttpOnly cookies, create/edit/delete of posts, tasks and wishes, token refresh, logout.
+
+## Run it locally
+
+Python 3.12 and Node 22. Create a virtual environment, `pip install -r requirements.txt`, set a generated `SECRET_KEY` and `DEV=1`, run `python manage.py migrate` and `python manage.py seed_demo`, then `python manage.py runserver 8000`. In `frontend/` run `npm ci` and `npm start`.
+
+## Roadmap
+
+- Trusted-circle permissions: invite links per person, view/post/react without delete (issue #2).
+- Media access control and a viewer watermark.
+- Move off free hosting if the app is ever used by real families.
+
+## How this was built
+
+Planned and decided by Iuri Johansson. Instinct executes what he decides: audits, fixes, QA passes and documentation, with every change in a pull request.
+
+## Credits and license
+
+Based on Code Institute's Django REST Framework and Moments walkthroughs; their credits and third-party terms are kept in the historical record below. Original code and illustrations by Iuri Johansson, released under the [MIT license](LICENSE).
+
+---
+## Historical project record (2023)
+
+The planning, features, manual test cases, dependencies and deployment instructions below describe the original build. They are retained as history, not current setup instructions. Old screenshots are no longer used as proof of the current demo; their original versions remain in the 2023 commit history.
 
 ## CONTENTS
 
@@ -119,7 +177,7 @@ Here is a list of all my User Stories create for this project:
 * Delete wish: As a **Site User** I can **delete a wish when I am logged and be the owner** so that **I can delete a wish from wishes list**
 * User profile: As a **Site User** I can **edit my own profile** so that **I can update my photo, description and other details**
 
-![User stories](./frontend/src/assets/user%20stories.JPG)
+[Historical screenshot removed from current documentation; original remains in the 2023 commit history.]
 
 - - -
 
@@ -129,7 +187,7 @@ Here is a list of all my User Stories create for this project:
 
 I tried to use colors based on shades of blue that evoke a newborn. Calm and light colors, which reflect tranquility and security, conducive to this website.
  
-![Coolors](./frontend/src/assets/coolors.jpg)
+[Historical screenshot removed from current documentation; original remains in the 2023 commit history.]
 
 ### Typography
 
@@ -137,7 +195,7 @@ The font DM Sans, from Google Fonts and linked to San Serif family, was chosen b
 
 I also like to include an image of the fonts chosen as a reference.
 
-![Font](./frontend/src/assets/font.JPG)
+[Historical screenshot removed from current documentation; original remains in the 2023 commit history.]
 
 - - -
 
@@ -190,7 +248,7 @@ Provide multimedia messaging support, allowing users to share photos and videos 
 
 This document provides an overview of the structure and relationships to this database. It is designed designed to support parents in sharing private information about their babies with family and close friends, intended to support privacy and to store and manage data from the precious moments and details of each baby's journey. Parents can use the app to share information such as milestones, health updates, daily tasks, wish list, and memorable events with their trusted circle. It is organized into several tables, each representing a specific entity or relationship within the system.
 
-![Database](./frontend/src/assets/database.JPG)
+[Historical screenshot removed from current documentation; original remains in the 2023 commit history.]
 
 - - -
 
@@ -251,7 +309,7 @@ This document provides an overview of the structure and relationships to this da
 
 [W3C](https://validator.w3.org/) was used to validate the HTML on all pages of the website. It was also used to validate the CSS. After checking the entire Baby Daily code there were no errors or warnings to show, therefore the code is validated.
 
-![testHTML](./frontend/src/assets/testHTML.JPG)
+[Historical screenshot removed from current documentation; original remains in the 2023 commit history.]
 
 #### JavaScript Validator
 
@@ -265,7 +323,7 @@ We used Lighthouse within the Chrome Developer Tools to test the performance, ac
 
 Overall, the lighthouse scores are very good. A future implementation would be consider opportunities described in the performance analysis with a view to improving the score, which, despite being good, could be even better. All other areas evaluated were very successful.
 
-![testLighthouse](./frontend/src/assets/testLighthouse.JPG)
+[Historical screenshot removed from current documentation; original remains in the 2023 commit history.]
 
 -  Mobile Results
 
@@ -275,7 +333,7 @@ With a considerable margin of improvement, it would be possible to develop a pro
 * Efficiently encode images
 * Enable text compression
 
-![testLighthousemobile](./frontend/src/assets/testLighthousemobile.JPG)
+[Historical screenshot removed from current documentation; original remains in the 2023 commit history.]
 
 ### Manual Testing
 
@@ -284,32 +342,32 @@ With a considerable margin of improvement, it would be possible to develop a pro
   * Verify that users can successfully register an account on the platform.
   * Check for proper error messages when there are validation issues during registration.
 
-![sign up](./frontend/src/assets/sign%20up.JPG)
+[Historical screenshot removed from current documentation; original remains in the 2023 commit history.]
 
-![sign up error](./frontend/src/assets/sign%20up%20error.JPG)
+[Historical screenshot removed from current documentation; original remains in the 2023 commit history.]
 
 #### User Authentication:
   * Confirm that the sign-in form provides a secure login interface.
   * Validate that registered users can log in successfully.
   * Verify that incorrect login credentials result in appropriate error messages.
 
-![sign in](./frontend/src/assets/sign%20in.JPG)
+[Historical screenshot removed from current documentation; original remains in the 2023 commit history.]
 
-![sign in error](./frontend/src/assets/sign%20in%20error.JPG)
+[Historical screenshot removed from current documentation; original remains in the 2023 commit history.]
 
 #### Post Interaction:
   * View post list and confirm the display of a curated list of posts.
   * Open a post and ensure it opens correctly, displaying associated content.
   * Verify that users can interact with posts, such as liking or leaving comments.
 
-  ![likes-comments](./frontend/src/assets/likes-comments.jpg)
+  [Historical screenshot removed from current documentation; original remains in the 2023 commit history.]
 
 #### Comments Management:
   * Access the comments page to see a centralized space displaying comments.
   * Utilize the comments create/edit form to create and modify comments on posts.
   * Confirm that comments are correctly displayed on individual post pages.
 
-  ![comments](./frontend/src/assets/comments.JPG)
+  [Historical screenshot removed from current documentation; original remains in the 2023 commit history.]
 
 #### Profile Functions:
   * Navigate to the profiles page to view an overview of user profiles.
@@ -318,31 +376,31 @@ With a considerable margin of improvement, it would be possible to develop a pro
   * Verify the proper functioning of the user name form for setting or modifying displayed usernames.
   * Confirm that the profile page aggregates individual user posts and activities accurately.
 
-  ![profile](./frontend/src/assets/testprofile.JPG)
+  [Historical screenshot removed from current documentation; original remains in the 2023 commit history.]
 
-  ![profileedit](./frontend/src/assets/testprofileedit.JPG)
+  [Historical screenshot removed from current documentation; original remains in the 2023 commit history.]
 
 #### Task List Management:
   * Visit the tasks list page to view a comprehensive list of tasks.
   * Use the task create/edit form to create and modify tasks efficiently.
   * Ensure tasks are correctly displayed, providing an overview of ongoing and completed activities.
 
-![tasklist](./frontend/src/assets/testtasklist.JPG)
+[Historical screenshot removed from current documentation; original remains in the 2023 commit history.]
 
-![taskitem](./frontend/src/assets/testtaskitem.JPG)
+[Historical screenshot removed from current documentation; original remains in the 2023 commit history.]
 
-![taskedit](./frontend/src/assets/testtaskedit.JPG)
+[Historical screenshot removed from current documentation; original remains in the 2023 commit history.]
 
 #### Wish List Management:
   * Access the wish list page to view a curated collection of user-generated wish lists.
   * Use the wish list create/edit form to create and modify personalized wish lists.
   * Verify that wish lists offer insights into parents' preferences for baby-related items.
 
-![wishlist](./frontend/src/assets/testwishlist.JPG)
+[Historical screenshot removed from current documentation; original remains in the 2023 commit history.]
 
-![wishitem](./frontend/src/assets/testwishitem.JPG)
+[Historical screenshot removed from current documentation; original remains in the 2023 commit history.]
 
-![wishedit](./frontend/src/assets/testwishedit.JPG)
+[Historical screenshot removed from current documentation; original remains in the 2023 commit history.]
 
 #### Navigation and UI Elements:
   * Confirm the presence and functionality of the NavBar for seamless navigation.
@@ -351,23 +409,23 @@ With a considerable margin of improvement, it would be possible to develop a pro
   * Test the search bar for responsiveness and if allows users to input search queries.
   * Test most folloed profiles adding and removing a user from the list using follow/unfollow button.
 
-![testnavbar](./frontend/src/assets/testnavbar.JPG)
+[Historical screenshot removed from current documentation; original remains in the 2023 commit history.]
 
-![testmdd1](./frontend/src/assets/testmddeditdelete.JPG)
+[Historical screenshot removed from current documentation; original remains in the 2023 commit history.]
 
-![testmdd2](./frontend/src/assets/testmddprofile.JPG)
+[Historical screenshot removed from current documentation; original remains in the 2023 commit history.]
 
-![testnotfound](./frontend/src/assets/testnotfound.JPG)
+[Historical screenshot removed from current documentation; original remains in the 2023 commit history.]
 
-![testsearchbar](./frontend/src/assets/testsearchbar.jpg)
+[Historical screenshot removed from current documentation; original remains in the 2023 commit history.]
 
-![testfollow](./frontend/src/assets/testfollowrs.JPG)
+[Historical screenshot removed from current documentation; original remains in the 2023 commit history.]
 
 #### Asset Management:
   * Test the tool used for adding multimedia elements, images, and text to new posts.
   * Confirm that assets enhance the visual and interactive aspects of a new post.
 
-![testasset](./frontend/src/assets/testasset.JPG)
+[Historical screenshot removed from current documentation; original remains in the 2023 commit history.]
 
 #### Infinite Scrolling:
   * Scroll through the posts page to ensure infinite scrolling works smoothly.
@@ -558,70 +616,4 @@ To run the Baby Daily:
 
 ## Requirements
 
-* asgiref==3.7.2
-* cloudinary==1.34.0
-* dj-database-url==0.5.0
-* dj-rest-auth==2.1.9
-* Django==3.2.20
-* django-allauth==0.44.0
-* django-cloudinary-storage==0.3.0
-* django-cors-headers==4.2.0
-* django-filter==23.2
-* djangorestframework==3.14.0
-* djangorestframework-simplejwt==5.3.0
-* gunicorn==21.2.0
-* oauthlib==3.2.2
-* Pillow==8.2.0
-* psycopg2==2.9.7
-* PyJWT==2.8.0
-* python3-openid==3.2.0
-* pytz==2023.3
-* requests-oauthlib==1.3.1
-* sqlparse==0.4.4
-* urllib3==1.26.16
-* whitenoise==6.4.0
-
-- - -
-
-## Credits
-
-### Code Used
-
-- Code Institutes 'Django Rest Framework Walkthrough Videos'
-- Code Institutes 'Moments Walkthrough Videos'
-
-### Content
-
-- [Stack Overflow](https://stackoverflow.co/) were used at various times to clear up recurring doubts;
-- [Code Institute](https://learn.codeinstitute.net/) to review material of study explanatory videos and guides on how to set up a complete website;
-- [GitHub](https://github.com/) to better understand other projects;
-- [Google](https://www.google.com) for more information on subjects related to the that I had to study during the creation of the site;
-- [Youtube](https://www.youtube.com/) tutorials to learn using in a practical way some of the methods necessary to implement the desired functions for the blog;
-- [Pycodestyle](https://pypi.org/project/pycodestyle/) used to validade my python code;
-- [Flake8](https://flake8.pycqa.org/en/latest/) used to test my pyhton code at local terminal;
-- [CI Python Linter](https://pep8ci.herokuapp.com/#) used to test if my pyhton code it complies with PEP8;
-- [Extends Class](https://extendsclass.com/python-tester.html) used to test my python code syntax;
-- [JSFiddle](https://jsfiddle.net/) used to test my few lines of JavaScript in this project;
-- [Slack](https://slack.com/) communities to ask questions and access answers to questions that I found in the development of the site;
-- [Django Documentation](https://docs.djangoproject.com/en/4.1/) to access all the documentation implemented in this project including models, views, etc;
-- [Django Social Share](https://pypi.org/project/django-social-share/) to access all the documentation to implement share buttons function;
-- [Django Allauth](https://django-allauth.readthedocs.io/en/latest/) to access all the documentation to implement authentication and authorization functions;
-- [Django Bootstrap Icons](https://pypi.org/project/django-bootstrap-icons/) to access all the documentation to implement the use of the icons that are inside the share buttons;
-- [Font Awesome](https://fontawesome.com/icons) to get icons for this project;
-- [Coolors](https://coolors.co/) for inspiration about color palettes;
-- [Bootstrap Icons](https://icons.getbootstrap.com/) to get icons for this project;
-- [Bootstrap Documentation](https://getbootstrap.com/docs/4.0/getting-started/introduction/) to access all the documentation to use many of Bootstrap shortcuts;
-- [Kera Cudmore](https://github.com/kera-cudmore/readme-examples/blob/main/milestone1-readme.md) as an exampel of a good README file structure.
-
-### Media
-
-- [Am I Responsive](https://ui.dev/amiresponsive) Multi Device Website Mockup Generator was used to generate the image used in this README.md in the opening section.
-
-### Acknowledgements
-- My mentor for continuous helpful feedback.
-
-## License and documentation follow-up
-
-No root LICENSE file was found in this review. Credits and third-party terms must be preserved; this update does not apply MIT to the Code Institute template or walkthrough code.
-
-The full Brazilian Portuguese version preserves the original planning, features, manual-test cases, screenshots, deployment history and credits, with corrections to version labels and copied project names. `requirements.txt` records django-allauth 0.44.0; psycopg2 2.9.7 is a Python driver version, not a PostgreSQL server version. The current settings use page size 15 and date format `%d %b %Y %H`, unlike the older examples above. Treat the deployment examples as historical, including obsolete or unverified services and plans. New snapshots belong in `docs/assets/` with dates and fictional data only.
+[main frame content truncated to preserve nested frames. Use find or scroll for more.]
