@@ -8,18 +8,20 @@
 
 ## Demo
 
-Abra no navegador. Sem instalação, sem terminal: **https://baby-daily-8c4.pages.dev/**
+Use o selo acima para abrir no navegador. Sem instalação, sem terminal.
 
 A demo roda em hospedagem gratuita e usa apenas dados fictícios. As fotos e avatares são imagens geradas por IA de famílias imaginárias. A instância gratuita da API dorme quando fica parada, então a primeira requisição pode levar 50 segundos ou mais. Não envie fotos reais de crianças nem informações pessoais.
 
-![Baby Daily no desktop](docs/assets/live-desktop-2026-10-10.png)
-![Baby Daily no celular](docs/assets/live-mobile-2026-10-10.png)
+Capturas históricas de 10/10/2026, feitas antes de o seed da demo ser trocado pelas fotos de famílias geradas por IA (só dados fictícios). A demo ao vivo mostra o conteúdo atual.
+
+![Baby Daily no desktop, captura de 10/10/2026](docs/assets/live-desktop-2026-10-10.png)
+![Baby Daily no celular, captura de 10/10/2026](docs/assets/live-mobile-2026-10-10.png)
 
 ## A história
 
 1. **Ideia (2023).** Um feed de círculo de confiança para pais de primeira viagem: posts com fotos, comentários, curtidas, seguidores, lista de tarefas de marcos e lista de desejos. Planejado com 21 histórias de usuário num quadro do GitHub.
 2. **Primeira versão (ago-dez 2023).** API Django REST Framework com front-end React, hospedada no Heroku. O histórico completo de commits está neste repositório.
-3. **A hospedagem acaba.** O Heroku encerrou o plano gratuito e o banco de dados fechou, então o app saiu do ar.
+3. **Hospedagem perdida.** Em 2026 a hospedagem original de 2023 (app no Heroku e seu banco) não estava mais ativa, então o app estava fora do ar. Este README não afirma uma causa específica.
 4. **Revival (out 2026).** Django 5.2 LTS, build com Vite, gateway `/api/` na mesma origem no Cloudflare Pages, Render Free para a API, Neon Free para o PostgreSQL, Cloudinary para mídia. Segredos e dados pessoais históricos foram removidos antes da publicação. Os dados da demo são fictícios.
 5. **Passada de qualidade.** Correções de acessibilidade (rótulos, áreas de toque, contraste, mensagens de validação), horários completos, verificações de deploy no CI e uma revisão final antes de tornar público.
 
@@ -29,7 +31,7 @@ A demo roda em hospedagem gratuita e usa apenas dados fictícios. As fotos e ava
 - React 17, React Router 5, Vite com Node 22.
 - Front-end no Cloudflare Pages com gateway `/api/` na mesma origem para a API no Render.
 - Cookies JWT HttpOnly, checagem CSRF, hosts e origens explícitos, `DEBUG` desligado em produção.
-- Segredos ficam só nos painéis de hospedagem, nunca no controle de versão.
+- Segredos ficam nos painéis de hospedagem e não são versionados. `.env.example` lista só nomes de variáveis.
 
 ## Segurança e privacidade
 
@@ -37,13 +39,13 @@ A demo roda em hospedagem gratuita e usa apenas dados fictícios. As fotos e ava
 - `bash scripts/check-deploy.sh` roda as checagens de produção do Django antes de cada deploy. O CI roda o mesmo caminho com credenciais descartáveis. O único aviso esperado é `security.W004` (HSTS), mantido desligado de propósito até a revisão de um rollout com domínio próprio.
 - Dependências verificadas (`npm audit`, `pip-audit`): zero vulnerabilidades conhecidas em 11/10/2026.
 - O modelo de permissões original permite leitura anônima dos posts. Para uma demo fictícia isso serve; para famílias reais exigiria checagem de círculo de confiança (veja a issue #2).
-- Este repositório foi auditado quanto a dados pessoais, chaves e tokens em todo o histórico git e em todas as branches antes de ser tornado público.
+- Antes de tornar público, os patches das quatro branches e 26 issues e pull requests foram varridos em 12/10/2026 em busca de dados pessoais, chaves e tokens. Nada foi encontrado. É uma revisão por padrões, não uma garantia. Hostnames mortos de Gitpod e Heroku permanecem no histórico antigo.
 - Os screenshots de 2023 que usavam arte de terceiros foram removidos da versão atual. O histórico de commits de 2023 foi preservado como estava, incluindo esses arquivos: na época do curso, direitos autorais de imagens não eram o foco. Se você é titular de algum material e quer a remoção, abra uma issue.
 
 ## Testes
 
 - Backend: `python manage.py test` (16 testes: CRUD e propriedade de posts, login JWT, cadastro, health).
-- Frontend: `cd frontend && npm test` (12 testes Vitest + MSW de navegação, autenticação e acessibilidade).
+- Frontend: `cd frontend && npm test` (13 testes Vitest + MSW de navegação, autenticação e acessibilidade).
 - Build: `cd frontend && npm run build`.
 - Verificações ao vivo em 10/10/2026: cadastro, login, cookies Secure/HttpOnly, criar/editar/apagar posts, tarefas e desejos, refresh de token, logout.
 
