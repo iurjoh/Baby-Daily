@@ -35,13 +35,21 @@ function SignInForm() {
   const handleSubmit = async (event) => {
     event.preventDefault();
 
+    setErrors({});
     try {
+      // Refresh the same-origin CSRF cookie before every login attempt.
+      await axios.get("/");
       const { data } = await axios.post("/dj-rest-auth/login/", signInData);
       setCurrentUser(data.user);
       setTokenTimestamp(data);
       history.goBack();
     } catch (err) {
-      setErrors(err.response?.data);
+      const data = err.response?.data;
+      setErrors({
+        ...(data && typeof data === "object" ? data : {}),
+        detail: data?.detail || (!data?.non_field_errors && !data?.username && !data?.password
+          ? "Sign in failed. Please try again." : null),
+      });
     }
   };
 
@@ -59,7 +67,7 @@ function SignInForm() {
           <h1 className={styles.Header}>sign in</h1>
           <Form onSubmit={handleSubmit}>
             <Form.Group controlId="username">
-              <Form.Label className="d-none">Username</Form.Label>
+              <Form.Label className="sr-only">Username</Form.Label>
               <Form.Control
                 type="text"
                 placeholder="Username"
@@ -76,7 +84,7 @@ function SignInForm() {
             ))}
 
             <Form.Group controlId="password">
-              <Form.Label className="d-none">Password</Form.Label>
+              <Form.Label className="sr-only">Password</Form.Label>
               <Form.Control
                 type="password"
                 placeholder="Password"
@@ -97,6 +105,7 @@ function SignInForm() {
             >
               Sign in
             </Button>
+            {errors.detail && <Alert role="alert" variant="warning" className="mt-3">{errors.detail}</Alert>}
             {errors.non_field_errors?.map((message, idx) => (
               <Alert key={idx} variant="warning" className="mt-3">
                 {message}

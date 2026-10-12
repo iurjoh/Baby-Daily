@@ -10,3 +10,10 @@ class CurrentUserSerializer(UserDetailsSerializer):
         fields = UserDetailsSerializer.Meta.fields + (
             'profile_id', 'profile_image'
         )
+
+
+from dj_rest_auth.registration.serializers import RegisterSerializer
+
+class DemoRegisterSerializer(RegisterSerializer):
+    """Portfolio registration does not collect email addresses."""
+    email = serializers.EmailField(required=False, allow_blank=True)

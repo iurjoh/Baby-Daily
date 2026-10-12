@@ -27,29 +27,40 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [(
-        'rest_framework.authentication.SessionAuthentication'
-        if 'DEV' in os.environ
-        else 'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
+        'dj_rest_auth.jwt_auth.JWTCookieAuthentication'
     )],
     'DEFAULT_PAGINATION_CLASS':
         'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 15,
-    'DATETIME_FORMAT': '%d %b %Y %H',
+    'DATETIME_FORMAT': '%d %b %Y, %H:%M UTC',
 }
 if 'DEV' not in os.environ:
     REST_FRAMEWORK['DEFAULT_RENDERER_CLASSES'] = [
         'rest_framework.renderers.JSONRenderer',
     ]
 
-REST_USE_JWT = True
-JWT_AUTH_SECURE = True
-JWT_AUTH_COOKIE = 'my-app-auth'
-JWT_AUTH_REFRESH_COOKIE = 'my-refresh-token'
-JWT_AUTH_SAMESITE = 'None'
-
-REST_AUTH_SERIALIZERS = {
-    'USER_DETAILS_SERIALIZER': 'bd_backend.serializers.CurrentUserSerializer'
+JWT_AUTH_COOKIE = 'baby-daily-access'
+JWT_AUTH_REFRESH_COOKIE = 'baby-daily-refresh'
+JWT_AUTH_SECURE = 'DEV' not in os.environ
+JWT_AUTH_SAMESITE = 'Lax'
+REST_AUTH = {
+    'USE_JWT': True,
+    'REGISTER_SERIALIZER': 'bd_backend.serializers.DemoRegisterSerializer',
+    'SESSION_LOGIN': False,
+    'JWT_AUTH_COOKIE': JWT_AUTH_COOKIE,
+    'JWT_AUTH_REFRESH_COOKIE': JWT_AUTH_REFRESH_COOKIE,
+    'JWT_AUTH_SECURE': JWT_AUTH_SECURE,
+    'JWT_AUTH_HTTPONLY': True,
+    'JWT_AUTH_SAMESITE': JWT_AUTH_SAMESITE,
+    'JWT_AUTH_RETURN_EXPIRATION': True,
+    'JWT_AUTH_COOKIE_USE_CSRF': True,
+    'JWT_AUTH_COOKIE_ENFORCE_CSRF_ON_UNAUTHENTICATED': True,
+    'USER_DETAILS_SERIALIZER': 'bd_backend.serializers.CurrentUserSerializer',
 }
+ACCOUNT_EMAIL_VERIFICATION = 'none'
+ACCOUNT_LOGIN_METHODS = {'username'}
+ACCOUNT_SIGNUP_FIELDS = ['username*', 'password1*', 'password2*']
+AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend', 'allauth.account.auth_backends.AuthenticationBackend']
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -60,7 +71,20 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'DEV' in os.environ
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = [h.strip() for h in os.getenv('ALLOWED_HOSTS', 'localhost,127.0.0.1,testserver').split(',') if h.strip()]
+if os.getenv('RENDER_EXTERNAL_HOSTNAME'):
+    ALLOWED_HOSTS.append(os.environ['RENDER_EXTERNAL_HOSTNAME'])
+CSRF_TRUSTED_ORIGINS = [o.strip() for o in os.getenv('CLIENT_ORIGIN', '').split(',') if o.strip()]
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SESSION_COOKIE_SECURE = not DEBUG
+CSRF_COOKIE_SECURE = not DEBUG
+SECURE_SSL_REDIRECT = not DEBUG
+# Render probes may use HTTP internally; this endpoint returns no private data.
+SECURE_REDIRECT_EXEMPT = [r'^health/$']
+# Enable HSTS only after a separate domain/HTTPS rollout review.
+SECURE_HSTS_SECONDS = 0
+SECURE_CONTENT_TYPE_NOSNIFF = True
+X_FRAME_OPTIONS = 'DENY'
 
 
 # Application definition
@@ -102,17 +126,16 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 if 'CLIENT_ORIGIN' in os.environ:
-    CORS_ALLOWED_ORIGINS = [
-        os.environ.get('CLIENT_ORIGIN')
-    ]
+    CORS_ALLOWED_ORIGINS = list(CSRF_TRUSTED_ORIGINS)
 else:
     CORS_ALLOWED_ORIGIN_REGEXES = [
-        r"^https://.*\.gitpod\.io$",
+        r'^http://localhost:3000$',
     ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -150,7 +173,7 @@ if 'DEV' in os.environ:
     }
 else:
     DATABASES = {
-        'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+        'default': dj_database_url.parse(os.environ.get('DATABASE_URL', ''), conn_max_age=60)
     }
 
 # Password validation
@@ -197,3 +220,15 @@ WHITENOISE_ROOT = BASE_DIR / 'staticfiles' / 'build'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+if os.environ.get('CLOUDINARY_URL'):
+    STORAGES = {
+        'default': {'BACKEND': 'cloudinary_storage.storage.MediaCloudinaryStorage'},
+        'staticfiles': {'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage'},
+    }
+else:
+    STORAGES = {
+        'default': {'BACKEND': 'django.core.files.storage.FileSystemStorage'},
+        'staticfiles': {'BACKEND': 'whitenoise.storage.CompressedManifestStaticFilesStorage'},
+    }
+    MEDIA_ROOT = BASE_DIR / 'media'

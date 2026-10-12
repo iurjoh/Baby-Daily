@@ -18,6 +18,7 @@ function WishCreateForm({ onWishCreated }) {
   });
 
   const [validationErrors, setValidationErrors] = useState({});
+  const [apiErrors, setApiErrors] = useState([]);
   const { title, price, description, purchaseLink, isFulfilled } = wishData;
   const history = useHistory();
 
@@ -51,6 +52,7 @@ function WishCreateForm({ onWishCreated }) {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setApiErrors([]);
 
     if (!validateForm()) {
       return;
@@ -68,12 +70,14 @@ function WishCreateForm({ onWishCreated }) {
       await axiosReq.post("/wishes/", formData);
       history.push("/wishes/");
     } catch (err) {
-      console.log(err);
+      const data = err.response?.data;
+      setApiErrors(data && typeof data === "object" ? Object.entries(data).flatMap(([field, messages]) => (Array.isArray(messages) ? messages : [messages]).map(message => `${field}: ${message}`)) : ["Could not create this wish. Please try again."]);
     }
   };
 
   return (
     <Form onSubmit={handleSubmit} encType="multipart/form-data">
+      {apiErrors.length > 0 && <Alert variant="danger" role="alert">{apiErrors.map((message, index) => <div key={index}>{message}</div>)}</Alert>}
       {Object.keys(validationErrors).length > 0 && (
         <Alert variant="danger">
           Please fill in all required fields before submitting the form.
