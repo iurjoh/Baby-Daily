@@ -69,3 +69,16 @@ Baseado nos tutoriais Django REST Framework e Moments do Code Institute; seus cr
 
 ---
 O registro histórico completo de 2023 (histórias de usuário, esquema do banco, testes manuais) está na [versão em inglês](README.md#historical-project-record-2023).
+
+## Retrato da tecnologia e do esforço
+
+Registro das fontes do repositório em 2026-10-14. É um retrato do código, não uma afirmação sobre versões em produção nem sobre a tecnologia disponível no lançamento original.
+
+- **Stack neste registro:** React 17.0.2; Vite 7.3.7; Bootstrap 4.6.2 (frontend/package-lock.json). Django 5.2.18 e Django REST Framework 3.17.2 fixados em requirements.txt.
+- **Registro anterior:** O primeiro manifesto de frontend preservado (a365e2d) declara React ^17.0.2, react-scripts 4.0.3 e Node 16.x. São declarações históricas, não requisitos atuais de execução.
+- **Janela de calendário observada:** 2023-08-15 a 2026-10-12: commits preservados e alcançáveis em main. Intervalo de calendário, não trabalho contínuo nem prazo até o lançamento.
+- **Pull requests:** 3 PRs visíveis: 0 abertos, 3 fechados, consultados em 2026-10-14 antes desta alteração. Fechado não significa mergeado. Histórico apagado/recriado não entra na contagem.
+- **Decisão e motivo:** A retomada de 2026 preserva o histórico acadêmico de 2023 e substitui ferramentas antigas do frontend; conteúdo fictício evita expor famílias reais.
+- **Estimativa de esforço ativo:** indisponível. Não foi estabelecido um registro confiável de tempo nem uma reconstrução delimitada das sessões de trabalho. Contagem de commits e tempo de calendário não são convertidos em horas.
+
+Evidências: arquivos de dependências/código citados acima, histórico Git preservado e lista de PRs do repositório. Versões e contagens pertencem a este registro, não são contadores ao vivo.
