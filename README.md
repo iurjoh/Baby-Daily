@@ -679,3 +679,16 @@ To run the Baby Daily:
 
 ### Acknowledgements
 - My mentor for continuous helpful feedback.
+
+## Technology and effort snapshot
+
+Captured from repository sources on 2026-10-14. This is a source snapshot, not a claim about production versions or the technology available at the original launch.
+
+- **Stack at this snapshot:** React 17.0.2; Vite 7.3.7; Bootstrap 4.6.2 (frontend/package-lock.json). Django 5.2.18 and Django REST Framework 3.17.2 are pinned in requirements.txt.
+- **Earlier record:** The first surviving frontend manifest (a365e2d) declares React ^17.0.2, react-scripts 4.0.3 and Node 16.x. These are historical declarations, not current run requirements.
+- **Observed calendar window:** 2023-08-15 to 2026-10-12: surviving commits reachable from main. Calendar span, not continuous work or time to launch.
+- **Pull requests:** 3 visible PRs: 0 open, 3 closed, captured 2026-10-14 before this documentation change. Closed does not mean merged. Deleted/recreated history is excluded.
+- **Decision and reason:** The 2026 revival preserves the 2023 academic history while replacing obsolete frontend tooling; fictional demo content avoids exposing real families.
+- **Estimated active effort:** unavailable. No reliable time log or bounded work-session reconstruction was established. Commit count and elapsed calendar time are not converted into hours.
+
+Evidence: current dependency/source files named above, retained Git history and the repository PR list. Versions and counts are fixed to this snapshot, not live counters.
