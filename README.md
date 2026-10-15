@@ -20,7 +20,7 @@ Historical captures from 10 Oct 2026, taken before the demo seed was replaced wi
 ## The story
 
 1. **Idea (2023).** A trusted-circle feed for new parents: posts with photos, comments, likes, followers, a task list for milestones and a wish list. Planned with 21 user stories on a GitHub board.
-2. **First build (Aug-Dec 2023).** Django REST Framework API with a React front end, hosted on Heroku. The full commit history is kept in this repository.
+2. **First build (Aug-Dec 2023).** Django REST Framework API with a React front end, hosted on Heroku. The commit history is retained, with the targeted removals recorded below.
 3. **Hosting gone.** By 2026 the original 2023 hosting (Heroku app and its database) was no longer running, so the app was offline. This README does not claim a specific cause.
 4. **Revival (Oct 2026).** Django 5.2 LTS, a Vite build, a same-origin `/api/` gateway on Cloudflare Pages, Render Free for the API, Neon Free for PostgreSQL, Cloudinary for media. Historical secrets and personal data were removed before publication. Demo data is fictional.
 5. **Quality pass.** Accessibility fixes (labels, touch targets, contrast, validation feedback), complete timestamps, deployment checks in CI and a final review before going public.
@@ -39,7 +39,8 @@ Historical captures from 10 Oct 2026, taken before the demo seed was replaced wi
 - `bash scripts/check-deploy.sh` runs Django's production checks before every deploy. CI runs the same path with throwaway credentials. The only expected warning is `security.W004` (HSTS), left off on purpose until a domain rollout is reviewed.
 - Dependencies are scanned (`npm audit`, `pip-audit`): zero known vulnerabilities on 11 Oct 2026.
 - The original permission model allows anonymous reads of posts. That is fine for a fictional demo and would need a trusted-circle check before real family use (see issue #2).
-- The 2023 screenshots that used third-party artwork were removed from the current version. The 2023 commit history is preserved as it was, including those files: when this course project was built, image copyright was not a focus. If you hold rights to any material and want it removed, open an issue.
+- On 15 Oct 2026 the Git history was rewritten to remove 23 historical image blobs with unverified rights, four compiled JS/source-map blobs embedding those images, and one old hardcoded secret from 10 historical versions of `bd_backend/settings.py`. The secret value was replaced with a non-working placeholder; the rest of each source file was retained. All 175 existing commits, their authors, committers, dates, messages and parent relationships were retained; affected commit hashes changed. This was a targeted cleanup, not a rebuild or a new claim of authorship. A private backup was made before rewriting. Current original illustrations and licensed dependency assets were kept.
+- Old clones, forks, pull-request refs and GitHub caches may still expose the old objects. Rewriting this repository does not erase those copies. A removed secret must still be rotated if it was used by a live service. If you hold rights to material that remains, open an issue.
 - Before going public, the patches of all four branches and 26 issues and pull requests were scanned on 12 Oct 2026 for personal data, keys and tokens. The scan found none. It is a pattern-based review, not a guarantee. Dead Gitpod and Heroku hostnames remain in the old history.
 
 ## Tests
@@ -70,7 +71,7 @@ Based on Code Institute's Django REST Framework and Moments walkthroughs; their 
 ---
 ## Historical project record (2023)
 
-The planning, features, manual test cases, dependencies and deployment instructions below describe the original build. They are retained as history, not current setup instructions. Old screenshots are no longer used as proof of the current demo; their original versions remain in the 2023 commit history.
+The planning, features, manual test cases, dependencies and deployment instructions below describe the original build. They are retained as history, not current setup instructions. Old screenshots are no longer used as proof of the current demo; the flagged artwork-bearing originals were removed from the rewritten history on 15 Oct 2026.
 
 ## CONTENTS
 

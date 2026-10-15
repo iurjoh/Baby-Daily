@@ -20,7 +20,7 @@ Capturas históricas de 10/10/2026, feitas antes de o seed da demo ser trocado p
 ## A história
 
 1. **Ideia (2023).** Um feed de círculo de confiança para pais de primeira viagem: posts com fotos, comentários, curtidas, seguidores, lista de tarefas de marcos e lista de desejos. Planejado com 21 histórias de usuário num quadro do GitHub.
-2. **Primeira versão (ago-dez 2023).** API Django REST Framework com front-end React, hospedada no Heroku. O histórico completo de commits está neste repositório.
+2. **Primeira versão (ago-dez 2023).** API Django REST Framework com front-end React, hospedada no Heroku. O histórico de commits foi mantido, com as remoções pontuais registradas abaixo.
 3. **Hospedagem perdida.** Em 2026 a hospedagem original de 2023 (app no Heroku e seu banco) não estava mais ativa, então o app estava fora do ar. Este README não afirma uma causa específica.
 4. **Revival (out 2026).** Django 5.2 LTS, build com Vite, gateway `/api/` na mesma origem no Cloudflare Pages, Render Free para a API, Neon Free para o PostgreSQL, Cloudinary para mídia. Segredos e dados pessoais históricos foram removidos antes da publicação. Os dados da demo são fictícios.
 5. **Passada de qualidade.** Correções de acessibilidade (rótulos, áreas de toque, contraste, mensagens de validação), horários completos, verificações de deploy no CI e uma revisão final antes de tornar público.
@@ -40,7 +40,8 @@ Capturas históricas de 10/10/2026, feitas antes de o seed da demo ser trocado p
 - Dependências verificadas (`npm audit`, `pip-audit`): zero vulnerabilidades conhecidas em 11/10/2026.
 - O modelo de permissões original permite leitura anônima dos posts. Para uma demo fictícia isso serve; para famílias reais exigiria checagem de círculo de confiança (veja a issue #2).
 - Antes de tornar público, os patches das quatro branches e 26 issues e pull requests foram varridos em 12/10/2026 em busca de dados pessoais, chaves e tokens. Nada foi encontrado. É uma revisão por padrões, não uma garantia. Hostnames mortos de Gitpod e Heroku permanecem no histórico antigo.
-- Os screenshots de 2023 que usavam arte de terceiros foram removidos da versão atual. O histórico de commits de 2023 foi preservado como estava, incluindo esses arquivos: na época do curso, direitos autorais de imagens não eram o foco. Se você é titular de algum material e quer a remoção, abra uma issue.
+- Em 15/10/2026 o histórico Git foi reescrito para remover 23 blobs de imagens históricas com direitos não comprovados, quatro blobs JS/source-map compilados que continham cópias dessas imagens e um segredo antigo fixado em 10 versões históricas de `bd_backend/settings.py`. O segredo foi trocado por um placeholder sem uso; o restante de cada arquivo foi mantido. Os 175 commits existentes, autores, committers, datas, mensagens e relações entre pais foram preservados; os hashes afetados mudaram. Foi uma limpeza pontual, não uma reconstrução nem uma nova atribuição de autoria. Um backup privado foi feito antes da reescrita. As ilustrações originais atuais e os assets licenciados das dependências foram mantidos.
+- Clones antigos, forks, refs de pull requests e caches do GitHub ainda podem expor os objetos antigos. Reescrever este repositório não apaga essas cópias. Um segredo removido ainda precisa de rotação se tiver sido usado em um serviço ativo. Se você é titular de algum material que permanece, abra uma issue.
 
 ## Testes
 
