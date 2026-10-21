@@ -4,7 +4,13 @@ Quality trial started 2026-10-20. Review friction around 2026-11-20. Pass counte
 
 ## Regressions
 
-No automated regression checks recorded yet. Add each fix here with its deterministic re-run command and a consecutive-pass counter; do not record historical results as passes.
+- [2026-10-21, draft PR #32] Tasks/wishes exposed anonymous and cross-user reads.
+  Proposed regression: `python manage.py test bd_backend.test_private_collections bd_backend.test_qa_inventory`
+  plus `cd frontend && npm test` for the private-route UX gate. Synthetic local
+  fixtures only. Counter: 0/5 independently recorded consecutive passes.
+  Independent QA approved the earlier head for preparation only, not release.
+  See `docs/private-collections-review.md` for corrected fail-before counts,
+  public-demo exclusions and the separate pre-existing Task.date issue.
 
 Five recorded consecutive passes make a check eligible for automation; adding CI is a separate code change. Record revision, environment and evidence before increasing a count. No automatic edits or release approval follow from a counter.
 
