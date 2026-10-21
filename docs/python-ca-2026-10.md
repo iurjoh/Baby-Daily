@@ -5,7 +5,7 @@ Sources:
 - https://github.com/certifi/python-certifi/security/advisories/GHSA-6q48-6c7w-9gw2
 - https://pypi.org/pypi/pip/26.2.2/json
 
-The application pinned certifi 2026.7.22. This patch pins 2026.10.19, securely bootstraps pip 26.2.2 using the advisory's wheel URL and SHA256, and checks both standalone and pip-vendored certifi before tests or Render application build steps. Upgrading standalone certifi alone does not fix pip's bundled trust roots.
+The application pinned certifi 2026.7.22. This patch pins 2026.10.19, securely bootstraps pip 26.2.2 using the advisory's wheel URL and SHA256, and checks both standalone and pip-vendored certifi before Render application build steps. The matching CI workflow edit is prepared separately but blocked by the available token's lack of workflow permission. Existing CI is not evidence of a secure pip bootstrap. Upgrading standalone certifi alone does not fix pip's bundled trust roots.
 
 ## Verification and limits
 
