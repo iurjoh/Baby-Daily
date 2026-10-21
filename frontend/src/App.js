@@ -23,6 +23,7 @@ import WishItem from "./pages/wishes/WishItem";
 import WishCreateForm from "./pages/wishes/WishCreateForm";
 import WishEditForm from "./pages/wishes/WishEditForm";
 import NotFound from "./components/NotFound";
+import PrivateCollectionsGate from "./components/PrivateCollectionsGate";
 
 
 function App() {
@@ -61,14 +62,14 @@ function App() {
               />
             )}
           />
-          <Route exact path="/tasks" render={() => <TaskPage />} />
-          <Route exact path="/tasks/create" render={() => <TaskCreateForm />} />
-          <Route exact path="/tasks/:id" render={() => <Task />} />
-          <Route exact path="/tasks/:id/edit" render={() => <TaskEditForm />} />
-          <Route exact path="/wishes" render={() => <WishPage />} />
-          <Route exact path="/wishes/create" render={() => <WishCreateForm />} />
-          <Route exact path="/wishes/:id" render={() => <WishItem />} />
-          <Route exact path="/wishes/:id/edit" render={() => <WishEditForm />} />
+          <Route exact path="/tasks" render={() => <PrivateCollectionsGate><TaskPage /></PrivateCollectionsGate>} />
+          <Route exact path="/tasks/create" render={() => <PrivateCollectionsGate><TaskCreateForm /></PrivateCollectionsGate>} />
+          <Route exact path="/tasks/:id" render={() => <PrivateCollectionsGate><Task /></PrivateCollectionsGate>} />
+          <Route exact path="/tasks/:id/edit" render={() => <PrivateCollectionsGate><TaskEditForm /></PrivateCollectionsGate>} />
+          <Route exact path="/wishes" render={() => <PrivateCollectionsGate><WishPage /></PrivateCollectionsGate>} />
+          <Route exact path="/wishes/create" render={() => <PrivateCollectionsGate><WishCreateForm /></PrivateCollectionsGate>} />
+          <Route exact path="/wishes/:id" render={() => <PrivateCollectionsGate><WishItem /></PrivateCollectionsGate>} />
+          <Route exact path="/wishes/:id/edit" render={() => <PrivateCollectionsGate><WishEditForm /></PrivateCollectionsGate>} />
           <Route exact path="/signin" render={() => <SignInForm />} />
           <Route exact path="/signup" render={() => <SignUpForm />} />
           <Route exact path="/posts/create" render={() => <PostCreateForm />} />

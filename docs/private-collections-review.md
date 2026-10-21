@@ -21,9 +21,11 @@ The current-user endpoint rejected an unauthenticated request with 401.
   user, ignoring a forged owner field.
 - There is no invitation/shared-family model in this patch. If members need
   shared access later, define that model explicitly before using real data.
-- No frontend component changes. Anonymous task/wish screens may currently
-  render an empty screen/list after the API rejects the request. UX messaging
-  needs independent review before a release is proposed.
+- All eight task/wish routes now wait for authentication readiness and show
+  a sign-in explanation without mounting private components for anonymous
+  visitors. A private API 401 while mounted also shows that explanation.
+  This is UX only: API querysets enforce the boundary. New English copy is
+  proposed for owner review, not approved for publication.
 
 ## QA accounts: preparation only
 
@@ -52,11 +54,18 @@ python manage.py test bd_backend.test_private_collections bd_backend.test_qa_inv
 python manage.py test
 ```
 
-The first seven new boundary tests were run against the original views and
-failed in ten subcases. They pass after the owner-scoped queryset and login
-requirements. Additional tests cover blocked anonymous writes and owner/staff
-deletion. Inventory tests prove exact allowlist matching and no database
-mutation. Existing public-post tests remain unchanged.
+Fail-before evidence was corrected after review. The first exploratory run
+reported seven methods and ten failure records, but one was the separate
+Task.date fixture issue, so that count was not ten authorization failures.
+Re-running the current nine methods against unmodified main produced nine
+failure records across three methods; the approved preparation head had
+26/26 backend tests passing. The supervisor's independently grouped result
+was three methods/seven failures; grouping/assertion short-circuiting differs,
+so counts are not treated as interchangeable proof. In the fresh local
+run, those three methods were anonymous read, cross-user enumeration/detail,
+and cross-user update/delete status checks. The stable result is that
+the original authorization regressions fail and the changed code passes.
+Superuser coverage was then added alongside owner/staff.
 
 Sweep: both tasks and wishes list/detail views, both object permission
 classes, serializers, models and frontend task/wish callers were inspected.
@@ -68,5 +77,18 @@ An existing task-model issue surfaced while writing a create test: its date
 field defaults to a datetime, which can fail immediate DRF serialization when
 no date is supplied. The fixture now sends an explicit date, matching the
 frontend form. This patch does not claim to fix that separate issue.
+
+Local follow-up: 26/26 backend tests pass including superuser coverage; 24/24
+frontend tests pass including 11 gate tests (auth readiness, eight route
+variants, logged-in rendering and session expiry). A production frontend
+build passes. Mocked local browser checks cover all eight anonymous paths
+at 390, 768 and 1440px, without private endpoint requests or horizontal
+overflow. Screenshots were inspected at those widths. These are local fixtures,
+not a deployed preview or a full authenticated browser certification.
+
+Proposed new copy (publication approval pending): "Checking sign-in...";
+"Sign in to view your tasks and wishes"; "These items are private to your
+account. Public demo posts are still available without signing in.";
+"Sign in"; "Back to public demo".
 
 Independent QA and owner approval of the exact revision are still required.

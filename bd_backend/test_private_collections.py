@@ -10,6 +10,7 @@ class PrivateCollectionsTests(APITestCase):
         self.owner = User.objects.create_user(username='fixture_owner')
         self.other = User.objects.create_user(username='fixture_other')
         self.admin = User.objects.create_user(username='fixture_staff', is_staff=True)
+        self.superuser = User.objects.create_superuser(username='fixture_super', password='synthetic-test-password')
         self.task = Task.objects.create(owner=self.owner, title='Private fixture', description='Synthetic')
         self.wish = Wish.objects.create(owner=self.owner, title='Private fixture', description='Synthetic', price='1.00', purchase_link='https://example.com/item')
         self.resources = [('tasks', self.task), ('wishes', self.wish)]
@@ -31,7 +32,7 @@ class PrivateCollectionsTests(APITestCase):
             self.assertEqual(self.client.get(f'/api/{route}/{obj.pk}/').status_code, 404)
 
     def test_owner_and_staff_can_list_and_read(self):
-        for user in [self.owner, self.admin]:
+        for user in [self.owner, self.admin, self.superuser]:
             self.client.force_authenticate(user)
             for route, obj in self.resources:
                 with self.subTest(user=user.username, route=route):
@@ -50,7 +51,7 @@ class PrivateCollectionsTests(APITestCase):
                 self.assertEqual(obj.title, 'Private fixture')
 
     def test_owner_and_staff_can_update(self):
-        for user in [self.owner, self.admin]:
+        for user in [self.owner, self.admin, self.superuser]:
             self.client.force_authenticate(user)
             for route, obj in self.resources:
                 with self.subTest(user=user.username, route=route):
@@ -80,7 +81,7 @@ class PrivateCollectionsTests(APITestCase):
                 self.assertEqual(obj.title, 'Private fixture')
 
     def test_owner_and_staff_can_delete(self):
-        for user in [self.owner, self.admin]:
+        for user in [self.owner, self.admin, self.superuser]:
             self.client.force_authenticate(user)
             for route, model, extra in [('tasks', Task, {}), ('wishes', Wish, {'price':'1.00','purchase_link':'https://example.com/item'})]:
                 obj = model.objects.create(owner=self.owner, title='Disposable fixture', description='Synthetic', **extra)
