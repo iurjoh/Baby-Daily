@@ -12,6 +12,20 @@ Quality trial started 2026-10-20. Review friction around 2026-11-20. Pass counte
   See `docs/private-collections-review.md` for corrected fail-before counts,
   public-demo exclusions and the separate pre-existing Task.date issue.
 
+- [2026-10-21, draft PR #33] Old standalone certifi and pip-vendored CA bundles can retain a distrusted emSign root.
+  Proposed regression: `python scripts/check-python-ca.py` and
+  `python scripts/test-python-ca.py` after the hash-pinned pip bootstrap.
+  Local pre-fix inventory: pip 22.0.2 and certifi 2026.7.22; repository
+  requirements also pinned certifi 2026.7.22. Four offline tests verify the
+  corrected versions pass and old pip, old standalone certifi, or an old
+  vendored certifi each fail the guard. This is not a malicious-TLS probe.
+  Local post-fix: pip 26.2.2, standalone and vendored certifi 2026.10.19;
+  four guard tests and 26 backend tests pass in a disposable environment.
+  Counter: 0/5 independently recorded consecutive passes. Independent QA
+  reviewed d36f240 as preparation; this register-only follow-up requires
+  exact-head confirmation. No production/OS/container certification follows.
+  See `docs/python-ca-2026-10.md` for sources and legacy-container limits.
+
 Five recorded consecutive passes make a check eligible for automation; adding CI is a separate code change. Record revision, environment and evidence before increasing a count. No automatic edits or release approval follow from a counter.
 
 ## Gotchas
