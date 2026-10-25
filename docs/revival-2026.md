@@ -24,8 +24,8 @@ This is a public portfolio demo, not a private service for real children's data.
 - Sixteen Django tests cover legacy post CRUD/ownership, JWT login, registration and health.
 - Twelve frontend navigation/authentication/accessibility tests have been migrated to Vitest and MSW 2.
 - Vite production build passes.
-- npm audit reports zero known vulnerabilities (October 11, 2026).
-- pip-audit reports zero known vulnerabilities after upgrading DRF to 3.17.2 (October 11, 2026). JSON/form body-size limits and malformed JSON rejection have local regression tests.
+- npm audit on `frontend/package-lock.json` was recorded as having no findings on October 11, 2026 (historical record of that file and date, not a current check).
+- pip-audit on `requirements.txt` was recorded as having no findings after upgrading DRF to 3.17.2 on October 11, 2026 (historical record, not a current check). Later advisories affect DRF 3.17.2 (fixed in 3.18.2); re-run before relying on this. JSON/form body-size limits and malformed JSON rejection have local regression tests.
 
 Live API checks passed on October 10, 2026: registration without email, login, Secure/HttpOnly cookies, current user, post/task/wish create-edit-delete, token refresh and logout. Test objects were removed. A fictional verification account remains for browser checks. Both API and frontend use the revival branch pending final review and merge. Cloudinary media is verified live; mobile/accessibility review and final screenshots remain pending. Historical 2023 screenshots are not evidence of the current deployment.
 

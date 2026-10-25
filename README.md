@@ -37,7 +37,7 @@ Historical captures from 10 Oct 2026, taken before the demo seed was replaced wi
 
 - Demo accounts and content come from `python manage.py seed_demo`: three fictional profiles, five stories with comments and likes, one task, one wish. Seeded accounts have unusable passwords. Sign-up needs no email address.
 - `bash scripts/check-deploy.sh` runs Django's production checks before every deploy. CI runs the same path with throwaway credentials. The only expected warning is `security.W004` (HSTS), left off on purpose until a domain rollout is reviewed.
-- Dependencies are scanned (`npm audit`, `pip-audit`): zero known vulnerabilities on 11 Oct 2026.
+- Dependencies are scanned (`npm audit` on `frontend/package-lock.json`, `pip-audit` on `requirements.txt`). The project record dated 11 Oct 2026 noted no findings; that is a historical note, not a current check. Later advisories exist for djangorestframework 3.17.2 (fixed in 3.18.2). Re-run both scans before relying on this.
 - The original permission model allows anonymous reads of posts. That is fine for a fictional demo and would need a trusted-circle check before real family use (see issue #2).
 - On 15 Oct 2026 the Git history was rewritten to remove 23 historical image blobs with unverified rights, four compiled JS/source-map blobs embedding those images, and normalized an already-redacted placeholder in 10 historical versions of `bd_backend/settings.py`. The original public-history value was `REDACTED-use-env-var`, not a real secret; it was changed to a clearer non-working placeholder. No real secret was replaced in this cleanup; the rest of each source file was retained. All 175 existing commits, their authors, committers, dates, messages and parent relationships were retained; affected commit hashes changed. This was a targeted cleanup, not a rebuild or a new claim of authorship. A private backup was made before rewriting. Current original illustrations and licensed dependency assets were kept.
 - Old clones, forks, pull-request refs and GitHub caches may still expose the old objects. Rewriting this repository does not erase those copies. No key rotation is required based on this placeholder-only change. If you hold rights to material that remains, open an issue.
@@ -269,16 +269,16 @@ This document provides an overview of the structure and relationships to this da
 
 ### Backend
 
-* Django (v. 3.2.20): Web framework used for building the backend of the application.
-* Django Rest Framework (DRF) (v. 3.14.0) : Powerful and flexible toolkit for building Web APIs in Django.
-* Cloudinary  (v. 1.34.0) : Cloud-based media management platform for handling and storing media files.
-* dj_database_url (v. 0.5.0): A Django utility to utilize the 12factor inspired DATABASE_URL environment variable to configure your Django application.
+* Django: Web framework used for building the backend of the application.
+* Django Rest Framework (DRF): Powerful and flexible toolkit for building Web APIs in Django.
+* Cloudinary : Cloud-based media management platform for handling and storing media files.
+* dj_database_url: A Django utility to utilize the 12factor inspired DATABASE_URL environment variable to configure your Django application.
 
 ### Authentication and Authorization
 
-* dj_rest_auth (v. 2.1.9): Django Rest Framework extension for handling authentication, including JWT-based authentication.
-* Allauth (v. 3.2.2): Authentication app for handling user accounts.
-* Corsheaders (v. 4.2.0): Django app for handling Cross-Origin Resource Sharing (CORS).
+* dj_rest_auth: Django Rest Framework extension for handling authentication, including JWT-based authentication.
+* Allauth: Authentication app for handling user accounts.
+* Corsheaders: Django app for handling Cross-Origin Resource Sharing (CORS).
 
 ### Frontend
 
@@ -619,28 +619,7 @@ To run the Baby Daily:
 
 ## Requirements
 
-* asgiref==3.7.2
-* cloudinary==1.34.0
-* dj-database-url==0.5.0
-* dj-rest-auth==2.1.9
-* Django==3.2.20
-* django-allauth==0.44.0
-* django-cloudinary-storage==0.3.0
-* django-cors-headers==4.2.0
-* django-filter==23.2
-* djangorestframework==3.14.0
-* djangorestframework-simplejwt==5.3.0
-* gunicorn==21.2.0
-* oauthlib==3.2.2
-* Pillow==8.2.0
-* psycopg2==2.9.7
-* PyJWT==2.8.0
-* python3-openid==3.2.0
-* pytz==2023.3
-* requests-oauthlib==1.3.1
-* sqlparse==0.4.4
-* urllib3==1.26.16
-* whitenoise==6.4.0
+The pinned Python dependencies live in `requirements.txt` (the single source of truth); the frontend ones in `frontend/package.json`. The 2023 pin list that used to be here was out of date and has been removed.
 
 - - -
 
