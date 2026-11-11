@@ -664,7 +664,7 @@ The pinned Python dependencies live in `requirements.txt` (the single source of 
 
 Captured from repository sources on 2026-10-14. This is a source snapshot, not a claim about production versions or the technology available at the original launch.
 
-- **Stack at this snapshot:** React 17.0.2; Vite 7.3.7; Bootstrap 4.6.2 (frontend/package-lock.json). Django 5.2.18 and Django REST Framework 3.17.2 are pinned in requirements.txt.
+- **Stack at this snapshot:** React 17.0.2; Vite 7.3.7; Bootstrap 4.6.2 (frontend/package-lock.json). Django 5.2.18 and Django REST Framework 3.18.2 are pinned in requirements.txt (3.17.2 at the 2026-10-14 capture; raised to 3.18.2 on 2026-10-25 as a security fix).
 - **Earlier record:** The first surviving frontend manifest (a365e2d) declares React ^17.0.2, react-scripts 4.0.3 and Node 16.x. These are historical declarations, not current run requirements.
 - **Observed calendar window:** 2023-08-15 to 2026-10-12: surviving commits reachable from main. Calendar span, not continuous work or time to launch.
 - **Pull requests:** 3 visible PRs: 0 open, 3 closed, captured 2026-10-14 before this documentation change. Closed does not mean merged. Deleted/recreated history is excluded.
